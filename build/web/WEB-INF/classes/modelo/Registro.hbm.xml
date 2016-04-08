@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 08-abr-2016 1:26:04 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.Registro" table="registro" schema="public" optimistic-lock="version">
+        <id name="idMensaje" type="int">
+            <column name="id_mensaje" />
+            <generator class="foreign">
+                <param name="property">mensaje</param>
+            </generator>
+        </id>
+        <one-to-one name="mensaje" class="modelo.Mensaje" constrained="true"></one-to-one>
+        <many-to-one name="servicio" class="modelo.Servicio" fetch="select">
+            <column name="id_servicio" not-null="true" />
+        </many-to-one>
+        <property name="envio" type="java.lang.Integer">
+            <column name="envio" />
+        </property>
+        <property name="recibio" type="java.lang.Integer">
+            <column name="recibio" />
+        </property>
+    </class>
+</hibernate-mapping>

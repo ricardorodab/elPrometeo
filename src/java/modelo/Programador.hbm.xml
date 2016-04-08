@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 08-abr-2016 1:26:04 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.Programador" table="programador" schema="public" optimistic-lock="version">
+        <id name="idProgramador" type="int">
+            <column name="id_programador" />
+            <generator class="foreign">
+                <param name="property">usuario</param>
+            </generator>
+        </id>
+        <one-to-one name="usuario" class="modelo.Usuario" constrained="true"></one-to-one>
+        <property name="formacion" type="string">
+            <column name="formacion" />
+        </property>
+        <property name="reputacionProgramador" type="java.lang.Double">
+            <column name="reputacion_programador" precision="17" scale="17" />
+        </property>
+        <set name="especialidads" table="se_dedica" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="id_programador" not-null="true" />
+            </key>
+            <many-to-many entity-name="modelo.Especialidad">
+                <column name="id_especialidad" not-null="true" />
+            </many-to-many>
+        </set>
+        <set name="servicios" table="presta_servicio" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="id_programador" not-null="true" />
+            </key>
+            <many-to-many entity-name="modelo.Servicio">
+                <column name="id_servicio" not-null="true" />
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>
