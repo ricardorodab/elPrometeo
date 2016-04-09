@@ -13,6 +13,6 @@
     <mapping resource="modelo/Agente.hbm.xml"/>
     <mapping resource="modelo/Registro.hbm.xml"/>
     <mapping resource="modelo/Programador.hbm.xml"/>
-    <mapping resource="modelo/Usuario.hbm.xml"/>
+    <mapping class="modelo.Usuario" file="" jar="" package="" resource="modelo/Usuario.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
