@@ -34,6 +34,8 @@ import javax.faces.context.FacesContext;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import dao.UsuarioDAO;
+import modelo.Agente;
+import modelo.Programador;
 import modelo.TipoUsuario;
 import modelo.Usuario;
 import org.hibernate.Query;
@@ -91,16 +93,23 @@ public class UsuarioBean {
         if (!query.list().isEmpty()) {
             return "El usuario con ese correo ya existe.";
         } else {
-            
-            try{/* El usuario no existe por lo que lo registramos */
-            session.save(this.usuario);
-            if(tipo == TipoUsuario.PROGRAMADOR){
-                /* Registramos a un programador */
-            } else if (tipo == TipoUsuario.AGENTE){
-                /* Registramos a un agente */
-            }
+
+            try {
+                /* El usuario no existe por lo que lo registramos */
+                session.save(this.usuario);
+                if (tipo == TipoUsuario.PROGRAMADOR) {
+                    /* Registramos a un programador */
+                    Programador p = new Programador(this.usuario);
+                    /* El programador a registrar en la base */
+                    session.save(p);
+                } else if (tipo == TipoUsuario.AGENTE) {
+                    /* Registramos a un agente */
+                    Agente a = new Agente(this.usuario);
+                    /* El agente a registrar en la base */
+                    session.save(a);
+                }
                 return "Registro exitoso.";
-            }catch(Exception e){
+            } catch (Exception e) {
                 return e.getMessage();
             }
         }
