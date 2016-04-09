@@ -5,7 +5,7 @@ CREATE DATABASE el_prometeo WITH OWNER prometeo;
 /* Entidades */
 
 CREATE TABLE usuario(
-id_usuario INTEGER NOT NULL PRIMARY KEY,
+id_usuario SERIAL PRIMARY KEY,
 nombre VARCHAR(255) NOT NULL,
 apellido_paterno VARCHAR(255) NOT NULL,
 apellido_materno VARCHAR(255) NOT NULL,
@@ -18,26 +18,26 @@ genero VARCHAR(1)
 );
 
 CREATE TABLE agente(
-id_agente INTEGER NOT NULL PRIMARY KEY,
+id_agente SERIAL PRIMARY KEY,
 ocupacion VARCHAR(255),
 reputacion_agente DOUBLE PRECISION,
 FOREIGN KEY (id_agente) REFERENCES usuario(id_usuario)
 );
 
 CREATE TABLE programador(
-id_programador INTEGER NOT NULL PRIMARY KEY,
+id_programador SERIAL PRIMARY KEY,
 formacion TEXT,
 reputacion_programador DOUBLE PRECISION,
 FOREIGN KEY (id_programador) REFERENCES usuario(id_usuario)
 );  
 
 CREATE TABLE especialidad(
-id_especialidad INTEGER NOT NULL PRIMARY KEY,
+id_especialidad SERIAL PRIMARY KEY,
 especialidad VARCHAR(255)
 );
 
 CREATE TABLE servicio(
-id_servicio INTEGER NOT NULL PRIMARY KEY,
+id_servicio SERIAL PRIMARY KEY,
 presupuesto DOUBLE PRECISION,
 description TEXT,
 titulo VARCHAR(255),
@@ -45,7 +45,7 @@ finalizado BOOLEAN
 );
 
 CREATE TABLE mensaje(
-id_mensaje INTEGER NOT NULL PRIMARY KEY,
+id_mensaje SERIAL PRIMARY KEY,
 mensaje TEXT
 );
 
