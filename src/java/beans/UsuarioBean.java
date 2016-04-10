@@ -40,6 +40,7 @@ import modelo.TipoUsuario;
 import modelo.Usuario;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import util.HibernateUtil;
 
 /**
@@ -93,9 +94,11 @@ public class UsuarioBean {
         if (!query.list().isEmpty()) {
             return "El usuario con ese correo ya existe.";
         } else {
-
             try {
                 /* El usuario no existe por lo que lo registramos */
+                Transaction tx = session.beginTransaction();
+                /* La transacción actual. Se utiliza para que persistan los 
+                    cambios que realicemos en la base */
                 session.save(this.usuario);
                 if (tipo == TipoUsuario.PROGRAMADOR) {
                     /* Registramos a un programador */
@@ -108,11 +111,19 @@ public class UsuarioBean {
                     /* El agente a registrar en la base */
                     session.save(a);
                 }
+                session.flush();
+                session.clear();
+                tx.commit();
+                session.close();
                 return "Registro exitoso.";
             } catch (Exception e) {
                 return e.getMessage();
             }
         }
+    }
+
+    public String modificar_perfil() {
+        return "Hola mundo";
     }
 
     public String verificarDatos() throws Exception {
