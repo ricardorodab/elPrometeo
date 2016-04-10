@@ -38,6 +38,7 @@ import modelo.Agente;
 import modelo.Programador;
 import modelo.TipoUsuario;
 import modelo.Usuario;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -96,19 +97,19 @@ public class UsuarioBean {
         } else {
             try {
                 /* El usuario no existe por lo que lo registramos */
-                Transaction tx = session.beginTransaction();
-                /* La transacción actual. Se utiliza para que persistan los 
+ /* La transacción actual. Se utiliza para que persistan los 
                     cambios que realicemos en la base */
+                Transaction tx = session.beginTransaction();
                 session.save(this.usuario);
                 if (tipo == TipoUsuario.PROGRAMADOR) {
                     /* Registramos a un programador */
+ /* El programador a registrar en la base */
                     Programador p = new Programador(this.usuario);
-                    /* El programador a registrar en la base */
                     session.save(p);
                 } else if (tipo == TipoUsuario.AGENTE) {
                     /* Registramos a un agente */
+ /* El agente a registrar en la base */
                     Agente a = new Agente(this.usuario);
-                    /* El agente a registrar en la base */
                     session.save(a);
                 }
                 session.flush();
@@ -122,10 +123,154 @@ public class UsuarioBean {
         }
     }
 
-    public String modificar_perfil() {
-        return "Hola mundo";
+    /* Aquí viene toda la parte de modificar el perfil */
+    /**
+     * Modifica el nombre del usuario.
+     *
+     * @param nombre - el nuevo nombre del usuario.
+     */
+    public String setNombre(String nombre) {
+        /* Abrimos la sesión */
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        /* La transacción actual */
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            String sql = "FROM Usuario WHERE correo = '" + usuario.getCorreo()
+                    + "'";
+            Query query = session.createQuery(sql);
+            if (!query.list().isEmpty()) {
+                /* Lo siguiente es magia de hibernate */
+                usuario.setNombre(nombre);
+                session.update(usuario);
+                tx.commit();
+            } else {
+                return "El usuario que se quiere actualizar no existe";
+            }
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            /* La sesión debe cerrarse independientemente de cómo salgan las 
+                cosas */
+            session.close();
+        }
+        return "Se actualizó el nombre a " + nombre;
     }
 
+    /**
+     * Modifica el apellido paterno del usuario.
+     *
+     * @param apellido - el nuevo apellido paterno del usuario.
+     */
+    public String setApellidoPaterno(String apellido) {
+        /* Abrimos la sesión */
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        /* La transacción actual */
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            String sql = "FROM Usuario WHERE correo = '" + usuario.getCorreo()
+                    + "'";
+            Query query = session.createQuery(sql);
+            if (!query.list().isEmpty()) {
+                /* Lo siguiente es magia de hibernate */
+                usuario.setApellidoPaterno(apellido);
+                session.update(usuario);
+                tx.commit();
+            } else {
+                return "El usuario que se quiere actualizar no existe";
+            }
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            /* La sesión debe cerrarse independientemente de cómo salgan las 
+                cosas */
+            session.close();
+        }
+        return "Se actualizó el apellido paterno a " + apellido;
+    }
+
+    /**
+     * Modifica el apellido materno del usuario.
+     *
+     * @param apellido - el nuevo apellido materno del usuario.
+     */
+    public String setApellidoMaterno(String apellido) {
+        /* Abrimos la sesión */
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        /* La transacción actual */
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            String sql = "FROM Usuario WHERE correo = '" + usuario.getCorreo()
+                    + "'";
+            Query query = session.createQuery(sql);
+            if (!query.list().isEmpty()) {
+                /* Lo siguiente es magia de hibernate */
+                usuario.setApellidoMaterno(apellido);
+                session.update(usuario);
+                tx.commit();
+            } else {
+                return "El usuario que se quiere actualizar no existe";
+            }
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            /* La sesión debe cerrarse independientemente de cómo salgan las 
+                cosas */
+            session.close();
+        }
+        return "Se actualizó el apellido materno a " + apellido;
+    }
+
+    /**
+     * Modifica el teléfono del usuario.
+     *
+     * @param telefono - el nuevo telefono del usuario.
+     */
+    public String setTelefono(long telefono) {
+        /* Abrimos la sesión */
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        /* La transacción actual */
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            String sql = "FROM Usuario WHERE correo = '" + usuario.getCorreo()
+                    + "'";
+            Query query = session.createQuery(sql);
+            if (!query.list().isEmpty()) {
+                /* Lo siguiente es magia de hibernate */
+                usuario.setTelefono(telefono);
+                session.update(usuario);
+                tx.commit();
+            } else {
+                return "El usuario que se quiere actualizar no existe";
+            }
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            /* La sesión debe cerrarse independientemente de cómo salgan las 
+                cosas */
+            session.close();
+        }
+        return null;
+    }
+    
+    
+    /* Termina la parte de modificar perfil */
+    
     public String verificarDatos() throws Exception {
         UsuarioDAO suDAO = new UsuarioDAO();
         Usuario su;
