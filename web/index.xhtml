@@ -27,6 +27,48 @@
             
         </h:form>
         
+        
+        <h:form>
+            
+            <h1>Registro</h1>
+            
+            <h:messages/>
+            
+            <h:panelGrid columns="2">
+                
+                 <h:outputLabel value="Nombre"/>
+                 <h:inputText value="#{usuarioBean.usuario.nombre}"/>
+                 
+                 <h:outputLabel value="Apellido Paterno"/>
+                 <h:inputText value="#{usuarioBean.usuario.apellidoPaterno}"/>
+                 
+                 <h:outputLabel value="Apeliido Materno"/>
+                 <h:inputText value="#{usuarioBean.usuario.apellidoMaterno}"/>
+                
+                 <h:outputLabel value="Estado"/>
+                 <h:inputText value="#{usuarioBean.usuario.estado}"/>
+                 
+                 <h:outputLabel value="genero"/>
+                 <h:inputText value="#{usuarioBean.usuario.genero}"/>
+                 
+                 <h:outputLabel value="telefono"/>
+                 <h:inputText value="#{usuarioBean.usuario.telefono}"/>
+                 
+                 <h:outputLabel value="Fecha nacimiento"/>
+                 <h:inputText value="#{usuarioBean.usuario.fechaDeNaciminiento}"/>
+                 
+                <h:outputLabel value="Correo"/>
+                <h:inputText value="#{usuarioBean.usuario.correo}"/>
+                
+                <h:outputLabel value="Contraseña"/>
+                <h:inputSecret value="#{usuarioBean.usuario.contrasenia}"/>
+                
+                <h:commandButton value="Iniciar" action="#{usuarioBean.cerrarSesion()}"/>
+                
+            </h:panelGrid>
+            
+        </h:form>
+       
     </h:body>
 
 </html>

@@ -79,6 +79,14 @@ public class UsuarioBean {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+    
+    public TipoUsuario getAgente(){
+        return TipoUsuario.AGENTE;
+    }
+    
+    public TipoUsuario getProgramador(){
+        return TipoUsuario.PROGRAMADOR;
+    }
 
     /**
      * Se registra al usuario en el sistema.

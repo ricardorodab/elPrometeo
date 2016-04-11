@@ -12,7 +12,7 @@
     <mapping resource="modelo/Mensaje.hbm.xml"/>
     <mapping resource="modelo/Agente.hbm.xml"/>
     <mapping resource="modelo/Registro.hbm.xml"/>
-    <mapping resource="modelo/Programador.hbm.xml"/>
-    <mapping class="modelo.Usuario" file="" jar="" package="" resource="modelo/Usuario.hbm.xml"/>
+    <mapping class="modelo.Programador" file="" jar="" package="modelo" resource="modelo/Programador.hbm.xml"/>
+    <mapping class="modelo.Usuario" file="" jar="" package="modelo" resource="modelo/Usuario.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
