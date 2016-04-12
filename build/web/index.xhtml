@@ -1,0 +1,72 @@
+ 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+ 
+    <h:head/>
+    
+    <h:body>
+        
+        <h:form>
+            
+            <h1>Iniciar Sesión</h1>
+            
+            <h:messages/>
+            
+            <h:panelGrid columns="2">
+                
+                <h:outputLabel value="Correo"/>
+                <h:inputText value="#{usuarioBean.usuario.correo}"/>
+                
+                <h:outputLabel value="Contraseña"/>
+                <h:inputSecret value="#{usuarioBean.usuario.contrasenia}"/>
+                
+                <h:commandButton value="Iniciar" action="#{usuarioBean.verificarDatos()}"/>
+                
+            </h:panelGrid>
+            
+        </h:form>
+        
+        
+        <h:form>
+            
+            <h1>Registro</h1>
+            
+            <h:messages/>
+            
+            <h:panelGrid columns="2">
+                
+                 <h:outputLabel value="Nombre"/>
+                 <h:inputText value="#{usuarioBean.usuario.nombre}"/>
+                 
+                 <h:outputLabel value="Apellido Paterno"/>
+                 <h:inputText value="#{usuarioBean.usuario.apellidoPaterno}"/>
+                 
+                 <h:outputLabel value="Apeliido Materno"/>
+                 <h:inputText value="#{usuarioBean.usuario.apellidoMaterno}"/>
+                
+                 <h:outputLabel value="Estado"/>
+                 <h:inputText value="#{usuarioBean.usuario.estado}"/>
+                 
+                 <h:outputLabel value="genero"/>
+                 <h:inputText value="#{usuarioBean.usuario.genero}"/>
+                 
+                 <h:outputLabel value="telefono"/>
+                 <h:inputText value="#{usuarioBean.usuario.telefono}"/>
+                
+                 
+                <h:outputLabel value="Correo"/>
+                <h:inputText value="#{usuarioBean.usuario.correo}"/>
+                
+                <h:outputLabel value="Contraseña"/>
+                <h:inputSecret value="#{usuarioBean.usuario.contrasenia}"/>
+                
+                <h:commandButton value="Iniciar" action="#{usuarioBean.registrar()}"/>
+                
+            </h:panelGrid>
+            
+        </h:form>
+       
+    </h:body>
+
+</html>

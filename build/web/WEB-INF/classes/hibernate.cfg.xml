@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+    <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+    <property name="hibernate.connection.url">jdbc:postgresql://127.0.0.1:5432/el_prometeo</property>
+    <property name="hibernate.connection.username">prometeo</property>
+    <property name="hibernate.connection.password">password</property>
+    <mapping resource="modelo/Servicio.hbm.xml"/>
+    <mapping resource="modelo/Especialidad.hbm.xml"/>
+    <mapping resource="modelo/Mensaje.hbm.xml"/>
+    <mapping resource="modelo/Agente.hbm.xml"/>
+    <mapping resource="modelo/Registro.hbm.xml"/>
+    <mapping resource="modelo/Programador.hbm.xml"/>
+    <mapping class="modelo.Usuario" file="" jar="" package="" resource="modelo/Usuario.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>
