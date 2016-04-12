@@ -73,6 +73,7 @@ public class UsuarioBean {
         return usuario;
     }
 
+    
     /**
      *
      * @param usuario

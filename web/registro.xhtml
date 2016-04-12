@@ -1,8 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">  
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">  
   <head>
     <title>Registro</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet"></link>	
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>	
   </head>  
   <body style="background-color:#D3D3D3">
     <br/>
@@ -10,17 +12,17 @@
     <div class="row">
       <div class="col-md-7" style="color:black;font-size:400%;">El Prometeo</div>     
       <div class="col-md-5">       
-        <form class="form-inline">
+        <h:form class="form-inline">
           <div class="form-group">
             <label class="sr-only" for="correo">Correo Electrónico</label>
-            <input type="email" class="form-control" id="correo" placeholder="Correo Electrónico"/>
+            <h:inputText class="form-control" id="correo" p:placeholder="Correo Electrónico" value="#{usuarioBean.usuario.correo}"/>
           </div>
           <div class="form-group">
             <label class="sr-only" for="contraseña">Contraseña</label>
-            <input type="password" class="form-control" id="contraseña" placeholder="Contraseña"/>
+            <h:inputSecret class="form-control" id="contraseña" p:placeholder="Contraseña" value="#{usuarioBean.usuario.contrasenia}"/>
           </div>
-  	  <button type="submit" class="btn btn-default">Iniciar sesión</button>
-        </form>
+  	   <h:commandButton value="Iniciar sesión" class="btn btn-default" action="#{usuarioBean.verificarDatos()}"/>
+        </h:form>
       </div>
     </div>
     <div class="container">
@@ -31,21 +33,21 @@
 	  <br/> 	
 	  <br/>
           <p style="color:black; font-size:300%;">Registro</p>
-	  <form>
+	  <h:form>
 	    <div class="form-group">
-    	      <input type="text" class="form-control" id="nombre" placeholder="Nombre"/>
+                <h:inputText class="form-control" id="nombre" p:placeholder="Nombre" value="#{usuarioBean.usuario.nombre}"/>
   	    </div> 	
   	    <div class="form-group">
-    	      <input type="text" class="form-control" id="apellidoMaterno" placeholder="Apellido Materno"/>
+                <h:inputText class="form-control" id="apellidoMaterno" p:placeholder="Apellido Materno" value="#{usuarioBean.usuario.apellidoMaterno}"/>
   	    </div>   	
   	    <div class="form-group">
-   	      <input type="text" class="form-control" id="apellidoPaterno" placeholder="Apellido Paterno"/>
+                <h:inputText class="form-control" id="apellidoPaterno" p:placeholder="Apellido Paterno" value="#{usuarioBean.usuario.apellidoPaterno}"/>
   	    </div>    
   	    <div class="form-group">
-    	      <input type="email" class="form-control" id="correo" placeholder="Correo"/>
+                <h:inputText class="form-control" id="correo" p:placeholder="Correo" value="#{usuarioBean.usuario.correo}"/>
   	    </div> 
   	    <div class="form-group">
-    	      <input type="password" class="form-control" id="contraseña" placeholder="Contraseña"/>
+                <h:inputSecret class="form-control" id="contraseña" p:placeholder="Contraseña" value="#{usuarioBean.usuario.contrasenia}"/>
   	    </div>
   	    <div class="checkbox">
     	      <label for="genero" style="color:black;">Género:</label>
@@ -214,14 +216,14 @@
 	      <input type="checkbox" style="color:black;"/> Acepto términos y condiciones
 	    </div>
   	    <button type="submit" class="btn btn-default">Registrar</button>
-	  </form>
+	  </h:form>
 	  <br/>	
 	</div>	
       </div>
     </div>	
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="bootstrap.min.js"></script>
-    <script src="docs/assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"/>
+    <script src="bootstrap.min.js"/>
+    <script src="docs/assets/js/ie10-viewport-bug-workaround.js"/>
   </body>
 </html>
     

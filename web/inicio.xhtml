@@ -1,8 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
   <head>
     <title>Inicio de sesión</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="./css/bootstrap.min.css" rel="stylesheet"/>
   </head>
   <body style="background-color:#D3D3D3">
     <br/>
@@ -23,25 +25,27 @@
 	  <br/>
 	  <br/>	  
           <p style="color:black; font-size:300%;">Iniciar sesión</p>
-          <form>
+          <h:form>
             <div class="form-group">
-	      <label for="correo">Correo electrónico</label>
-    	      <input type="email" class="form-control" id="correo" placeholder="Correo"/>
+                <h:outputLabel for="correo">Correo electrónico</h:outputLabel>
+              <h:inputText class="form-control" id="correo" p:placeholder="Correo" value="#{usuarioBean.usuario.correo}"/>
 	    </div>
 	    <div class="form-group">
 	      <label for="Contraseña">Contraseña</label>
-	      <input type="password" class="form-control" id="contraseña" placeholder="Contraseña"/>
+              <h:inputSecret class="form-control" id="contraseña" p:placeholder="Contraseña" value="#{usuarioBean.usuario.contrasenia}"/>
 	    </div>
-	    <button type="submit" class="btn btn-default">Iniciar sesión</button>
-          </form>
+              <h:commandButton value="Iniciar sesión" class="btn btn-default" action="#{usuarioBean.verificarDatos()}"/>
+          </h:form>
+
         </div>	
       </div>
     </div>	
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"/>
-    <script src="bootstrap.min.js"/>
+    <script src="js/bootstrap.min.js"/>
     <script src="docs/assets/js/ie10-viewport-bug-workaround.js"/>
-  </body>      
+  </body>       
+    
+ 
 </html>
-    
-    
     
