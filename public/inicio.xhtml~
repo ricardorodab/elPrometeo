@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Inicio de sesión</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet"></link>	
+  </head>
+  <body style="background-color:#D3D3D3">
+    <br/>
+    <br/>
+    <div class="row">
+      <div class="col-md-4" style="color:black;font-size:400%;">El Prometeo</div> 
+      <div class="col-md-4"></div>
+      <div class="col-md-4">Si aún no estás registrado, 
+        <a href="registro.xhtml">haz click aquí</a>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 col-md-offset-4 text-center">			
+	  <br/>
+	  <br/>
+	  <br/> 		
+	  <br/>
+	  <br/>	  
+          <p style="color:black; font-size:300%;">Iniciar sesión</p>
+          <form>
+            <div class="form-group">
+	      <label for="correo">Correo electrónico</label>
+    	      <input type="email" class="form-control" id="correo" placeholder="Correo"></input>
+	    </div>
+	    <div class="form-group">
+	      <label for="Contraseña">Contraseña</label>
+	      <input type="password" class="form-control" id="contraseña" placeholder="Contraseña"></input>
+	    </div>
+	    <button type="submit" class="btn btn-default">Iniciar sesión</button>
+          </form>
+        </div>	
+      </div>
+    </div>	
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script src="docs/assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>      
+</html>
+    
+    
+    

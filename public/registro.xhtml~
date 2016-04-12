@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">  
+  <head>
+    <title>Registro</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet"></link>	
+  </head>  
+  <body style="background-color:#D3D3D3">
+    <br/>
+    <br/> 
+    <div class="row">
+      <div class="col-md-7" style="color:black;font-size:400%;">El Prometeo</div>     
+      <div class="col-md-5">       
+        <form class="form-inline">
+          <div class="form-group">
+            <label class="sr-only" for="correo">Correo Electrónico</label>
+            <input type="email" class="form-control" id="correo" placeholder="Correo Electrónico"/>
+          </div>
+          <div class="form-group">
+            <label class="sr-only" for="contraseña">Contraseña</label>
+            <input type="password" class="form-control" id="contraseña" placeholder="Contraseña"/>
+          </div>
+  	  <button type="submit" class="btn btn-default">Iniciar sesión</button>
+        </form>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 col-md-offset-4 text-center">		
+	  <br/>
+	  <br/>
+	  <br/> 	
+	  <br/>
+          <p style="color:black; font-size:300%;">Registro</p>
+	  <form>
+	    <div class="form-group">
+    	      <input type="text" class="form-control" id="nombre" placeholder="Nombre"/>
+  	    </div> 	
+  	    <div class="form-group">
+    	      <input type="text" class="form-control" id="apellidoMaterno" placeholder="Apellido Materno"/>
+  	    </div>   	
+  	    <div class="form-group">
+   	      <input type="text" class="form-control" id="apellidoPaterno" placeholder="Apellido Paterno"/>
+  	    </div>    
+  	    <div class="form-group">
+    	      <input type="email" class="form-control" id="correo" placeholder="Correo"/>
+  	    </div> 
+  	    <div class="form-group">
+    	      <input type="password" class="form-control" id="contraseña" placeholder="Contraseña"/>
+  	    </div>
+  	    <div class="checkbox">
+    	      <label for="genero" style="color:black;">Género:</label>
+	      <br/>
+	      <label class="radio-inline"/>
+      	      <input type="radio" name="inlineRadioOptions" id="masculino" value="masculino"/> Masculino
+	      <label class="radio-inline"/>
+	      <input type="radio" name="inlineRadioOptions" id="femenino" value="femenino"/> Femenino
+  	    </div>
+	    <label for="fechaDeNaciminiento" style="color:black;">Fecha de Nacimiento:</label>
+	    <div class="row">
+	      <div class="col-xs-4">
+		<label for="anyo" style="color:black;">Año:</label> 
+	        <select class="form-control">
+		 <option>1920</option>
+		 <option>1921</option> 
+		 <option>1922</option> 
+ 		 <option>1923</option>
+	  	 <option>1924</option> 
+		 <option>1925</option> 
+		 <option>1926</option>
+		 <option>1927</option> 
+		 <option>1928</option> 
+		 <option>1929</option>
+		 <option>1930</option> 
+		 <option>1931</option> 
+	         <option>1932</option>
+		 <option>1933</option> 
+		 <option>1934</option> 
+		 <option>1935</option>
+		 <option>1936</option> 
+		 <option>1937</option> 
+		 <option>1938</option>
+		 <option>1939</option> 
+		 <option>1940</option> 
+		 <option>1941</option>
+		 <option>1942</option> 
+		 <option>1943</option>
+		 <option>1944</option>  
+		 <option>1945</option> 
+		 <option>1946</option>
+		 <option>1947</option> 
+		 <option>1948</option> 
+		 <option>1949</option>
+		 <option>1950</option>
+		 <option>1951</option> 
+		 <option>1952</option> 
+ 		 <option>1953</option>
+	  	 <option>1954</option> 
+		 <option>1955</option> 
+		 <option>1956</option>
+		 <option>1957</option> 
+		 <option>1958</option> 
+		 <option>1959</option>
+		 <option>1960</option> 
+		 <option>1961</option> 
+	         <option>1962</option>
+		 <option>1963</option> 
+		 <option>1964</option> 
+		 <option>1965</option>
+		 <option>1966</option> 
+		 <option>1967</option> 
+		 <option>1968</option>
+		 <option>1969</option> 
+		 <option>1970</option> 
+		 <option>1971</option>
+		 <option>1972</option> 
+		 <option>1973</option>
+		 <option>1974</option>  
+		 <option>1975</option> 
+		 <option>1976</option>
+		 <option>1977</option> 
+		 <option>1978</option> 
+		 <option>1979</option>
+		 <option>1980</option> 
+		 <option>1981</option> 
+	         <option>1982</option>
+		 <option>1983</option> 
+		 <option>1984</option> 
+		 <option>1985</option>
+		 <option>1986</option> 
+		 <option>1987</option> 
+		 <option>1988</option>
+		 <option>1989</option> 
+		 <option>1990</option> 
+		 <option>1991</option>
+		 <option>1992</option> 
+		 <option>1993</option>
+		 <option>1994</option>  
+		 <option>1995</option> 
+		 <option>1996</option>
+		 <option>1997</option> 
+		 <option>1998</option> 
+		 <option>1999</option>
+		 <option>2000</option>     
+		</select>
+	      </div> 
+	      <div class="col-xs-4">
+		<label for="mes" style="color:black;">Mes:</label> 
+	        <select class="form-control"> 
+		  <option>1</option>
+		  <option>2</option> 
+		  <option>3</option> 
+		  <option>4</option>
+		  <option>5</option> 
+		  <option>6</option> 
+		  <option>7</option>
+		  <option>8</option> 
+		  <option>9</option> 
+		  <option>10</option>
+		  <option>11</option> 
+		  <option>12</option>         
+		</select>
+	      </div>
+	      <div class="col-xs-4">
+		<label for="mes" style="color:black;">Día:</label> 
+	        <select class="form-control">
+		  <option>1</option>
+		  <option>2</option> 
+		  <option>3</option> 
+		  <option>4</option>
+		  <option>5</option> 
+		  <option>6</option> 
+		  <option>7</option>
+		  <option>8</option> 
+		  <option>9</option> 
+		  <option>10</option>
+		  <option>11</option> 
+		  <option>12</option> 
+	          <option>13</option>
+		  <option>14</option> 
+		  <option>15</option> 
+		  <option>16</option>
+		  <option>17</option> 
+		  <option>18</option> 
+		  <option>19</option>
+		  <option>20</option> 
+		  <option>21</option> 
+		  <option>22</option>
+		  <option>23</option> 
+		  <option>24</option>
+		  <option>25</option>  
+		  <option>26</option> 
+		  <option>27</option>
+		  <option>28</option> 
+		  <option>29</option> 
+		  <option>30</option>
+		  <option>31</option>        
+		</select>
+	      </div>	      
+	    </div>
+	    <br/>
+            <div class="checkbox">
+    	      <label for="rol" style="color:black;">¿Cómo te quieres registrar?:</label>
+	      <br/>
+
+	      <label class="radio-inline"/>
+      	      <input type="radio" name="inlineRadioOptions" id="programador" value="masculino"/> Programador
+	      <label class="radio-inline"/>
+	      <input type="radio" name="inlineRadioOptions" id="agenteCreativo" value="femenino"/> Agente Creativo
+  	    </div>
+	    <div class="form-group">
+   	      <input type="text" class="form-control" id="telefono" placeholder="Teléfono"/>
+  	    </div> 
+	    <div class="checkbox">
+	      <input type="checkbox" style="color:black;"/> Acepto términos y condiciones
+	    </div>
+  	    <button type="submit" class="btn btn-default">Registrar</button>
+	  </form>
+	  <br/>	
+	</div>	
+      </div>
+    </div>	
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script src="docs/assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>
+    
+    
