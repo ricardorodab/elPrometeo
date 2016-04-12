@@ -53,9 +53,7 @@
                  
                  <h:outputLabel value="telefono"/>
                  <h:inputText value="#{usuarioBean.usuario.telefono}"/>
-                 
-                 <h:outputLabel value="Fecha nacimiento"/>
-                 <h:inputText value="#{usuarioBean.usuario.fechaDeNaciminiento}"/>
+                
                  
                 <h:outputLabel value="Correo"/>
                 <h:inputText value="#{usuarioBean.usuario.correo}"/>
@@ -63,7 +61,7 @@
                 <h:outputLabel value="Contraseña"/>
                 <h:inputSecret value="#{usuarioBean.usuario.contrasenia}"/>
                 
-                <h:commandButton value="Iniciar" action="#{usuarioBean.cerrarSesion()}"/>
+                <h:commandButton value="Iniciar" action="#{usuarioBean.registrar()}"/>
                 
             </h:panelGrid>
             

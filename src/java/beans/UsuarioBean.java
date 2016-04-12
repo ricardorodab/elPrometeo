@@ -34,6 +34,7 @@ import javax.faces.context.FacesContext;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import dao.UsuarioDAO;
+import java.sql.Date;
 import modelo.Agente;
 import modelo.Programador;
 import modelo.TipoUsuario;
@@ -84,10 +85,15 @@ public class UsuarioBean {
         return TipoUsuario.AGENTE;
     }
     
-    public TipoUsuario getProgramador(){
+    public static TipoUsuario getProgramador(){
         return TipoUsuario.PROGRAMADOR;
     }
 
+    public String registrar(){
+        Date fecha = new Date(1993, 04, 19);
+        this.usuario.setFechaDeNaciminiento(fecha);
+        return this.registrar(TipoUsuario.AGENTE);
+    }
     /**
      * Se registra al usuario en el sistema.
      *

@@ -7,7 +7,7 @@
     <property name="hibernate.connection.url">jdbc:postgresql://127.0.0.1:5432/el_prometeo</property>
     <property name="hibernate.connection.username">prometeo</property>
     <property name="hibernate.connection.password">password</property>
-    <mapping resource="modelo/Servicio.hbm.xml"/>
+    <mapping class="modelo.Servicio" file="" jar="" package="modelo" resource="modelo/Servicio.hbm.xml"/>
     <mapping resource="modelo/Especialidad.hbm.xml"/>
     <mapping resource="modelo/Mensaje.hbm.xml"/>
     <mapping resource="modelo/Agente.hbm.xml"/>

@@ -5,7 +5,7 @@
  */
 package beans;
 
-import javax.annotation.ManagedBean;
+import javax.faces.bean.ManagedBean;
 import modelo.Servicio;
 
 /**
