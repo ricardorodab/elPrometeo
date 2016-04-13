@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Modificar perfil</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+  </head>
+  <body style="background-color:#D3D3D3">
+    <br/>
+    <br/> 
+    <div class="row">
+      <div class="col-md-4" style="color:black;font-size:400%;">El Prometeo</div>
+      <div class="col-md-4">
+	<form id="searchform">
+	  <input type="text" placeholder="Buscar aqu&iacute;..."/>
+	  <button type="submit">Buscar</button>
+	</form>  
+      </div>    
+      <div class="col-md-4">       
+        <a href="inicio.xhtml">Cerrar sesión</a>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+	<div class="col-md-4">
+	<br/>
+	<br/>
+	<img style="border-radius=8px;" src="perfil.jpeg" alt="Perfil"/>
+	<br/>
+	<br/>
+	<div style="resize=both; overflow=auto;">Nombre:</div>
+	<div style="resize=both; overflow=auto;">Apellido paterno:</div>
+	<div style="resize=both; overflow=auto;">Apellido paterno:</div>
+	<div style="resize=both; overflow=auto;">Correo electrónico:</div>
+	<div style="resize=both; overflow=auto;">Teléfono:</div>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<a href="modificar.xhtml" class="btn btn-primary btn-lg active" role="button">Modificar perfil</a>
+	</div>	
+	<div class="col-md-4">
+	<p style="color:black;font-size:400%;">Mi Perfil</p>
+	<br/>
+	<br/>
+	<br/>
+	<div style="resize=both; overflow=auto;">Aquí se mostrará la información del agente creativo o programador.
+	      La información se va ajustando de acuerdo a la división definida de la pantalla.</div>
+	<br/>
+	<br/>
+	<div style="resize=both; overflow=auto">Tipo: Programador/Agente Creativo</div>
+	</div>
+	<div class="col-md-4" style="color:black;font-size:200%;">Servicios
+	  <div class="row">
+	    <br/>
+	    <div class="col-md-6">Hechos:</div>
+	    <div class="col-md-offset-6">Haciendo:
+	      <br/>
+	      <br/>
+	      <br/>
+	      <br/>
+	      <br/>
+	      <br/>
+	      <br/>
+	      <span class="glyphicon glyphicon-bell"/>
+	    </div>
+ 	  </div>	
+	</div>
+      </div>
+    </div>	
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"/>
+    <script src="bootstrap.min.js"/>
+    <script src="docs/assets/js/ie10-viewport-bug-workaround.js"/>
+  </body>      
+</html>

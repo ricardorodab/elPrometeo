@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Modificar perfil</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+  </head>
+  <body style="background-color:#D3D3D3">
+    <br/>
+    <br/> 
+    <div class="row">
+      <div class="col-md-6" style="color:black;font-size:400%;">El Prometeo</div>   
+      <div class="col-md-6" style="color:black;font-size:400%;">Modificar Perfil</div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+        <br/>
+	<br/>
+	<br/>
+	<br/>
+	<img style="border-radius=8px;" src="perfil.jpeg" alt="Perfil"/>
+	<br/>
+	<br/>
+	<br/>
+	<a href="bienvenida.xhtml" class="btn btn-primary btn-lg active" role="button">Eliminar perfil</a>
+	</div>
+	<div class="col-md-6 col-md-offset-3">
+          <br/>
+	  <br/>
+	  <form>
+	    <div class="form-group">
+	      <textarea class="form-control" rows="3" placeholder="Descripción"/>
+	    </div>
+	   <div class="form-group">
+    	      <input type="text" class="form-control" id="nombre" placeholder="Nombre"/>
+  	    </div> 	
+  	    <div class="form-group">
+    	      <input type="text" class="form-control" id="apellidoMaterno" placeholder="Apellido Materno"/>
+  	    </div>   	
+  	    <div class="form-group">
+   	      <input type="text" class="form-control" id="apellidoPaterno" placeholder="Apellido Paterno"/>
+  	    </div>    
+  	    <div class="form-group">
+    	      <input type="email" class="form-control" id="correo" placeholder="Correo electrónico"/>
+  	    </div> 
+  	    <div>
+	      <input type="text" class="form-control" id="telefono" placeholder="Teléfono"/>
+ 	    </div>
+	    <br/>
+	    <br/>
+	    <button type="submit" class="btn btn-default">Modificar</button>
+      	  </form>
+	</div>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"/>
+    <script src="bootstrap.min.js"/>
+    <script src="docs/assets/js/ie10-viewport-bug-workaround.js"/>
+  </body>      
+</html>
