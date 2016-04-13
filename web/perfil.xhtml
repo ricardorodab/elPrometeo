@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+  <head>
+  <style>
+    caja {
+   display:inline-block;
+   border: solid 1px #000;
+   min-height: 200px;
+   width: 300px;
+	}
+	
+  </style>
+    <title>Mi perfil</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+  </head>
+  <h:body style="background-color:#D3D3D3">
+    <br/>
+    <br/> 
+    <div class="row">
+      <div class="col-md-4" style="color:black;font-size:400%;">El Prometeo</div>
+      <div class="col-md-4">
+	<form id="searchform">
+	  <input type="text" placeholder="Buscar aqu&iacute;..."/>
+	  <button type="submit">Buscar</button>
+	</form>  
+      </div>    
+      <div class="col-md-4">    
+           <h:form rendered="#{usuarioBean.verificarSesion()}">
+                 <h:commandButton value="Cerrar Sesión" action="#{usuarioBean.cerrarSesion()}"/>                         
+        </h:form>
+         
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+	<div class="col-md-4">Foto
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<a href="" class="btn btn-primary btn-lg active" role="button">Modificar perfil</a>
+	</div>	
+	<div class="col-md-4">
+	<p style="color:black;font-size:400%;">Mi Perfil</p>
+	<br/>
+	<br/>
+	<br/>
+	<caja contentEditable="true"></caja>
+	</div>
+	<div class="col-md-4">Informacion</div>
+      </div>
+    </div>	
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"/>
+    <script src="bootstrap.min.js"/>
+    <script src="docs/assets/js/ie10-viewport-bug-workaround.js"/>
+  </h:body>      
+</html>

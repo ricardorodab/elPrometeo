@@ -1,0 +1,61 @@
+<!--
+Copyright (C) 2016 ricardo_rodab
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<xhtml xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+      <h:head/>
+
+    <h:body>
+    <h:form>
+            
+            <h1>Nuevo servicio</h1>            
+            <h:messages/>           
+            <h:panelGrid columns="2">                
+                 <h:outputLabel value="Nombre"/>
+                 <h:inputText value="#{usuarioBean.usuario.nombre}"/>
+                 
+                 <h:outputLabel value="Apellido Paterno"/>
+                 <h:inputText value="#{usuarioBean.usuario.apellidoPaterno}"/>
+                 
+                 <h:outputLabel value="Apeliido Materno"/>
+                 <h:inputText value="#{usuarioBean.usuario.apellidoMaterno}"/>
+                
+                 <h:outputLabel value="Estado"/>
+                 <h:inputText value="#{usuarioBean.usuario.estado}"/>
+                 
+                 <h:outputLabel value="genero"/>
+                 <h:inputText value="#{usuarioBean.usuario.genero}"/>
+                 
+                 <h:outputLabel value="telefono"/>
+                 <h:inputText value="#{usuarioBean.usuario.telefono}"/>
+                
+                 
+                <h:outputLabel value="Correo"/>
+                <h:inputText value="#{usuarioBean.usuario.correo}"/>
+                
+                <h:outputLabel value="Contraseña"/>
+                <h:inputSecret value="#{usuarioBean.usuario.contrasenia}"/>
+                
+                <h:commandButton value="Iniciar" action="#{usuarioBean.registrar()}"/>
+                
+            </h:panelGrid>
+            
+        </h:form>
+       
+    </h:body>
+</xhtml>

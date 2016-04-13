@@ -49,21 +49,22 @@ public class Usuario  implements java.io.Serializable {
      private String genero;
      private Programador programador;
      private Agente agente;
+     private TipoUsuario tipo;
 
     public Usuario() {
     }
 
 	
-    public Usuario(int idUsuario, String nombre, String apellidoPaterno, String apellidoMaterno, String correo, String contrasenia) {
-        this.idUsuario = idUsuario;
+    public Usuario(String nombre, String apellidoPaterno, String apellidoMaterno, String correo, String contrasenia) {
+        //this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.correo = correo;
         this.contrasenia = contrasenia;
     }
-    public Usuario(int idUsuario, String nombre, String apellidoPaterno, String apellidoMaterno, Long telefono, String correo, String contrasenia, String estado, Date fechaDeNaciminiento, String genero, Programador programador, Agente agente) {
-       this.idUsuario = idUsuario;
+    public Usuario(String nombre, String apellidoPaterno, String apellidoMaterno, Long telefono, String correo, String contrasenia, String estado, Date fechaDeNaciminiento, String genero, Programador programador, Agente agente) {
+       //this.idUsuario = idUsuario;
        this.nombre = nombre;
        this.apellidoPaterno = apellidoPaterno;
        this.apellidoMaterno = apellidoMaterno;
@@ -76,6 +77,14 @@ public class Usuario  implements java.io.Serializable {
        this.programador = programador;
        this.agente = agente;
     }
+    
+    public TipoUsuario getTipoUsuario(){
+        return this.tipo;
+    }
+    
+    public void setTipoUsuario(TipoUsuario tipo){
+        this.tipo = tipo;
+    }
    
     public int getIdUsuario() {
         return this.idUsuario;
@@ -84,6 +93,7 @@ public class Usuario  implements java.io.Serializable {
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
+    
     public String getNombre() {
         return this.nombre;
     }
@@ -161,8 +171,10 @@ public class Usuario  implements java.io.Serializable {
     public void setAgente(Agente agente) {
         this.agente = agente;
     }
-
-
+    
+    public boolean esAgente(){
+        return this.agente != null;
+    }
 
 
 }

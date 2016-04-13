@@ -1,230 +1,231 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">  
-  <head>
-    <title>Registro</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet"/>	
-  </head>  
-  <body style="background-color:#D3D3D3">
-    <br/>
-    <br/> 
-    <div class="row">
-      <div class="col-md-7" style="color:black;font-size:400%;">El Prometeo</div>     
-      <div class="col-md-5">       
-        <h:form class="form-inline">
-          <div class="form-group">
-            <label class="sr-only" for="correo">Correo Electrónico</label>
-            <h:inputText class="form-control" id="correo" p:placeholder="Correo Electrónico" value="#{usuarioBean.usuario.correo}"/>
-          </div>
-          <div class="form-group">
-            <label class="sr-only" for="contraseña">Contraseña</label>
-            <h:inputSecret class="form-control" id="contraseña" p:placeholder="Contraseña" value="#{usuarioBean.usuario.contrasenia}"/>
-          </div>
-  	   <h:commandButton value="Iniciar sesión" class="btn btn-default" action="#{usuarioBean.verificarDatos()}"/>
-        </h:form>
-      </div>
-    </div>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4 col-md-offset-4 text-center">		
-	  <br/>
-	  <br/>
-	  <br/> 	
-	  <br/>
-          <p style="color:black; font-size:300%;">Registro</p>
-	  <h:form>
-	    <div class="form-group">
-                <h:inputText class="form-control" id="nombre" p:placeholder="Nombre" value="#{usuarioBean.usuario.nombre}"/>
-  	    </div> 	
-  	    <div class="form-group">
-                <h:inputText class="form-control" id="apellidoMaterno" p:placeholder="Apellido Materno" value="#{usuarioBean.usuario.apellidoMaterno}"/>
-  	    </div>   	
-  	    <div class="form-group">
-                <h:inputText class="form-control" id="apellidoPaterno" p:placeholder="Apellido Paterno" value="#{usuarioBean.usuario.apellidoPaterno}"/>
-  	    </div>    
-  	    <div class="form-group">
-                <h:inputText class="form-control" id="correo" p:placeholder="Correo" value="#{usuarioBean.usuario.correo}"/>
-  	    </div> 
-  	    <div class="form-group">
-                <h:inputSecret class="form-control" id="contraseña" p:placeholder="Contraseña" value="#{usuarioBean.usuario.contrasenia}"/>
-  	    </div>
-  	    <div class="checkbox">
-    	      <label for="genero" style="color:black;">Género:</label>
-	      <br/>
-	      <label class="radio-inline"/>
-      	      <input type="radio" name="inlineRadioOptions" id="masculino" value="masculino"/> Masculino
-	      <label class="radio-inline"/>
-	      <input type="radio" name="inlineRadioOptions" id="femenino" value="femenino"/> Femenino
-  	    </div>
-	    <label for="fechaDeNaciminiento" style="color:black;">Fecha de Nacimiento:</label>
-	    <div class="row">
-	      <div class="col-xs-4">
-		<label for="anyo" style="color:black;">Año:</label> 
-	        <select class="form-control">
-		 <option>1920</option>
-		 <option>1921</option> 
-		 <option>1922</option> 
- 		 <option>1923</option>
-	  	 <option>1924</option> 
-		 <option>1925</option> 
-		 <option>1926</option>
-		 <option>1927</option> 
-		 <option>1928</option> 
-		 <option>1929</option>
-		 <option>1930</option> 
-		 <option>1931</option> 
-	         <option>1932</option>
-		 <option>1933</option> 
-		 <option>1934</option> 
-		 <option>1935</option>
-		 <option>1936</option> 
-		 <option>1937</option> 
-		 <option>1938</option>
-		 <option>1939</option> 
-		 <option>1940</option> 
-		 <option>1941</option>
-		 <option>1942</option> 
-		 <option>1943</option>
-		 <option>1944</option>  
-		 <option>1945</option> 
-		 <option>1946</option>
-		 <option>1947</option> 
-		 <option>1948</option> 
-		 <option>1949</option>
-		 <option>1950</option>
-		 <option>1951</option> 
-		 <option>1952</option> 
- 		 <option>1953</option>
-	  	 <option>1954</option> 
-		 <option>1955</option> 
-		 <option>1956</option>
-		 <option>1957</option> 
-		 <option>1958</option> 
-		 <option>1959</option>
-		 <option>1960</option> 
-		 <option>1961</option> 
-	         <option>1962</option>
-		 <option>1963</option> 
-		 <option>1964</option> 
-		 <option>1965</option>
-		 <option>1966</option> 
-		 <option>1967</option> 
-		 <option>1968</option>
-		 <option>1969</option> 
-		 <option>1970</option> 
-		 <option>1971</option>
-		 <option>1972</option> 
-		 <option>1973</option>
-		 <option>1974</option>  
-		 <option>1975</option> 
-		 <option>1976</option>
-		 <option>1977</option> 
-		 <option>1978</option> 
-		 <option>1979</option>
-		 <option>1980</option> 
-		 <option>1981</option> 
-	         <option>1982</option>
-		 <option>1983</option> 
-		 <option>1984</option> 
-		 <option>1985</option>
-		 <option>1986</option> 
-		 <option>1987</option> 
-		 <option>1988</option>
-		 <option>1989</option> 
-		 <option>1990</option> 
-		 <option>1991</option>
-		 <option>1992</option> 
-		 <option>1993</option>
-		 <option>1994</option>  
-		 <option>1995</option> 
-		 <option>1996</option>
-		 <option>1997</option> 
-		 <option>1998</option> 
-		 <option>1999</option>
-		 <option>2000</option>     
-		</select>
-	      </div> 
-	      <div class="col-xs-4">
-		<label for="mes" style="color:black;">Mes:</label> 
-	        <select class="form-control"> 
-		  <option>1</option>
-		  <option>2</option> 
-		  <option>3</option> 
-		  <option>4</option>
-		  <option>5</option> 
-		  <option>6</option> 
-		  <option>7</option>
-		  <option>8</option> 
-		  <option>9</option> 
-		  <option>10</option>
-		  <option>11</option> 
-		  <option>12</option>         
-		</select>
-	      </div>
-	      <div class="col-xs-4">
-		<label for="mes" style="color:black;">Día:</label> 
-	        <select class="form-control">
-		  <option>1</option>
-		  <option>2</option> 
-		  <option>3</option> 
-		  <option>4</option>
-		  <option>5</option> 
-		  <option>6</option> 
-		  <option>7</option>
-		  <option>8</option> 
-		  <option>9</option> 
-		  <option>10</option>
-		  <option>11</option> 
-		  <option>12</option> 
-	          <option>13</option>
-		  <option>14</option> 
-		  <option>15</option> 
-		  <option>16</option>
-		  <option>17</option> 
-		  <option>18</option> 
-		  <option>19</option>
-		  <option>20</option> 
-		  <option>21</option> 
-		  <option>22</option>
-		  <option>23</option> 
-		  <option>24</option>
-		  <option>25</option>  
-		  <option>26</option> 
-		  <option>27</option>
-		  <option>28</option> 
-		  <option>29</option> 
-		  <option>30</option>
-		  <option>31</option>        
-		</select>
-	      </div>	      
-	    </div>
-	    <br/>
-            <div class="checkbox">
-    	      <label for="rol" style="color:black;">¿Cómo te quieres registrar?:</label>
-	      <br/>
-
-	      <label class="radio-inline"/>
-      	      <input type="radio" name="inlineRadioOptions" id="programador" value="masculino"/> Programador
-	      <label class="radio-inline"/>
-	      <input type="radio" name="inlineRadioOptions" id="agenteCreativo" value="femenino"/> Agente Creativo
-  	    </div>
-	    <div class="form-group">
-   	      <input type="text" class="form-control" id="telefono" placeholder="Teléfono"/>
-  	    </div> 
-	    <div class="checkbox">
-	      <input type="checkbox" style="color:black;"/> Acepto términos y condiciones
-	    </div>
-  	    <button type="submit" class="btn btn-default">Registrar</button>
-	  </h:form>
-	  <br/>	
-	</div>	
-      </div>
-    </div>	
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"/>
-    <script src="bootstrap.min.js"/>
-    <script src="docs/assets/js/ie10-viewport-bug-workaround.js"/>
-  </body>
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">  
+    <head>
+        <title>Registro</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet"/>	
+    </head>  
+    <body style="background-color:#D3D3D3">
+        <br/>
+        <br/> 
+        <div class="row">
+            <div class="col-md-7" style="color:black;font-size:400%;">El Prometeo</div>     
+            <div class="col-md-5">       
+                <h:form class="form-inline">
+                    <div class="form-group">
+                        <label class="sr-only" for="correo">Correo Electrónico</label>
+                        <h:inputText class="form-control" id="correo" p:placeholder="Correo Electrónico" value="#{usuarioBean.usuario.correo}"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="contraseña">Contraseña</label>
+                        <h:inputSecret class="form-control" id="contraseña" p:placeholder="Contraseña" value="#{usuarioBean.usuario.contrasenia}"/>
+                    </div>
+                    <h:commandButton value="Iniciar sesión" class="btn btn-default" action="#{usuarioBean.verificarDatos()}"/>
+                </h:form>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4 text-center">		
+                    <br/>
+                    <br/>
+                    <br/> 	
+                    <br/>
+                    <p style="color:black; font-size:300%;">Registro</p>
+                    <h:form>
+                        <div class="form-group">
+                            <h:inputText class="form-control" id="nombre" p:placeholder="Nombre" value="#{usuarioBean.usuario.nombre}"/>
+                        </div> 	
+                        <div class="form-group">
+                            <h:inputText class="form-control" id="apellidoMaterno" p:placeholder="Apellido Materno" value="#{usuarioBean.usuario.apellidoMaterno}"/>
+                        </div>   	
+                        <div class="form-group">
+                            <h:inputText class="form-control" id="apellidoPaterno" p:placeholder="Apellido Paterno" value="#{usuarioBean.usuario.apellidoPaterno}"/>
+                        </div>    
+                        <div class="form-group">
+                            <h:inputText class="form-control" id="correo" p:placeholder="Correo" value="#{usuarioBean.usuario.correo}"/>
+                        </div> 
+                        <div class="form-group">
+                            <h:inputSecret class="form-control" id="contraseña" p:placeholder="Contraseña" value="#{usuarioBean.usuario.contrasenia}"/>
+                        </div>
+                        <div class="checkbox">
+                            <label for="genero" style="color:black;">Género:</label>
+                            <br/>
+                            <label class="radio-inline"/>
+                            <h:selectOneRadio value="#{usuarioBean.usuario.genero}" style="display: inline;">
+                                <f:selectItem itemValue="H" itemLabel="Hombre" />
+                                <f:selectItem itemValue="M" itemLabel="Mujer" />
+                            </h:selectOneRadio>
+                        </div>
+                        <label for="fechaDeNaciminiento" style="color:black;">Fecha de Nacimiento:</label>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <label for="anyo" style="color:black;">Año:</label> 
+                                <h:selectOneMenu value="#{usuarioBean.usuario.fechaDeNaciminiento.year}">
+                                    <f:selectItem itemValue="1920" itemLabel="1920" />
+                                    <f:selectItem itemValue="1921" itemLabel="1921" />
+                                    <f:selectItem itemValue="1922" itemLabel="1922" />
+                                    <f:selectItem itemValue="1923" itemLabel="1923" />
+                                    <f:selectItem itemValue="1924" itemLabel="1924" />
+                                    <f:selectItem itemValue="1925" itemLabel="1925" />
+                                    <f:selectItem itemValue="1926" itemLabel="1926" />
+                                    <f:selectItem itemValue="1927" itemLabel="1927" />
+                                    <f:selectItem itemValue="1928" itemLabel="1928" />
+                                    <f:selectItem itemValue="1929" itemLabel="1929" />
+                                    <f:selectItem itemValue="1930" itemLabel="1930" />
+                                    <f:selectItem itemValue="1931" itemLabel="1931" />
+                                    <f:selectItem itemValue="1932" itemLabel="1932" />
+                                    <f:selectItem itemValue="1933" itemLabel="1933" />
+                                    <f:selectItem itemValue="1934" itemLabel="1934" />
+                                    <f:selectItem itemValue="1935" itemLabel="1935" />
+                                    <f:selectItem itemValue="1936" itemLabel="1936" />
+                                    <f:selectItem itemValue="1937" itemLabel="1937" />
+                                    <f:selectItem itemValue="1938" itemLabel="1938" />
+                                    <f:selectItem itemValue="1939" itemLabel="1939" />
+                                    <f:selectItem itemValue="1940" itemLabel="1940" />
+                                    <f:selectItem itemValue="1941" itemLabel="1941" />
+                                    <f:selectItem itemValue="1942" itemLabel="1942" />
+                                    <f:selectItem itemValue="1943" itemLabel="1943" />
+                                    <f:selectItem itemValue="1944" itemLabel="1944" />
+                                    <f:selectItem itemValue="1945" itemLabel="1945" />
+                                    <f:selectItem itemValue="1946" itemLabel="1946" />
+                                    <f:selectItem itemValue="1947" itemLabel="1947" />
+                                    <f:selectItem itemValue="1948" itemLabel="1948" />
+                                    <f:selectItem itemValue="1949" itemLabel="1949" />
+                                    <f:selectItem itemValue="1950" itemLabel="1950" />
+                                    <f:selectItem itemValue="1951" itemLabel="1951" />
+                                    <f:selectItem itemValue="1952" itemLabel="1952" />
+                                    <f:selectItem itemValue="1953" itemLabel="1953" />
+                                    <f:selectItem itemValue="1954" itemLabel="1954" />
+                                    <f:selectItem itemValue="1955" itemLabel="1955" />
+                                    <f:selectItem itemValue="1956" itemLabel="1956" />
+                                    <f:selectItem itemValue="1957" itemLabel="1957" />
+                                    <f:selectItem itemValue="1958" itemLabel="1958" />
+                                    <f:selectItem itemValue="1959" itemLabel="1959" />
+                                    <f:selectItem itemValue="1960" itemLabel="1960" />
+                                    <f:selectItem itemValue="1961" itemLabel="1961" />
+                                    <f:selectItem itemValue="1962" itemLabel="1962" />
+                                    <f:selectItem itemValue="1963" itemLabel="1963" />
+                                    <f:selectItem itemValue="1964" itemLabel="1964" />
+                                    <f:selectItem itemValue="1965" itemLabel="1965" />
+                                    <f:selectItem itemValue="1966" itemLabel="1966" />
+                                    <f:selectItem itemValue="1967" itemLabel="1967" />
+                                    <f:selectItem itemValue="1968" itemLabel="1968" />
+                                    <f:selectItem itemValue="1969" itemLabel="1969" />
+                                    <f:selectItem itemValue="1970" itemLabel="1970" />
+                                    <f:selectItem itemValue="1971" itemLabel="1971" />
+                                    <f:selectItem itemValue="1972" itemLabel="1972" />
+                                    <f:selectItem itemValue="1973" itemLabel="1973" />
+                                    <f:selectItem itemValue="1974" itemLabel="1974" />
+                                    <f:selectItem itemValue="1975" itemLabel="1975" />
+                                    <f:selectItem itemValue="1976" itemLabel="1976" />
+                                    <f:selectItem itemValue="1977" itemLabel="1977" />
+                                    <f:selectItem itemValue="1978" itemLabel="1978" />
+                                    <f:selectItem itemValue="1979" itemLabel="1979" />
+                                    <f:selectItem itemValue="1980" itemLabel="1980" />
+                                    <f:selectItem itemValue="1981" itemLabel="1981" />
+                                    <f:selectItem itemValue="1982" itemLabel="1982" />
+                                    <f:selectItem itemValue="1983" itemLabel="1983" />
+                                    <f:selectItem itemValue="1984" itemLabel="1984" />
+                                    <f:selectItem itemValue="1985" itemLabel="1985" />
+                                    <f:selectItem itemValue="1986" itemLabel="1986" />
+                                    <f:selectItem itemValue="1987" itemLabel="1987" />
+                                    <f:selectItem itemValue="1988" itemLabel="1988" />
+                                    <f:selectItem itemValue="1989" itemLabel="1989" />
+                                    <f:selectItem itemValue="1990" itemLabel="1990" />
+                                    <f:selectItem itemValue="1991" itemLabel="1991" />
+                                    <f:selectItem itemValue="1992" itemLabel="1992" />
+                                    <f:selectItem itemValue="1993" itemLabel="1993" />
+                                    <f:selectItem itemValue="1994" itemLabel="1994" />
+                                    <f:selectItem itemValue="1995" itemLabel="1995" />
+                                    <f:selectItem itemValue="1996" itemLabel="1996" />
+                                    <f:selectItem itemValue="1997" itemLabel="1997" />
+                                    <f:selectItem itemValue="1998" itemLabel="1998" />
+                                </h:selectOneMenu> 
+                            </div> 
+                            <div class="col-xs-4">
+                                <label for="mes" style="color:black;">Mes:</label>                               
+                                <h:selectOneMenu value="#{usuarioBean.usuario.fechaDeNaciminiento.month}">
+                                    <f:selectItem itemValue="1" itemLabel="Enero" />
+                                    <f:selectItem itemValue="2" itemLabel="Febrero" />
+                                    <f:selectItem itemValue="3" itemLabel="Marzo" />
+                                    <f:selectItem itemValue="4" itemLabel="Abril" />
+                                    <f:selectItem itemValue="5" itemLabel="Mayo" />
+                                    <f:selectItem itemValue="6" itemLabel="Junio" />
+                                    <f:selectItem itemValue="7" itemLabel="Julio" />
+                                    <f:selectItem itemValue="8" itemLabel="Agosto" />
+                                    <f:selectItem itemValue="9" itemLabel="Septiembre" />
+                                    <f:selectItem itemValue="10" itemLabel= "Octubre"/>
+                                    <f:selectItem itemValue="11" itemLabel="Noviembre" />
+                                    <f:selectItem itemValue="12" itemLabel="Diciembre" />                                
+                                </h:selectOneMenu>		
+                                
+                            </div>
+                            <div class="col-xs-4">
+                                <label for="mes" style="color:black;">Día:</label> 
+                                <h:selectOneMenu value="#{usuarioBean.usuario.fechaDeNaciminiento.month}">
+                                    <f:selectItem itemValue="1" itemLabel="1" />
+                                    <f:selectItem itemValue="2" itemLabel="2" />
+                                    <f:selectItem itemValue="3" itemLabel="3" />
+                                    <f:selectItem itemValue="4" itemLabel="4" />
+                                    <f:selectItem itemValue="5" itemLabel="5" />
+                                    <f:selectItem itemValue="6" itemLabel="6" />
+                                    <f:selectItem itemValue="7" itemLabel="7" />
+                                    <f:selectItem itemValue="8" itemLabel="8" />
+                                    <f:selectItem itemValue="9" itemLabel="9" />
+                                    <f:selectItem itemValue="10" itemLabel="10" />
+                                    <f:selectItem itemValue="11" itemLabel="11" />
+                                    <f:selectItem itemValue="12" itemLabel="12" />
+                                    <f:selectItem itemValue="13" itemLabel="13" />
+                                    <f:selectItem itemValue="14" itemLabel="14" />
+                                    <f:selectItem itemValue="15" itemLabel="15" />
+                                    <f:selectItem itemValue="16" itemLabel="16" />
+                                    <f:selectItem itemValue="17" itemLabel="17" />
+                                    <f:selectItem itemValue="18" itemLabel="18" />
+                                    <f:selectItem itemValue="19" itemLabel="19" />
+                                    <f:selectItem itemValue="20" itemLabel="20" />
+                                    <f:selectItem itemValue="21" itemLabel="21" />
+                                    <f:selectItem itemValue="22" itemLabel="22" />
+                                    <f:selectItem itemValue="23" itemLabel="23" />
+                                    <f:selectItem itemValue="24" itemLabel="24" />
+                                    <f:selectItem itemValue="25" itemLabel="25" />
+                                    <f:selectItem itemValue="26" itemLabel="26" />
+                                    <f:selectItem itemValue="27" itemLabel="27" />
+                                    <f:selectItem itemValue="28" itemLabel="28" />
+                                    <f:selectItem itemValue="29" itemLabel="29" />
+                                    <f:selectItem itemValue="30" itemLabel="30" />
+                                    <f:selectItem itemValue="31" itemLabel="31" />                             
+                                </h:selectOneMenu>		
+                            </div>	      
+                        </div>
+                        <br/>
+                        <div class="checkbox">
+                            <label for="rol" style="color:black;">¿Cómo te quieres registrar?:</label>
+                            <br/>
+                            
+                            <h:selectOneRadio value="#{usuarioBean.usuario.tipoUsuario}" style="display: inline;">
+                                <f:selectItem itemValue="#{tipoUsuarioBean.programador}" itemLabel="Programador" />
+                                <f:selectItem itemValue="#{tipoUsuarioBean.agente}" itemLabel="Agente Creativo" />
+                            </h:selectOneRadio>
+                        </div>
+                        <div class="form-group">
+                            <h:inputText class="form-control" id="telefono" p:placeholder="Teléfono" value="#{usuarioBean.usuario.telefono}"/>
+                        </div> 
+                        <div class="checkbox">
+                            <input type="checkbox" style="color:black;"/> Acepto términos y condiciones
+                        </div>
+                        <h:commandButton value="Registrar" class="btn btn-default" action="#{usuarioBean.registrar()}"/>
+                    </h:form>
+                    <br/>	
+                </div>	
+            </div>
+        </div>	
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"/>
+        <script src="bootstrap.min.js"/>
+        <script src="docs/assets/js/ie10-viewport-bug-workaround.js"/>
+    </body>
 </html>
-    
-    
+
+

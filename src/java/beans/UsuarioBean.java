@@ -70,10 +70,11 @@ public class UsuarioBean {
      * @return - El atributo usuario de la clase.
      */
     public Usuario getUsuario() {
+        if(usuario.getFechaDeNaciminiento() == null)
+            usuario.setFechaDeNaciminiento(new Date(1950, 01, 01));
         return usuario;
     }
 
-    
     /**
      *
      * @param usuario
@@ -82,25 +83,15 @@ public class UsuarioBean {
         this.usuario = usuario;
     }
     
-    public TipoUsuario getAgente(){
-        return TipoUsuario.AGENTE;
-    }
-    
-    public static TipoUsuario getProgramador(){
-        return TipoUsuario.PROGRAMADOR;
-    }
-
-    public String registrar(){
-        Date fecha = new Date(1993, 04, 19);
-        this.usuario.setFechaDeNaciminiento(fecha);
-        return this.registrar(TipoUsuario.AGENTE);
+    public String registrar(){       
+        return this.registrar(this.usuario.getTipoUsuario());
     }
     /**
      * Se registra al usuario en el sistema.
      *
      * @param tipo - el tipo de usuario a registrar.
      */
-    public String registrar(TipoUsuario tipo) {
+    public String registrar(TipoUsuario tipo) {               
         /* Primero verificamos que el usuario no esté registrado */
         Session session = HibernateUtil.getSessionFactory().openSession();
         String sql = "FROM Usuario WHERE correo = '" + usuario.getCorreo()
@@ -129,8 +120,8 @@ public class UsuarioBean {
                 session.flush();
                 session.clear();
                 tx.commit();
-                session.close();
-                return "Registro exitoso.";
+                session.close();                
+                return verificarDatos();
             } catch (Exception e) {
                 return e.getMessage();
             }
@@ -148,12 +139,9 @@ public class UsuarioBean {
         try {
             su = suDAO.verificarDatos(this.usuario);
             if (su != null) {
-                for (int i = 0; i < 10; i++) {
-                    System.out.println(su.getNombre());
-                }
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", su);
 
-                resultado = "exito";
+                resultado = "perfil";
             } else {
                 resultado = "error";
             }
@@ -174,7 +162,11 @@ public class UsuarioBean {
     }
 
     public String cerrarSesion() {
+        for (int i = 0; i < 1000; i++) {
+            System.out.println("Yas");
+        }
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "index";
     }
+    
 } //Fin de UsuarioBean.java

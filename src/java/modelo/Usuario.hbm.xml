@@ -6,7 +6,9 @@
     <class name="modelo.Usuario" table="usuario" schema="public" optimistic-lock="version">
         <id name="idUsuario" type="int">
             <column name="id_usuario" />
-            <generator class="assigned" />
+            <generator class="sequence" >
+                <param name="sequence">usuario_id_usuario_seq</param>
+            </generator>
         </id>
         <property name="nombre" type="string">
             <column name="nombre" not-null="true" />
