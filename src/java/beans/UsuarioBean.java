@@ -34,6 +34,7 @@ import javax.faces.context.FacesContext;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import dao.UsuarioDAO;
+import java.io.Serializable;
 import modelo.Agente;
 import modelo.Programador;
 import modelo.TipoUsuario;
@@ -120,6 +121,39 @@ public class UsuarioBean {
             } catch (Exception e) {
                 return e.getMessage();
             }
+        }
+    }
+
+    /**
+     * Se elimina al usuario del sistema.
+     *
+     * @param tipo - el tipo de usuario a eliminar.
+     */
+    public String eliminar() {
+        /* Primero verificamos que el usuario no esté registrado */
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            /* La transacción actual. Se utiliza para que persistan los 
+                    cambios que realicemos en la base */
+            Transaction tx = session.beginTransaction();
+            session.delete(this.usuario);
+            /* Subrutina de eliminación sacada de codejava.net */
+ /* Se convierte el id de usuario a serializable para utilizar el método load */
+            Serializable id = new Long(usuario.getIdUsuario());
+            /* Se busca la instancia del usuario para eliminarla de la base */
+            Object persistentInstance = session.load(Usuario.class, id);
+            if (persistentInstance != null) {
+                session.delete(persistentInstance);
+            }
+            /* No sé qué tanto de lo que sigue se necesite, pero igual lo 
+                dejaré */
+            session.flush();
+            session.clear();
+            tx.commit();
+            session.close();
+            return "Se eliminó al usuario";
+        } catch (Exception e) {
+            return e.getMessage();
         }
     }
 
@@ -267,10 +301,8 @@ public class UsuarioBean {
         }
         return null;
     }
-    
-    
+
     /* Termina la parte de modificar perfil */
-    
     public String verificarDatos() throws Exception {
         UsuarioDAO suDAO = new UsuarioDAO();
         Usuario su;
