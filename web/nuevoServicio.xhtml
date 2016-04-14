@@ -17,45 +17,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <xhtml xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
       <h:head/>
 
     <h:body>
-    <h:form>
-            
-            <h1>Nuevo servicio</h1>            
-            <h:messages/>           
-            <h:panelGrid columns="2">                
-                 <h:outputLabel value="Nombre"/>
-                 <h:inputText value="#{usuarioBean.usuario.nombre}"/>
-                 
-                 <h:outputLabel value="Apellido Paterno"/>
-                 <h:inputText value="#{usuarioBean.usuario.apellidoPaterno}"/>
-                 
-                 <h:outputLabel value="Apeliido Materno"/>
-                 <h:inputText value="#{usuarioBean.usuario.apellidoMaterno}"/>
+            <f:view>
+            <h:form>
+                 <h:panelGrid columns="2">                    
+                <h:outputLabel value="Presupuesto"/>
+                <h:inputText value="#{servicioBean.servicio.presupuesto}"/>
                 
-                 <h:outputLabel value="Estado"/>
-                 <h:inputText value="#{usuarioBean.usuario.estado}"/>
-                 
-                 <h:outputLabel value="genero"/>
-                 <h:inputText value="#{usuarioBean.usuario.genero}"/>
-                 
-                 <h:outputLabel value="telefono"/>
-                 <h:inputText value="#{usuarioBean.usuario.telefono}"/>
+                <h:outputLabel value="descripcion"/>
+                <h:inputTextarea value="#{servicioBean.servicio.description}"/>                
                 
-                 
-                <h:outputLabel value="Correo"/>
-                <h:inputText value="#{usuarioBean.usuario.correo}"/>
+                <h:outputLabel value="tituli"/>
+                <h:inputText value="#{servicioBean.servicio.titulo}"/>                
                 
-                <h:outputLabel value="Contraseña"/>
-                <h:inputSecret value="#{usuarioBean.usuario.contrasenia}"/>
-                
-                <h:commandButton value="Iniciar" action="#{usuarioBean.registrar()}"/>
+                <h:commandButton value="Iniciar" action="#{servicioBean.crear(usuarioBean.usuario)}"/>
                 
             </h:panelGrid>
-            
-        </h:form>
+            </h:form>
+        </f:view>
+
        
     </h:body>
 </xhtml>

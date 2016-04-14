@@ -8,10 +8,10 @@
     <property name="hibernate.connection.username">prometeo</property>
     <property name="hibernate.connection.password">password</property>
     <mapping class="modelo.Servicio" file="" jar="" package="modelo" resource="modelo/Servicio.hbm.xml"/>
-    <mapping resource="modelo/Especialidad.hbm.xml"/>
-    <mapping resource="modelo/Mensaje.hbm.xml"/>
-    <mapping resource="modelo/Agente.hbm.xml"/>
-    <mapping resource="modelo/Registro.hbm.xml"/>
+    <mapping class="modelo.Especialidad" file="" jar="" package="modelo" resource="modelo/Especialidad.hbm.xml"/>
+    <mapping class="modelo.Mensaje" file="" jar="" package="modelo" resource="modelo/Mensaje.hbm.xml"/>
+    <mapping class="modelo.Agente" file="" jar="" package="modelo" resource="modelo/Agente.hbm.xml"/>
+    <mapping class="modelo.Registro" file="" jar="" package="modelo" resource="modelo/Registro.hbm.xml"/>
     <mapping class="modelo.Programador" file="" jar="" package="modelo" resource="modelo/Programador.hbm.xml"/>
     <mapping class="modelo.Usuario" file="" jar="" package="modelo" resource="modelo/Usuario.hbm.xml"/>
   </session-factory>

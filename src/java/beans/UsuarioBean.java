@@ -162,9 +162,6 @@ public class UsuarioBean {
     }
 
     public String cerrarSesion() {
-        for (int i = 0; i < 1000; i++) {
-            System.out.println("Yas");
-        }
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "index";
     }

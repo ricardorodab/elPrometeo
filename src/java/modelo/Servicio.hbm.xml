@@ -6,7 +6,9 @@
     <class name="modelo.Servicio" table="servicio" schema="public" optimistic-lock="version">
         <id name="idServicio" type="int">
             <column name="id_servicio" />
-            <generator class="assigned" />
+              <generator class="sequence" >
+                <param name="sequence">servicio_id_servicio_seq</param>
+            </generator>
         </id>
         <property name="presupuesto" type="java.lang.Double">
             <column name="presupuesto" precision="17" scale="17" />

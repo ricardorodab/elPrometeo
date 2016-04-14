@@ -5,6 +5,8 @@
  */
 package beans;
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.faces.bean.ManagedBean;
 import modelo.Servicio;
 import modelo.Usuario;
@@ -35,22 +37,26 @@ public class ServicioBean {
      * @param usuarioBean - Es el usuario actual que lo crea.
      * @return Error en caso de que no se pudo crear, servicio en caso contrario.
      */
-    public String crear(UsuarioBean usuarioBean){
+    public String crear(Usuario usuario){
          /* Primero verificamos que el usuario esté registrado y sea un agente. */
         Session session = HibernateUtil.getSessionFactory().openSession();
-        String sql = "FROM Usuario WHERE correo = '" + usuarioBean.getUsuario().getCorreo()
+        String sql = "FROM Usuario WHERE correo = '" + usuario.getCorreo()
                 + "'";
         Query query = session.createQuery(sql);
         // Si no existe el usuario.
         if (query.list().isEmpty()) {
             return "error";
         } else {
-            Usuario usuario = (Usuario)query.uniqueResult();
-            if(!usuario.esAgente())
+            Usuario usuarioNew = (Usuario)query.uniqueResult();
+            if(!usuarioNew.esAgente())
                 return "error";    
             try {
                 //Creamos el servicio nuevo.
                 Transaction tx = session.beginTransaction();
+                this.servicio.setFinalizado(false);
+                this.servicio.getAgentes().add(usuarioNew.getAgente());
+                usuarioNew.getAgente().getServicios().add(this.servicio);
+                session.update(usuarioNew);
                 session.save(this.servicio);
                 /* La transacción actual. Se utiliza para que persistan los 
                     cambios que realicemos en la base */            

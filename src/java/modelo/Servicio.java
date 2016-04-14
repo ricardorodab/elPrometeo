@@ -50,12 +50,7 @@ public class Servicio  implements java.io.Serializable {
     public Servicio() {
     }
 
-	
-    public Servicio(int idServicio) {
-        this.idServicio = idServicio;
-    }
-    public Servicio(int idServicio, Double presupuesto, String description, String titulo, Boolean finalizado, Set agentes, Set registros, Set programadors) {
-       this.idServicio = idServicio;
+    public Servicio(Double presupuesto, String description, String titulo, Boolean finalizado, Set agentes, Set registros, Set programadors) {
        this.presupuesto = presupuesto;
        this.description = description;
        this.titulo = titulo;
