@@ -34,9 +34,11 @@ import javax.faces.context.FacesContext;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import dao.UsuarioDAO;
+import java.io.Serializable;
 import java.sql.Date;
 import modelo.Agente;
 import modelo.Programador;
+import modelo.Servicio;
 import modelo.TipoUsuario;
 import modelo.Usuario;
 import org.hibernate.Query;
@@ -127,9 +129,29 @@ public class UsuarioBean {
             }
         }
     }
+    
+    public String irModificar(){
+        return "modificar";
+    }
 
-    public String modificar_perfil() {
-        return "Hola mundo";
+    public String modificarPerfil() {
+       /* Primero verificamos que el usuario esté registrado y sea un agente. */
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+            try {
+                //Creamos el servicio nuevo.
+                Transaction tx = session.beginTransaction();
+                session.update(this.usuario);
+                /* La transacción actual. Se utiliza para que persistan los 
+                    cambios que realicemos en la base */            
+                session.flush();
+                session.clear();
+                tx.commit();
+                session.close();                
+                return "perfil";
+            } catch (Exception e) {
+                return "error";
+            }        
     }
 
     public String verificarDatos() throws Exception {
@@ -167,4 +189,56 @@ public class UsuarioBean {
         return "index";
     }
     
+    
+     /**
+     * Se elimina al usuario del sistema.
+     *
+     * @param tipo - el tipo de usuario a eliminar.
+     */
+    public String eliminar() {
+        /* Primero verificamos que el usuario no esté registrado */
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            /* La transacción actual. Se utiliza para que persistan los 
+                    cambios que realicemos en la base */
+            Transaction tx = session.beginTransaction();
+            /* Subrutina de eliminación sacada de codejava.net */
+ /* Se convierte el id de usuario a serializable para utilizar el método load */
+            Serializable id = new Integer(usuario.getIdUsuario());
+            /*
+            Código temporal (agregar ON CASCADE)
+            */
+            if(usuario.esAgente()){
+                usuario.getAgente().getServicios().clear();
+                session.update(this.usuario.getAgente());
+                session.delete(this.usuario.getAgente());
+            }else{
+                usuario.getProgramador().getServicios().clear();
+                session.update(this.usuario.getProgramador());
+                session.delete(this.usuario.getProgramador());
+            }
+            /*
+            
+            */            
+            session.delete(this.usuario);
+            /* Se busca la instancia del usuario para eliminarla de la base *
+            Object persistentInstance = session.get(Usuario.class, id);
+            if (persistentInstance != null) {
+                session.delete(persistentInstance);
+            }
+            /* No sé qué tanto de lo que sigue se necesite, pero igual lo 
+                dejaré */
+            session.flush();
+            session.clear();
+            tx.commit();
+            session.close();
+            for (int i = 0; i < 1000; i++) {
+                System.out.println("100");
+            }
+            return "index";
+        } catch (Exception e) {
+                System.out.println(e);   
+            return e.getMessage();
+        }
+    }
 } //Fin de UsuarioBean.java

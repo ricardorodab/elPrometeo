@@ -42,17 +42,19 @@
 	<br/>
 	<br/>
 	<br/>
-	<a href="modificar.xhtml" class="btn btn-primary btn-lg active" role="button">Modificar perfil</a>
-	</div>	
+	 <h:form rendered="#{usuarioBean.verificarSesion()}">
+             <h:commandButton value="Modificar perfil" class="btn btn-primary btn-lg active" action="#{usuarioBean.irModificar()}"/>                         
+        </h:form>         
+        </div>	
 	<div class="col-md-4">
 	<p style="color:black;font-size:400%;">Mi Perfil</p>
 	<br/>
 	<br/>
 	<br/>
 	<div style="resize=both; overflow=auto;">
-            <h:outputText value="#{usuarioBean.usuario.esAgente() ? usuarioBean.usuario.agente.ocupacion : usuarioBean.usuario.programador.formacion}"/>
-            Aquí se mostrará la información del agente creativo o programador.
-            La información se va ajustando de acuerdo a la división definida de la pantalla.</div>
+            <h:outputText value="#{usuarioBean.usuario.esAgente() ? 
+                                   (!usuarioBean.usuario.agente.tieneOcupacion()  ? 'Aquí se mostrará la información del agente creativo o programador. La información se va ajustando de acuerdo a la división definida de la pantalla' : usuarioBean.usuario.agente.ocupacion) 
+                                   : !usuarioBean.usuario.programador.tieneFormacion() ? 'Aquí se mostrará la información del agente creativo o programador. La información se va ajustando de acuerdo a la división definida de la pantalla' : usuarioBean.usuario.programador.formacion}"/></div>
 	<br/>
 	<br/>
         <div style="resize=both; overflow=auto">Tipo de usuario: <h:outputText value="#{usuarioBean.usuario.esAgente() ? 'Agente Creativo' : 'Programador'}"/></div>

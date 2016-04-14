@@ -94,7 +94,9 @@ public class Agente  implements java.io.Serializable {
         this.servicios = servicios;
     }
 
-
+    public boolean tieneOcupacion(){
+        return !(this.ocupacion == null || this.ocupacion.trim().equals(""));
+    }
 
 
 }

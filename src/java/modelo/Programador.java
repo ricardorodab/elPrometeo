@@ -103,7 +103,9 @@ public class Programador  implements java.io.Serializable {
         this.servicios = servicios;
     }
 
-
+    public boolean tieneFormacion(){
+        return !(this.formacion == null || this.formacion.trim().equals(""));
+    }
 
 
 }
