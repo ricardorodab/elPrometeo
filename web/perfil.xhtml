@@ -1,20 +1,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
-  <head>
-  <style>
-    caja {
-   display:inline-block;
-   border: solid 1px #000;
-   min-height: 200px;
-   width: 300px;
-	}
-	
-  </style>
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+   <h:head>
     <title>Mi perfil</title>
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
-  </head>
+  </h:head>
   <h:body style="background-color:#D3D3D3">
+      <h:outputLabel value="No se ha iniciado sesión" rendered="#{usuarioBean.verificarSesion() eq false}"/>
     <br/>
     <br/> 
     <div class="row">
@@ -25,30 +19,60 @@
 	  <button type="submit">Buscar</button>
 	</form>  
       </div>    
-      <div class="col-md-4">    
-           <h:form rendered="#{usuarioBean.verificarSesion()}">
+      <div class="col-md-4">       
+       <h:form rendered="#{usuarioBean.verificarSesion()}">
                  <h:commandButton value="Cerrar Sesión" action="#{usuarioBean.cerrarSesion()}"/>                         
-        </h:form>
-         
+        </h:form> 
       </div>
     </div>
     <div class="container">
       <div class="row">
-	<div class="col-md-4">Foto
+	<div class="col-md-4">
+	<br/>
+	<br/>
+	<img style="border-radius=8px;" src="perfil.jpeg" alt="Perfil"/>
+	<br/>
+	<br/>
+        <div style="resize=both; overflow=auto;">Nombre: <h:outputText value="#{usuarioBean.usuario.nombre}" /></div>
+        <div style="resize=both; overflow=auto;">Apellido paterno: <h:outputText value="#{usuarioBean.usuario.apellidoPaterno}" /></div>
+        <div style="resize=both; overflow=auto;">Apellido materno: <h:outputText value="#{usuarioBean.usuario.apellidoMaterno}" /></div>
+        <div style="resize=both; overflow=auto;">Correo electrónico: <h:outputText value="#{usuarioBean.usuario.correo}" /></div>
+        <div style="resize=both; overflow=auto;">Teléfono: <h:outputText value="#{usuarioBean.usuario.telefono}" /></div>
 	<br/>
 	<br/>
 	<br/>
 	<br/>
-	<a href="" class="btn btn-primary btn-lg active" role="button">Modificar perfil</a>
+	<a href="modificar.xhtml" class="btn btn-primary btn-lg active" role="button">Modificar perfil</a>
 	</div>	
 	<div class="col-md-4">
 	<p style="color:black;font-size:400%;">Mi Perfil</p>
 	<br/>
 	<br/>
 	<br/>
-	<caja contentEditable="true"></caja>
+	<div style="resize=both; overflow=auto;">
+            <h:outputText value="#{usuarioBean.usuario.esAgente() ? usuarioBean.usuario.agente.ocupacion : usuarioBean.usuario.programador.formacion}"/>
+            Aquí se mostrará la información del agente creativo o programador.
+            La información se va ajustando de acuerdo a la división definida de la pantalla.</div>
+	<br/>
+	<br/>
+        <div style="resize=both; overflow=auto">Tipo de usuario: <h:outputText value="#{usuarioBean.usuario.esAgente() ? 'Agente Creativo' : 'Programador'}"/></div>
 	</div>
-	<div class="col-md-4">Informacion</div>
+	<div class="col-md-4" style="color:black;font-size:200%;">Servicios
+	  <div class="row">
+	    <br/>
+	    <div class="col-md-6">Hechos:</div>
+	    <div class="col-md-offset-6">Haciendo:
+	      <br/>
+	      <br/>
+	      <br/>
+	      <br/>
+	      <br/>
+	      <br/>
+	      <br/>
+	      <span class="glyphicon glyphicon-bell"/>
+	    </div>
+ 	  </div>	
+	</div>
       </div>
     </div>	
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"/>

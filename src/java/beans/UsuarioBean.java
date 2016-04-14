@@ -139,6 +139,7 @@ public class UsuarioBean {
         try {
             su = suDAO.verificarDatos(this.usuario);
             if (su != null) {
+                this.usuario = su;
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", su);
 
                 resultado = "perfil";
