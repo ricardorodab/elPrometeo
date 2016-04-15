@@ -193,7 +193,7 @@ public class UsuarioBean {
      /**
      * Se elimina al usuario del sistema.
      *
-     * @param tipo - el tipo de usuario a eliminar.
+     * @return 
      */
     public String eliminar() {
         /* Primero verificamos que el usuario no esté registrado */
@@ -204,22 +204,22 @@ public class UsuarioBean {
             Transaction tx = session.beginTransaction();
             /* Subrutina de eliminación sacada de codejava.net */
  /* Se convierte el id de usuario a serializable para utilizar el método load */
-            Serializable id = new Integer(usuario.getIdUsuario());
             /*
             Código temporal (agregar ON CASCADE)
             */
-            if(usuario.esAgente()){
-                usuario.getAgente().getServicios().clear();
-                session.update(this.usuario.getAgente());
-                session.delete(this.usuario.getAgente());
+            if(this.usuario.esAgente()){
+                Agente ag = this.usuario.getAgente();
+                ag.getServicios().clear();
+                Agente agDel = (Agente)session.merge(ag);
+                session.delete(agDel);
             }else{
-                usuario.getProgramador().getServicios().clear();
-                session.update(this.usuario.getProgramador());
-                session.delete(this.usuario.getProgramador());
+                Programador prog = this.usuario.getProgramador();
+                prog.getServicios().clear();
+                Programador progDel = (Programador)session.merge(prog);
+                session.delete(progDel);
             }
-            /*
-            
-            */            
+         
+            Serializable id = new Integer(usuario.getIdUsuario());
             session.delete(this.usuario);
             /* Se busca la instancia del usuario para eliminarla de la base *
             Object persistentInstance = session.get(Usuario.class, id);
@@ -232,12 +232,9 @@ public class UsuarioBean {
             session.clear();
             tx.commit();
             session.close();
-            for (int i = 0; i < 1000; i++) {
-                System.out.println("100");
-            }
             return "index";
         } catch (Exception e) {
-                System.out.println(e);   
+            System.out.println(e);   
             return e.getMessage();
         }
     }
