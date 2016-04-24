@@ -31,7 +31,7 @@ public class BuscarBean {
         
     }
     
-    public String buscar(){
+    public String buscar_s(){
        search = new Busqueda();
        this.resultados_s = new ArrayList<>();
        this.resultados_s = (ArrayList<Servicio>) search.buscar_s(cadena);        
