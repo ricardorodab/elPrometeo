@@ -1,0 +1,1 @@
+CREATE USER prometeo SUPERUSER PASSWORD 'password';
