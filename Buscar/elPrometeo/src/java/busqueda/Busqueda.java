@@ -46,7 +46,7 @@ public class Busqueda {
          List<Servicio> r = new ArrayList<>();
           try{
             Transaction t = sesion.beginTransaction();
-             Query q = sesion.createSQLQuery("SELECT presupuesto, description, programadors FROM servicio where "
+             Query q = sesion.createSQLQuery("SELECT presupuesto, description FROM servicio where "
             + "LOWER(servicio.description) ~ :cadena ; ").addEntity(Servicio.class).setString("cadena",  cadena );
 
              ArrayList<Servicio> resultados = (ArrayList<Servicio>) q.list();
