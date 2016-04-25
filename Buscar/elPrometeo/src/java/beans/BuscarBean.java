@@ -10,14 +10,16 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
 import busqueda.Busqueda;
+import javax.enterprise.context.Dependent;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.inject.Named;
 import modelo.Servicio;
 
+@Dependent
 @Named(value = "buscarBean")
 @ManagedBean
-@SessionScoped
+@ApplicationScoped
 public class BuscarBean {
 
     private Busqueda busqueda;

@@ -19,7 +19,7 @@ public class Busqueda {
  private Session sesion;
  
     public Busqueda(){
-        sesion = HibernateUtil.getSessionFactory().getCurrentSession();
+        //sesion = HibernateUtil.getSessionFactory().getCurrentSession();
     }
 
     
