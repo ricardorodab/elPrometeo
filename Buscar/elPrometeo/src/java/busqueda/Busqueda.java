@@ -8,18 +8,21 @@ import java.util.*;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import javax.inject.Named;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 import modelo.Servicio;
 
 public class Busqueda {
     
  private Session sesion;
- private ArrayList <Servicio> resultados_s;
  
     public Busqueda(){
         sesion = HibernateUtil.getSessionFactory().getCurrentSession();
-}
+    }
 
+    
     public static String obtenerPalabras(String cadena){
         if(cadena.length()>0){
         cadena = cadena.toLowerCase(); //Transforma la cadena a minúsculas.

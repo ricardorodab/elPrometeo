@@ -10,13 +10,19 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
 import busqueda.Busqueda;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
 import modelo.Servicio;
 
+@Named(value = "buscarBean")
+@ManagedBean
+@SessionScoped
 public class BuscarBean {
 
-    private Busqueda search;
+    private Busqueda busqueda;
     private String cadena;
-    private ArrayList<Servicio> resultados_s;
+    private ArrayList<Servicio> resultados;
    
     private final HttpServletRequest httpServletRequest; 
     private final FacesContext faceContext; 
@@ -28,34 +34,37 @@ public class BuscarBean {
         faceContext = FacesContext.getCurrentInstance();
         httpServletRequest = (HttpServletRequest) faceContext.getExternalContext().getRequest();
 
-        
     }
     
     public String buscar_s(){
-       search = new Busqueda();
-       this.resultados_s = new ArrayList<>();
-       this.resultados_s = (ArrayList<Servicio>) search.buscar_s(cadena);        
+       busqueda = new Busqueda();
+       this.resultados = new ArrayList<>();
+       this.resultados = (ArrayList<Servicio>) busqueda.buscar_s(cadena);        
        return "Buscar";
     }
     
-    public Busqueda getSearch(){
-        return search;
+    public void setBusqueda(Busqueda busqueda){
+        this.busqueda = busqueda;
     }
-       
-    public void setSearch(Busqueda s){
-        this.search = s;
+    
+    public Busqueda getBusqueda(){
+        return busqueda;
     }
 
+    public void setResultados(ArrayList<Servicio> resultados){
+        this.resultados = resultados;
+    }
+    
     public ArrayList<Servicio> getResultados() {
-        return this.resultados_s;
+        return resultados;
     }
-     
-    public String getCadena_s(){
+    
+    public void setCadena(String cadena){
+        this.cadena = cadena;
+    }
+    
+    public String getCadena(){
         return cadena;
-    }  
-        
-    public void setCadena_s(ArrayList<Servicio> serv){
-        this.resultados_s = serv;
-    }
+    }              
       
 }  

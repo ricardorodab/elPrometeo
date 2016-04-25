@@ -46,6 +46,6 @@
      <sql-query name="Buscar">
 	<return alias="Servicio" class="modelo.Servicio"/>
 	<![CDATA[SELECT presupuesto, description FROM servicio where "
-            + "LOWER(servicio.description) ~ :cadena; ]]>
+            + "LOWER(servicio.description) ~ :cadena]]>
      </sql-query>
 </hibernate-mapping>
