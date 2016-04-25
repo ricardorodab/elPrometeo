@@ -40,20 +40,19 @@ public class Busqueda {
     }
     
     public List<Servicio> buscar_s(String cadena ){
-         
+         ArrayList<Servicio> resultados = null;
          cadena = obtenerPalabras(cadena);
          sesion = HibernateUtil.getSessionFactory().getCurrentSession();
          List<Servicio> r = new ArrayList<>();
           try{
             Transaction t = sesion.beginTransaction();
              Query q = sesion.createSQLQuery("Buscar").setString("cadena",  cadena );
-
-             ArrayList<Servicio> resultados = (ArrayList<Servicio>) q.list();
-            sesion.getTransaction().commit();                       
-        }catch (Exception e) {
-            sesion.getTransaction().rollback();
+             resultados = (ArrayList<Servicio>) q.list(); 
+             sesion.getTransaction().commit();                       
+          }catch (Exception e) {
+              sesion.getTransaction().rollback();
         }
-         return resultados_s;
+        return resultados;
          
     }
            
