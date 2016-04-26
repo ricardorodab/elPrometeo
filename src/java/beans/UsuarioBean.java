@@ -164,7 +164,7 @@ public class UsuarioBean {
                 this.usuario = su;
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", su);
 
-                resultado = "perfil";
+                resultado = "servicio";
             } else {
                 resultado = "error";
             }

@@ -6,6 +6,8 @@
 package beans;
 
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 import javax.faces.bean.ManagedBean;
 import modelo.Servicio;
@@ -75,6 +77,15 @@ public class ServicioBean {
         
     }
     
+    public List<Servicio> getServicios(){
+        Session session = null;// = HibernateUtil.getSessionFactory().getCurrentSession();
+        if(session == null)
+            session = HibernateUtil.getSessionFactory().openSession();
+        List<Servicio> lista = session.createCriteria(Servicio.class).list();        
+        session.close();
+        return lista;
+    }
+   
     public Servicio buscar(int id){
         return null;
     }

@@ -12,14 +12,17 @@
     <br/>
     <br/> 
     <div class="row">
-      <div class="col-md-4" style="color:black;font-size:400%;">El Prometeo</div>
-      <div class="col-md-4">
+      <div class="col-md-3" style="color:black;font-size:400%;">El Prometeo</div>
+      <div class="col-md-3">
+        <a href="servicio.xhtml">Inicio y publicaciones</a>
+      </div>
+      <div class="col-md-3">          
 	<form id="searchform">
 	  <input type="text" placeholder="Buscar aqu&iacute;..."/>
 	  <button type="submit">Buscar</button>
 	</form>  
       </div>    
-      <div class="col-md-4">       
+      <div class="col-md-3">       
        <h:form rendered="#{usuarioBean.verificarSesion()}">
                  <h:commandButton value="Cerrar Sesión" action="#{usuarioBean.cerrarSesion()}"/>                         
         </h:form> 
