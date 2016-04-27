@@ -1,0 +1,11 @@
+ArrayList<Servicio> resultados = null;
+         cadena = obtenerPalabras(cadena);
+          try{
+            Transaction t = sesion.beginTransaction();
+            Query q = sesion.getNamedQuery("Buscar").setString("cadena",  cadena );
+            resultados = (ArrayList<Servicio>) q.list();                       
+            sesion.getTransaction().commit(); 
+          }catch (Exception e) {
+              sesion.getTransaction().rollback();
+        }
+        return resultados;

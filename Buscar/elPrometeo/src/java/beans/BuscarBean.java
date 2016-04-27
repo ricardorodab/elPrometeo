@@ -1,72 +1,65 @@
-/* To change this license header, choose License Headers in Project Properties.
+/*
+ * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package beans;
 
-import java.util.ArrayList;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-
 import busqueda.Busqueda;
-import javax.enterprise.context.Dependent;
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
+import java.util.List;
 import javax.inject.Named;
+import javax.enterprise.context.Dependent;
 import modelo.Servicio;
+
+/**
+ *
+ * @author claudia
+ */
 
 @Dependent
 @Named(value = "buscarBean")
-@ManagedBean
-@ApplicationScoped
 public class BuscarBean {
-
-    private Busqueda busqueda;
+    private List<Servicio> servicios;
+    private Servicio servicio;
     private String cadena;
-    private ArrayList<Servicio> resultados;
-   
-    private final HttpServletRequest httpServletRequest; 
-    private final FacesContext faceContext; 
-    private FacesMessage message; 
-  
-   
-    public BuscarBean(){
-       
-        faceContext = FacesContext.getCurrentInstance();
-        httpServletRequest = (HttpServletRequest) faceContext.getExternalContext().getRequest();
-
-    }
     
-    public String buscar_s(){
-       busqueda = new Busqueda();
-       this.resultados = new ArrayList<>();
-       this.resultados = (ArrayList<Servicio>) busqueda.buscar_s(cadena);        
-       return "Buscar";
-    }
-    
-    public void setBusqueda(Busqueda busqueda){
-        this.busqueda = busqueda;
-    }
-    
-    public Busqueda getBusqueda(){
-        return busqueda;
+    public String getCadena() {
+        return cadena;
     }
 
-    public void setResultados(ArrayList<Servicio> resultados){
-        this.resultados = resultados;
-    }
-    
-    public ArrayList<Servicio> getResultados() {
-        return resultados;
-    }
-    
-    public void setCadena(String cadena){
+    public void setCadena(String cadena) {
         this.cadena = cadena;
     }
+
+    public List<Servicio> getServicios() {
+        return servicios;
+    }
+
+    public void setServicios(List<Servicio> servicios) {
+        this.servicios = servicios;
+    }
+
+    public Servicio getServicio() {
+        return servicio;
+    }
+
+    public void setServicio(Servicio servicio) {
+        this.servicio = servicio;
+    }
+
+    public void buscarServicio(){
+        Busqueda busq = new Busqueda();
+        this.setServicios(busq.buscar_s(cadena));
+        if(servicios.isEmpty()){
+            System.out.println("vacío");
+        }
+    }
     
-    public String getCadena(){
-        return cadena;
-    }              
-      
-}  
+    /**
+     * Creates a new instance of BuscarBean
+     */
+    public BuscarBean() {
+        System.out.println("Iniciando Buscar bean");
+    }
+    
+}

@@ -2,41 +2,28 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>El Prometeo</title>
+        <title>Buscar Servicio</title>
     </h:head>
     <h:body>
-                <h1>Busqueda</h1>
-    <h:form>
-            <h:inputText value = "#{buscarBean.cadena}"/>
-            <h:commandButton value="Buscar" action="#{buscarBean.buscar_s()}"/>
-            <br/>
-               <c:choose>
-                <c:when test="#{buscarBean.resultados.size()!=0}">
-                    
-
-                        <h:dataTable value="#{buscarBean.resultados}" var="resultados">
-                            
-                            <h:column >
-                                <f:facet name="header">Descripcion</f:facet>
-                                    #{resultados.description}
-                            </h:column>
-                            
-                            <h:column >
-                                <f:facet name="header">Presupuesto</f:facet>
-                                    #{resultados.presupuesto}
-                            </h:column>
-                        
-                        </h:dataTable> 
-                </c:when>
-                <c:otherwise> 
-                    No hay resultados.
-                </c:otherwise>    
-            </c:choose>
-         
-    </h:form>            
+        <h1>Buscar Servicio</h1>
+         <h:form>
+            <h:inputText value="#{buscarBean.cadena}" label="Buscar"/>
+            <h:commandButton action="#{buscarBean.buscarServicio()}" value="Buscar"/>
+        </h:form>
+        <h:dataTable value="#{buscarBean.servicios}" var="servicio">
+            <h:column>
+                <h:link value="#{servicio.description}" outcome="servicio">
+                    <f:param name="description" value="#{servicio.description}"/>
+                </h:link>
+            </h:column>
+            <h:column>
+                <h:link value="#{servicio.presupuesto}" outcome="servicio">
+                    <f:param name="presupuesto" value="#{servicio.presupuesto}"/>
+                </h:link>
+            </h:column>
+        </h:dataTable>
     </h:body>
 </html>
 

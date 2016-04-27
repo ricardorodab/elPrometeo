@@ -8,56 +8,31 @@ import java.util.*;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import javax.inject.Named;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 
 import modelo.Servicio;
 
 public class Busqueda {
-    
- private Session sesion;
+    private final Session sesion;
  
     public Busqueda(){
-        //sesion = HibernateUtil.getSessionFactory().getCurrentSession();
-    }
-
-    
-    public static String obtenerPalabras(String cadena){
-        if(cadena.length()>0){
-        cadena = cadena.toLowerCase(); //Transforma la cadena a minúsculas.
-        String [] palabras  = cadena.split(" ");
-        String resultado = ".*(";
-            for(String p: palabras){
-                resultado+= p+"|";
-            
-            }
-            if(resultado.length() >= 5){
-                resultado =    resultado.substring(0,resultado.length()-1);
-            }
-        
-            resultado += ").*";
-            return resultado;
-        }
-        return cadena;
+        sesion = HibernateUtil.getSessionFactory().getCurrentSession();
     }
     
-    public List<Servicio> buscar_s(String cadena ){
-         ArrayList<Servicio> resultados = null;
-         cadena = obtenerPalabras(cadena);
-         sesion = HibernateUtil.getSessionFactory().getCurrentSession();
-         List<Servicio> r = new ArrayList<>();
-          try{
-            Transaction t = sesion.beginTransaction();
-             Query q = sesion.createSQLQuery("Buscar").setString("cadena",  cadena );
-             resultados = (ArrayList<Servicio>) q.list(); 
-             sesion.getTransaction().commit();                       
-          }catch (Exception e) {
-              sesion.getTransaction().rollback();
+    public String obtenerPalabra(String cadena){
+        if(cadena.length() > 0){
+            cadena = cadena.toLowerCase();
+            String [] palabras = cadena.split(" ");
+            return palabras[0];
         }
-        return resultados;
-         
+        return null;
     }
-           
-}
-
+    
+    public List<Servicio> buscar_s(String cadena){
+        List<Servicio> resultado;
+        Transaction tx = sesion.beginTransaction();
+        Query q = sesion.getNamedQuery("Buscar").setString("cadena", cadena);
+        resultado = (List<Servicio>) q.list();
+        return resultado;
+    }
+} 
+    
