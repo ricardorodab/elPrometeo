@@ -12,6 +12,7 @@ import java.util.Set;
 import javax.faces.bean.ManagedBean;
 import modelo.Servicio;
 import modelo.Usuario;
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -30,8 +31,16 @@ public class ServicioBean {
         return this.servicio;
     }
     
-    public void mostrar(Servicio servicio){
-        
+    public String mostrar(int servicio){   
+        System.out.println(servicio);
+        this.servicio = this.buscar(servicio);
+        if(this.servicio == null)
+            return "error";
+        return "mostrarServicio";
+    }
+    
+    public String mostrar(){
+        return "mostrarServicio";
     }
     
     /**
@@ -65,7 +74,7 @@ public class ServicioBean {
                 session.flush();
                 session.clear();
                 tx.commit();
-                session.close();                
+                session.close();
                 return "servicio";
             } catch (Exception e) {
                 return e.getMessage();
@@ -87,7 +96,26 @@ public class ServicioBean {
     }
    
     public Servicio buscar(int id){
-        return null;
+        /* Primero verificamos que el usuario esté registrado y sea un agente. */
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+        String sql = "FROM Servicio WHERE idServicio = '" + id
+                + "'";
+        session.flush();
+        session.clear();
+        Query query = session.createQuery(sql);
+        tx.commit();
+        // Si no existe el servicio.
+        if (query.list().isEmpty()) {
+            if(session.isOpen())
+                session.close();
+            return null;
+        } else {
+            Servicio servicio = (Servicio)query.uniqueResult();  
+            if(session.isOpen())
+                session.close();
+            return servicio;
+        }
     }
     
 }

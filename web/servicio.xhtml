@@ -81,11 +81,13 @@
     <br/>
     <br/>
     <div class="container">
-        <c:forEach var="ser" items="#{servicioBean.getServicios()}">            
+        <c:forEach var="ser" items="#{servicioBean.getServicios()}">   
       <div class="servicios">
 	<section>
-        <label>Titulo del servicio:</label>
-        <p>#{ser.titulo}</p>
+            <label> Titulo del servicio:</label>
+            <h:form> 
+                <p> <h:commandLink value="#{ser.titulo}" action="#{servicioBean.mostrar(ser.idServicio)}" /> </p>
+            </h:form>
         <label>Presupuesto:</label>
         <p>$#{ser.presupuesto}</p>
 	<label>Descripción:</label>

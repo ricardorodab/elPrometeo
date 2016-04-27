@@ -22,24 +22,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <h:head/>
 
     <h:body>
-            <f:view>
-            <h:form>
-                 <h:panelGrid columns="2">                    
-                <h:outputLabel value="Presupuesto"/>
-                <h:inputText value="#{servicioBean.servicio.presupuesto}"/>
-                
-                <h:outputLabel value="descripcion"/>
-                <h:inputTextarea value="#{servicioBean.servicio.description}"/>                
-                
-                <h:outputLabel value="tituli"/>
-                <h:inputText value="#{servicioBean.servicio.titulo}"/>                
-                
-                <h:commandButton value="Iniciar" action="#{servicioBean.crear(usuarioBean.usuario)}"/>
-                
-            </h:panelGrid>
-            </h:form>
-        </f:view>
-
-       
+                <div style="resize=both; overflow=auto;">Titulo: <h:outputText value="#{servicioBean.servicio.titulo}" /></div>
+                <div style="resize=both; overflow=auto;">Presupuesto: <h:outputText value="#{servicioBean.servicio.presupuesto}" /></div>
+                <div style="resize=both; overflow=auto;">Descripcion: <h:outputText value="#{servicioBean.servicio.description}" /></div>               
+               
+        
+        
     </h:body>
 </xhtml>
