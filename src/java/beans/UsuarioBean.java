@@ -234,7 +234,6 @@ public class UsuarioBean {
             session.close();
             return "index";
         } catch (Exception e) {
-            System.out.println(e);   
             return e.getMessage();
         }
     }
