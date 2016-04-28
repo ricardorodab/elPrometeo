@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Set;
 import javax.faces.bean.ManagedBean;
 import modelo.Agente;
+import modelo.Programador;
+import modelo.Registro;
 import modelo.Servicio;
 import modelo.Usuario;
 import org.hibernate.HibernateException;
@@ -116,8 +118,12 @@ public class ServicioBean {
         }
     }
     
-    public String eliminar(int id){
+    public String eliminar(Servicio s){
         /* Primero verificamos que el usuario no esté registrado */
+        int id = s.getIdServicio();
+        String na = s.getTitulo();
+        System.out.println(id);
+        System.out.println(na);
         Session session;
         try{
             session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -128,8 +134,6 @@ public class ServicioBean {
             session = HibernateUtil.getSessionFactory().openSession();
         try {
             //AQUÍ ME REGRESA QUE SON 0 CUANDO DEBERÍAN SER n > 0
-            System.out.println(this.servicio.getIdServicio());
-            System.out.println(id);
             /* La transacción actual. Se utiliza para que persistan los
             cambios que realicemos en la base */
             Transaction tx = session.beginTransaction();
@@ -150,16 +154,28 @@ public class ServicioBean {
                 return "error";
             } else {
                 Servicio servicioNew = (Servicio)query.list().get(0);
-                System.out.println("0");
+                for (Object o : servicioNew.getAgentes()) {
+                    Agente agente = (Agente)o;
+                    agente.getServicios().remove(servicioNew);
+                    session.merge(agente);
+                }
+                for (Object o : servicioNew.getProgramadors()) {
+                    Programador programador = (Programador)o;
+                    programador.getServicios().remove(servicioNew);
+                    session.merge(programador);
+                }
+                for (Object o : servicioNew.getRegistros()) {
+                    Registro registro = (Registro)o;
+                    registro.setServicio(null);
+                    registro = (Registro)session.merge(registro);
+                    session.delete(registro);
+                }
                 servicioNew.getAgentes().clear();
-                System.out.println("1");
                 servicioNew.getProgramadors().clear();
-                System.out.println("2");
                 servicioNew.getRegistros().clear();
-                System.out.println("3");
-                session.delete(servicioNew);
-                System.out.println("4");
-                System.out.println("Lo eliminó");
+                Servicio snew = (Servicio)session.merge(servicioNew);
+                session.delete(snew);
+                System.out.println("Aquí");
                 /* Se busca la instancia del usuario para eliminarla de la base *
                 Object persistentInstance = session.get(Usuario.class, id);
                 if (persistentInstance != null) {

@@ -57,11 +57,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     <br/>
                     <br/>
                     <br/>               
+                    #{servicioBean.eliminar(servicioBean.servicio)}
                     #{usuarioBean.verificarDatos()}
                     <h:form rendered="#{servicioBean.esElAgente(usuarioBean.usuario)}">
                         #{servicioBean.servicio.idServicio}
-                        <h:commandButton value="Eliminar post" class="btn btn-primary btn-lg active" action="#{servicioBean.eliminar(servicioBean.servicio.idServicio)}" />                         
-                        <h:commandButton value="Modificar post" class="btn btn-primary btn-lg active" action="#{servicioBean.eliminar(servicioBean.servicio.idServicio)}"/>                         
+                        <h:commandButton value="Eliminar post" class="btn btn-primary btn-lg active" action="#{servicioBean.eliminar(servicioBean.servicio)}" />                         
+                        <h:commandButton value="Modificar post" class="btn btn-primary btn-lg active" action="#{servicioBean.eliminar(servicioBean.servicio)}"/>                         
                     </h:form>         
                 </div>	
                 <div class="col-md-4">
