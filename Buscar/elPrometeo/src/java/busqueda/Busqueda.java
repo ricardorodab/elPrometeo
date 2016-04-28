@@ -28,11 +28,16 @@ public class Busqueda {
     }
     
     public List<Servicio> buscar_s(String cadena){
-        List<Servicio> resultado;
+        List<Servicio> resultado = null;
         Transaction tx = sesion.beginTransaction();
+        try{
         Query q = sesion.getNamedQuery("Buscar").setString("cadena", cadena);
         resultado = (List<Servicio>) q.list();
-        return resultado;
+         sesion.getTransaction().commit();
+        } catch (Exception e){
+         sesion.getTransaction().rollback();
+        }
+    return resultado;
     }
 } 
     

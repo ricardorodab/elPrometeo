@@ -51,10 +51,7 @@ public class BuscarBean {
 
     public void buscarServicio(){
         Busqueda busq = new Busqueda();
-        this.setServicios(busq.buscar_s(cadena));
-        if(servicios.isEmpty()){
-            System.out.println("vacío");
-        }
+        this.setServicios(busq.buscar_s(cadena));       
     }
 
     /**
