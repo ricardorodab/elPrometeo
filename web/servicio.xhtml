@@ -3,42 +3,43 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     <head>
         <style>
             section {
                 width:350px;
                 float:left;
                 padding:10px;
-                border: 1px solid blue;	 	 
+                border: 1px solid blue;
             }
         </style>
         <title>Servicios</title>
         <link href="css/bootstrap.min.css" rel="stylesheet"/>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
     </head>
-    
+
     <body style="background-color:#D3D3D3">
         <br/>
-        <br/> 
+        <br/>
         <div class="row">
             <div class="col-md-2" style="color:black;font-size:200%;">El Prometeo</div>
             <div class="col-md-2">
                 <a href="perfil.xhtml">Mi perfil</a>
             </div>
             <div class="col-md-3">
-                
+
                 <form id="searchform">
                     <input type="text" placeholder="Buscar aqu&iacute;..."/>
                     <button type="submit">Buscar</button>
-                </form>  
+                </form>
             </div>
             <div class="col-md-3">
                 <h:form rendered="#{usuarioBean.verificarSesion()}">
-                    <h:commandButton value="Cerrar Sesión" action="#{usuarioBean.cerrarSesion()}"/>                         
-                </h:form> 
+                    <h:commandButton value="Cerrar Sesión" action="#{usuarioBean.cerrarSesion()}"/>
+                </h:form>
             </div>
-            <div class="col-md-3">       
+            <div class="col-md-3">
                 <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Crea tu servicio</button>
                 <!-- Modal -->
                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -52,7 +53,7 @@
                                 <h:form>
                                     <div class="form-group">
                                         <h:inputText class="form-control" id="nombre" p:placeholder="Título" value="#{servicioBean.servicio.titulo}"/>
-                                    </div> 
+                                    </div>
                                     <div class="form-group">
                                         <label class="sr-only" for="exampleInputAmount">Presupuesto</label>
                                         <div class="input-group">
@@ -67,7 +68,7 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                         <h:commandButton value="Crear" action="#{servicioBean.crear(usuarioBean.usuario)}"/>
-                                    </div>              
+                                    </div>
                                 </h:form>
                             </div>
                         </div>
@@ -82,11 +83,11 @@
         <br/>
         <br/>
          <div class="container">
-            <c:forEach var="ser" items="#{servicioBean.getServicios()}">   
+           <ui:repeat value="#{servicioBean.servicios}" var="ser">
                 <div class="servicios">
                     <section>
                         <label> Titulo del servicio:</label>
-                        <h:form> 
+                        <h:form>
                             <p> <h:commandLink value="#{ser.titulo}" action="#{servicioBean.mostrar(ser.idServicio)}" > </h:commandLink> </p>
                         </h:form>
                         <label>Presupuesto:</label>
@@ -95,11 +96,11 @@
                         <p>#{ser.description}</p>
                     </section>
                 </div>
-            </c:forEach>
-        </div> 
+           </ui:repeat>
+        </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"/>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"/>
         <script src="bootstrap.min.js"/>
         <script src="docs/assets/js/ie10-viewport-bug-workaround.js"/>
-    </body>      
+    </body>
 </html>
