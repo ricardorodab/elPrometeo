@@ -22,7 +22,7 @@
         <property name="finalizado" type="java.lang.Boolean">
             <column name="finalizado" />
         </property>
-        <set name="agentes" table="pide_servicio" inverse="true" lazy="true" fetch="select">
+        <set name="agentes" table="pide_servicio" inverse="true" lazy="false" fetch="select">
             <key>
                 <column name="id_servicio" not-null="true" />
             </key>
