@@ -27,6 +27,7 @@
  */
 package dao;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -97,7 +98,8 @@ public class OperacionesDAO {
             e.printStackTrace();
             tx.rollback();
         }
-        tx.commit();
+        if(!tx.wasCommitted())
+            tx.commit();
     }
 
     public void guarda(Usuario u, TipoUsuario tipo) {
@@ -153,7 +155,12 @@ public class OperacionesDAO {
         try {
             if (u.esAgente()) {
                 Agente a = u.getAgente();
-                a.getServicios().clear();
+                Iterator ser = a.getServicios().iterator();
+                while (ser.hasNext()) {                
+                    Servicio s = (Servicio)ser.next();
+                    session().delete(s);
+                }                    
+                a.getServicios().clear();                
                 a = (Agente) session().merge(a);
                 session().delete(a);
                 session().delete(u);
@@ -177,6 +184,7 @@ public class OperacionesDAO {
         Transaction tx = session().beginTransaction();
         try {
             session().update(u);
+            session.update(u.getAgente());
             session().save(s);
         } catch (Exception e) {
             e.printStackTrace();
@@ -205,7 +213,8 @@ public class OperacionesDAO {
             for (Object o : servicio.getAgentes()) {
                     Agente agente = (Agente) o;
                     agente.getServicios().remove(servicio);
-                    session().merge(agente);
+                    //session().merge(agente);
+                    session().update(agente);
             }
             for (Object o : servicio.getProgramadors()) {
                 Programador programador = (Programador) o;
@@ -221,7 +230,8 @@ public class OperacionesDAO {
             servicio.getAgentes().clear();
             servicio.getProgramadors().clear();
             servicio.getRegistros().clear();
-            servicio = (Servicio) session().merge(servicio);
+            //servicio = (Servicio) session().merge(servicio);
+            session().update(servicio);
             session().delete(servicio);
             tx.commit();
         } catch (Exception e) {

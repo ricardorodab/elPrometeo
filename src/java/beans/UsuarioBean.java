@@ -34,6 +34,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import dao.OperacionesDAO;
+import java.util.Iterator;
+import modelo.Servicio;
 import modelo.TipoUsuario;
 import modelo.Usuario;
 
@@ -99,10 +101,10 @@ public class UsuarioBean {
          * Primero verificamos que el usuario no esté registrado
          */
         Usuario u = dao.buscaUsuarioPorCorreo(usuario.getCorreo());
-        if (u == null) {
+        if (u != null) {
             return "El usuario con ese correo ya existe.";
         } else {
-            dao.guarda(u, tipo);
+            dao.guarda(usuario, tipo);
             return verificarDatos();
         }
     }
@@ -140,7 +142,7 @@ public class UsuarioBean {
      *
      * @return
      */
-    public String eliminar() {
+    public String eliminar() {       
         dao.elimina(usuario);
         return "index";
     }

@@ -34,8 +34,13 @@ public class ServicioBean {
     public Servicio getServicio(){
         return this.servicio;
     }
-
+    
     public boolean esElAgente(Usuario usuario){
+        return esElAgente(usuario, this.servicio);
+    }
+
+    public boolean esElAgente(Usuario usuario,Servicio ser){
+
         /* Primero verificamos que el usuario esté registrado y sea un agente. */
         Usuario u = dao.buscaUsuarioPorCorreo(usuario.getCorreo());
         if (u == null) {
@@ -44,13 +49,14 @@ public class ServicioBean {
             if (!u.esAgente()) {
                 return false;
             }
-            Agente dueno = (Agente) servicio.getAgentes().toArray()[0]; // new ArrayList<Agente>(this.servicio.getAgentes()).get(0);
+            Agente dueno = (Agente) ser.getAgentes().iterator().next(); // new ArrayList<Agente>(this.servicio.getAgentes()).get(0);
             return dueno.getIdAgente() == usuario.getAgente().getIdAgente();
         }
     }
 
     public String mostrar(int servicio) {
         this.servicio = this.buscar(servicio);
+        System.out.println(this.servicio.getIdServicio());
         return this.servicio == null ? "error" : "mostrarServicio";
     }
 
@@ -68,15 +74,16 @@ public class ServicioBean {
                 return "error";
             }
             servicio.setFinalizado(false);
-            servicio.getAgentes().add(user.getAgente());
+            servicio.getAgentes().add(user.getAgente());  
+            Agente agente = user.getAgente();
             user.getAgente().getServicios().add(this.servicio);
             dao.actualizaServicio(user, servicio);
             return "servicio";
         }
     }
 
-    public String eliminar(Servicio servicio){
-        dao.eliminarServicio(servicio);
+    public String eliminar(Servicio servicio2){
+        dao.eliminarServicio(servicio2);
         return "servicio";
     }
 
@@ -89,10 +96,6 @@ public class ServicioBean {
         if (servicio == null) {
             return null;
         } else {
-            //Si no hago esto, no se quedan los Sets en el objeto.
-//            servicio.getAgentes().isEmpty();
-//            servicio.getRegistros().isEmpty();
-//            servicio.getProgramadors().isEmpty();
             return servicio;
         }
     }
