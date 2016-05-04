@@ -58,6 +58,23 @@ public class ServicioBean {
         return esElAgente(usuario, this.servicio);
     }
     
+     public boolean esElProgramador(Usuario usuario,Servicio ser){
+        
+        /* Primero verificamos que el usuario esté registrado y sea un agente. */
+        Usuario u = dao.buscaUsuarioPorCorreo(usuario.getCorreo());
+        if (u == null) {
+            return false;
+        } else if(!ser.getFinalizado()){
+            return false;
+        }else{
+            if (u.esAgente()) {
+                return false;
+            }
+            Programador dueno = (Programador) ser.getProgramadors().iterator().next(); // new ArrayList<Agente>(this.servicio.getAgentes()).get(0);
+            return dueno.getIdProgramador()== usuario.getProgramador().getIdProgramador();
+        }
+    }
+    
     public boolean esElAgente(Usuario usuario,Servicio ser){
         
         /* Primero verificamos que el usuario esté registrado y sea un agente. */
@@ -76,6 +93,18 @@ public class ServicioBean {
     public String mostrar(int servicio) {
         this.servicio = this.buscar(servicio);
         return this.servicio == null ? "error" : "mostrarServicio";
+    }
+    
+        
+    public String mostrarProgramador(Servicio ser){
+        //System.out.println(ser.getIdServicio());        
+        //Programador ag = getProgramador(buscar(ser.getIdServicio()));        
+        //usuarioBean.setUsuario(dao.buscaUsuario(ag.getIdProgramador()));
+        return "perfil";
+    }
+    
+    public String mostrarAgente(Servicio ser){
+        return "perfil";
     }
     
     /**
@@ -107,6 +136,36 @@ public class ServicioBean {
     
     public List<Servicio> getServicios(){
         return dao.obtenServicios();
+    }
+    
+    public String getDatosProgramador(Servicio ser){
+        Programador ag = getProgramador(buscar(ser.getIdServicio()));
+        Usuario us = dao.buscaUsuario(ag.getIdProgramador());
+        return "Nombre del programador: "+us.getNombre()+" "+us.getApellidoPaterno()+"\n"
+                +"Correo del programador: "+us.getCorreo()+"\n"
+                +"Teléfono: "+us.getTelefono()+"\n";
+    }
+    
+    public String getDatosAgente(Servicio ser){
+        Agente ag = getAgente(buscar(ser.getIdServicio()));
+        Usuario us = dao.buscaUsuario(ag.getIdAgente());
+        return "Nombre del agente: "+us.getNombre()+" "+us.getApellidoPaterno()+"\n"
+                +"Correo del agente: "+us.getCorreo()+"\n"
+                +"Teléfono: "+us.getTelefono()+"\n";
+    }
+    
+    public Agente getAgente(Servicio ser){
+        if(ser == null)
+            return null;
+        return (Agente)ser.getAgentes().iterator().next();
+    }
+    
+    public Programador getProgramador(Servicio ser){
+        if(ser == null)
+            return null;
+        if(!ser.getFinalizado())
+            return null;
+        return (Programador)ser.getProgramadors().iterator().next();
     }
     
     public Servicio buscar(int id){

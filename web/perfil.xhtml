@@ -18,10 +18,10 @@
         <a href="servicio.xhtml">Inicio y publicaciones</a>
       </div>
       <div class="col-md-3">          
-	<form id="searchform">
-	  <input type="text" placeholder="Buscar aqu&iacute;..."/>
-	  <button type="submit">Buscar</button>
-	</form>  
+         <!-- <h:form id="searchform">
+              <h:inputText p:placeholder="Buscar aqu&iacute;..." value="#{busquedasBean.cond}"/>
+              <h:commandButton value="Buscar" action="#{busquedasBean.getServicios()}" />
+          </h:form> -->
       </div>    
       <div class="col-md-3">       
        <h:form rendered="#{usuarioBean.verificarSesion()}">
@@ -73,8 +73,8 @@
 	<br/>
 	<div style="resize=both; overflow=auto;">
             <h:outputText value="#{usuarioBean.usuario.esAgente() ? 
-                                   (!usuarioBean.usuario.agente.tieneOcupacion()  ? 'Aquí se mostrará la información del agente creativo o programador. La información se va ajustando de acuerdo a la división definida de la pantalla' : usuarioBean.usuario.agente.ocupacion) 
-                                   : !usuarioBean.usuario.programador.tieneFormacion() ? 'Aquí se mostrará la información del agente creativo o programador. La información se va ajustando de acuerdo a la división definida de la pantalla' : usuarioBean.usuario.programador.formacion}"/></div>
+                                   (!usuarioBean.usuario.agente.tieneOcupacion()  ? 'Aquí se mostrará la ocupación e información personal que usted desee exponer. Para modificar este espacio ingrese a Modificar perfil' : usuarioBean.usuario.agente.ocupacion) 
+                                   : !usuarioBean.usuario.programador.tieneFormacion() ? 'Aquí se mostrará la ocupación, formación como programador e información personal que usted desee exponer. Para modificar este espacio ingrese a Modificar perfil' : usuarioBean.usuario.programador.formacion}"/></div>
 	<br/>
 	<br/>
         <div style="resize=both; overflow=auto">Tipo de usuario: <h:outputText value="#{usuarioBean.usuario.esAgente() ? 'Agente Creativo' : 'Programador'}"/></div>
@@ -91,7 +91,7 @@
                           <div class="col-md-6">Hechos:
                               <br/>
                           <ui:repeat value="#{servicioBean.servicios}" var="ser">                
-                              <h:form rendered="#{(servicioBean.esElAgente(usuarioBean.usuario,ser) and ser.finalizado)}">
+                              <h:form rendered="#{((servicioBean.esElAgente(usuarioBean.usuario,ser) or servicioBean.esElProgramador(usuarioBean.usuario,ser)) and ser.finalizado)}">
                                   <div class="servicios">
                                       <section>
                                           <br/>

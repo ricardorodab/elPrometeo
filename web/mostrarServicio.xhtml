@@ -87,15 +87,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 </div>
                 <div class="col-md-6">
                     <br/>
-                    <h2>Información del usuario del servicio:</h2>
+                    <h2><h:outputText value="#{servicioBean.esElAgente(usuarioBean.usuario) ? 'Información del programador:' : 'Información del agente creativo'}"/></h2>
                     <br/>
                     <br/>
                     <div class="informacion">
                         <section>
-                            <h:outputText value="#{usuarioBean.usuario.esAgente() ? 
-                                   (!usuarioBean.usuario.agente.tieneOcupacion()  ? 'Aquí se mostrará la información del agente creativo o programador. La información se va ajustando de acuerdo a la división definida de la pantalla' : usuarioBean.usuario.agente.ocupacion) 
-                                   : !usuarioBean.usuario.programador.tieneFormacion() ? 'Aquí se mostrará la información del agente creativo o programador. La información se va ajustando de acuerdo a la división definida de la pantalla' : usuarioBean.usuario.programador.formacion}"/>
-	
+                          
+                            <h:outputText value="#{servicioBean.servicio.finalizado ? (servicioBean.esElAgente(usuarioBean.usuario) ? servicioBean.getDatosProgramador(servicioBean.servicio) : servicioBean.getDatosAgente(servicioBean.servicio)) : 'Aquí aparecerán los datos de contacto del usuario que aceptó/solicita el servicio una vez que alguien desee tomar el trabajo.'}" />
+                           <!-- <h:form rendered="{servicioBean.servicio.finalizado}">
+                                <h:commandLink value="CONTACTO" action="{servicioBean.mostrarProgramador(servicioBean.servicio)}" /> 
+                            </h:form> -->
                         </section>
                     </div>
                 </div>

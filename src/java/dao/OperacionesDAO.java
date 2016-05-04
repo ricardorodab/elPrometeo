@@ -40,6 +40,7 @@ import modelo.Registro;
 import modelo.Servicio;
 import modelo.TipoUsuario;
 import modelo.Usuario;
+import org.hibernate.TransactionException;
 import util.HibernateUtil;
 
 /**
@@ -50,7 +51,7 @@ public class OperacionesDAO {
 
     private Session session;
 
-    private Session session() {
+    private synchronized Session session() {
         if (HibernateUtil.getSessionFactory().isClosed()) {
             session = HibernateUtil.getSessionFactory().openSession();
         } else {
@@ -59,6 +60,22 @@ public class OperacionesDAO {
         return session;
     }
 
+    public Usuario buscaUsuario(int id){
+         Transaction tx = session().beginTransaction();
+        try {
+            Query q = session().createSQLQuery("select * from usuario where id_Usuario = :id")
+                             .addEntity(Usuario.class)
+                             .setInteger("id", id);
+            return (Usuario) q.uniqueResult();
+        } catch (Exception e) {
+            e.printStackTrace(); // Lo mantengo para revisar el log.
+            tx.rollback();
+        } finally {
+            tx.commit();
+        }
+        return null;
+    }
+    
     public Usuario buscaUsuarioPorCorreo(String correo) {
         Transaction tx = session().beginTransaction();
         try {
@@ -201,7 +218,10 @@ public class OperacionesDAO {
             List<Servicio> lista = q.list();
             tx.commit();
             return lista;
-        } catch (Exception e) {
+        } 
+        catch (TransactionException e) {
+            return obtenServicios();
+        }catch(Exception e){
             e.printStackTrace();
         }
         return null;
@@ -256,10 +276,6 @@ public class OperacionesDAO {
     }
 
     public String finalizaServicio(Programador p, Servicio ser) {
-        System.out.println("111");
-        System.out.println(ser.getIdServicio());
-        System.out.println(p.getIdProgramador());
-        System.out.println("111");
         Transaction tx = session().beginTransaction();
         try{
             ser.getProgramadors().add(p);
@@ -273,6 +289,27 @@ public class OperacionesDAO {
             return "error";
         }
         return "servicio";
+    }
+
+    public List<Servicio> obtenServicios(String cond) {
+        //Transaction tx = session().beginTransaction();
+        /*Transaction tx;
+        if (session().getTransaction() != null
+            && session().getTransaction().isActive()) {
+            tx = session().getTransaction();
+    } else {
+            tx = session().beginTransaction();
+        }*/        
+        /*try {
+            Query q = session().createSQLQuery("select * from servicio where titulo like %:titulo% or description like %:description%")
+                    .addEntity(Servicio.class).setString("titulo", cond).setString("description", cond);
+            List<Servicio> lista = q.list();
+            tx.commit();
+            return lista;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
+        return null;
     }
 
 }
