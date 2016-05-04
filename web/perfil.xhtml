@@ -67,23 +67,35 @@
 	  <div class="row">
 	    <br/>
 	    <div class="col-md-6">Hechos:</div>
-            <div class="col-md-offset-6">Haciendo: 
-                <ui:repeat value="#{servicioBean.servicios}" var="ser">                
-                    <h:form rendered="#{servicioBean.esElAgente(usuarioBean.usuario,ser)}">
+            <ui:repeat value="#{servicioBean.servicios}" var="ser">                
+                    <h:form rendered="#{(servicioBean.esElAgente(usuarioBean.usuario,ser) and ser.finalizado)}">
                         <div class="servicios">
                             <section>
                                 <label> Titulo del servicio:</label>
-                                <h:form>
                                     <p> <h:commandLink value="#{ser.titulo}" action="#{servicioBean.mostrar(ser.idServicio)}" > </h:commandLink> </p>
-                                </h:form>
                                 <label>Presupuesto:</label>
                         <p>$#{ser.presupuesto}</p>
                         <label>Descripción:</label>
                         <p>#{ser.description}</p>
-                        <h:form rendered="#{servicioBean.esElAgente(usuarioBean.usuario,ser)}">
-                            <h:commandButton value="Eliminar post" class="btn btn-primary btn-lg active" action="#{servicioBean.eliminar(ser)}" />                         
+                            <h:commandButton value="Eliminar post" class="btn btn-primary btn-lg active" action="#{servicioBean.eliminar(ser)}" rendered="false" />                         
                             <!--<h:commandButton value="Modificar post" class="btn btn-primary btn-lg active" action="{servicioBean.eliminar(ser)}"/> -->                         
-                        </h:form>   
+                    </section>
+                        </div>
+                </h:form>
+           </ui:repeat>
+            <div class="col-md-offset-6">Haciendo: 
+                <ui:repeat value="#{servicioBean.servicios}" var="ser">                
+                    <h:form rendered="#{(servicioBean.esElAgente(usuarioBean.usuario,ser) and !ser.finalizado)}">
+                        <div class="servicios">
+                            <section>
+                                <label> Titulo del servicio:</label>
+                                    <p> <h:commandLink value="#{ser.titulo}" action="#{servicioBean.mostrar(ser.idServicio)}" > </h:commandLink> </p>
+                                <label>Presupuesto:</label>
+                        <p>$#{ser.presupuesto}</p>
+                        <label>Descripción:</label>
+                        <p>#{ser.description}</p>
+                            <h:commandButton value="Eliminar post" class="btn btn-primary btn-lg active" action="#{servicioBean.eliminar(ser)}" rendered="#{servicioBean.esElAgente(usuarioBean.usuario,ser)}" />                         
+                            <!--<h:commandButton value="Modificar post" class="btn btn-primary btn-lg active" action="{servicioBean.eliminar(ser)}"/> -->                         
                     </section>
                         </div>
                 </h:form>

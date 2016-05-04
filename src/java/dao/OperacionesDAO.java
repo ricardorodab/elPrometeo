@@ -255,4 +255,24 @@ public class OperacionesDAO {
         return null;
     }
 
+    public String finalizaServicio(Programador p, Servicio ser) {
+        System.out.println("111");
+        System.out.println(ser.getIdServicio());
+        System.out.println(p.getIdProgramador());
+        System.out.println("111");
+        Transaction tx = session().beginTransaction();
+        try{
+            ser.getProgramadors().add(p);
+            ser.setFinalizado(true);
+            p.getServicios().add(ser);
+            session().update(ser);
+            tx.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            tx.rollback();
+            return "error";
+        }
+        return "servicio";
+    }
+
 }

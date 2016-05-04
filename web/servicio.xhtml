@@ -83,23 +83,22 @@
         <br/>
         <br/>
          <div class="container">
-           <ui:repeat value="#{servicioBean.servicios}" var="ser">
+             <ui:repeat value="#{servicioBean.servicios}" var="ser" rendered="#{!ser.finalizado}">
+                 <h:form rendered="#{!ser.finalizado}">
                 <div class="servicios">
                     <section>
                         <label> Titulo del servicio:</label>
-                        <h:form>
                             <p> <h:commandLink value="#{ser.titulo}" action="#{servicioBean.mostrar(ser.idServicio)}" > </h:commandLink> </p>
-                        </h:form>
                         <label>Presupuesto:</label>
                         <p>$#{ser.presupuesto}</p>
                         <label>Descripción:</label>
                         <p>#{ser.description}</p>
-                        <h:form rendered="#{servicioBean.esElAgente(usuarioBean.usuario,ser)}">
-                            <h:commandButton value="Eliminar post" class="btn btn-primary btn-lg active" action="#{servicioBean.eliminar(ser)}" />                         
-                            <!--<h:commandButton value="Modificar post" class="btn btn-primary btn-lg active" action="{servicioBean.eliminar(ser)}"/> -->                         
-                        </h:form>   
+                            <h:commandButton value="Eliminar post" class="btn btn-primary btn-lg active" action="#{servicioBean.eliminar(ser)}" rendered="#{servicioBean.esElAgente(usuarioBean.usuario,ser)}" />                         
+                            <!--<h:commandButton value="Modificar post" class="btn btn-primary btn-lg active" action="{servicioBean.eliminar(ser)}"/> -->                                                 
+                            <h:commandButton value="Responder solicitud y aceptar servicio" class="btn btn-primary btn-lg active" action="#{servicioBean.setProgramador(usuarioBean.usuario,ser)}" rendered="#{(!usuarioBean.usuario.esAgente() and !ser.finalizado)}"/>
                     </section>
                 </div>
+                 </h:form>
            </ui:repeat>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"/>

@@ -12,6 +12,7 @@ import javax.faces.bean.RequestScoped;
 
 import dao.OperacionesDAO;
 import modelo.Agente;
+import modelo.Programador;
 import modelo.Servicio;
 import modelo.Usuario;
 
@@ -22,25 +23,43 @@ import modelo.Usuario;
 @RequestScoped
 @ManagedBean
 public class ServicioBean {
-
+    
     private Servicio servicio = new Servicio();
-
+    
     private final OperacionesDAO dao;
-
+    
     public ServicioBean () {
         dao = new OperacionesDAO();
     }
-
+    
     public Servicio getServicio(){
         return this.servicio;
+    }
+    
+    public String setProgramador(Usuario usuario){
+        return setProgramador(usuario, this.servicio);
+    }
+    
+    public String setProgramador(Usuario usuario, Servicio ser){
+        /* Primero verificamos que el usuario esté registrado y sea un agente. */
+        Usuario u = dao.buscaUsuarioPorCorreo(usuario.getCorreo());
+        if (u == null) {
+            return "error";
+        } else {
+            if (u.esAgente()) {
+                return "error";
+            }
+            Programador p = usuario.getProgramador();
+            return dao.finalizaServicio(p,ser);
+        }
     }
     
     public boolean esElAgente(Usuario usuario){
         return esElAgente(usuario, this.servicio);
     }
-
+    
     public boolean esElAgente(Usuario usuario,Servicio ser){
-
+        
         /* Primero verificamos que el usuario esté registrado y sea un agente. */
         Usuario u = dao.buscaUsuarioPorCorreo(usuario.getCorreo());
         if (u == null) {
@@ -53,13 +72,12 @@ public class ServicioBean {
             return dueno.getIdAgente() == usuario.getAgente().getIdAgente();
         }
     }
-
+    
     public String mostrar(int servicio) {
         this.servicio = this.buscar(servicio);
-        System.out.println(this.servicio.getIdServicio());
         return this.servicio == null ? "error" : "mostrarServicio";
     }
-
+    
     /**
      * Método para crear un nuevo servicio.
      * @param usuario - Es el usuario actual que lo crea.
@@ -74,23 +92,23 @@ public class ServicioBean {
                 return "error";
             }
             servicio.setFinalizado(false);
-            servicio.getAgentes().add(user.getAgente());  
+            servicio.getAgentes().add(user.getAgente());
             Agente agente = user.getAgente();
             user.getAgente().getServicios().add(this.servicio);
             dao.actualizaServicio(user, servicio);
             return "servicio";
         }
     }
-
+    
     public String eliminar(Servicio servicio2){
         dao.eliminarServicio(servicio2);
         return "servicio";
     }
-
+    
     public List<Servicio> getServicios(){
         return dao.obtenServicios();
     }
-
+    
     public Servicio buscar(int id){
         Servicio servicio = dao.buscaServicioPorId(id);
         if (servicio == null) {
@@ -99,5 +117,5 @@ public class ServicioBean {
             return servicio;
         }
     }
-
+    
 }
