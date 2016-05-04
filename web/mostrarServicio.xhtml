@@ -21,6 +21,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
+        <style>
+            section {
+                width:350px;
+                float:left;
+                padding:10px;
+                border: 1px solid black;
+            }
+        </style>
         <title>Mi perfil</title>
         <link href="css/bootstrap.min.css" rel="stylesheet"/>
     </h:head>
@@ -45,22 +53,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 </h:form> 
             </div>
         </div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
         <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <br/>
+            <div class="row">	
+                <div class="col-md-6">
                     <br/>
                     <h1>Servicio:</h1>
                     <br/>
                     <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>               
-                          
-                </div>	
-                <div class="col-md-4">
-                    <div style="resize=both; overflow=auto"><h:outputText value="#{usuarioBean.usuario.esAgente() ? 'Este es una publicación de un agente cretivo buscando programador' : 'Un agente creativo te está buscando para poder realizar su idea en una realidad'}"/>:</div>
+                    <div style="resize=both; overflow=auto"><h:outputText value="#{usuarioBean.usuario.esAgente() ? 'Este es una publicación de un agente creativo buscando programador' : 'Un agente creativo te está buscando para poder realizar su idea en una realidad'}"/>:</div>
                     <br/>
                     <br/>
                     <br/>
@@ -72,16 +78,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <br/>
                         <div style="resize=both; overflow=auto">Tipo de usuario: <h:outputText value="#{usuarioBean.usuario.esAgente() ? 'Agente Creativo' : 'Programador'}"/></div>
                     </div>
-                        <div class="row">
-                            <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                        </div>	
+                    <br/>
+                    <br/>
+                    <br/>
+                    <h:form>
+                    <h:commandButton value="Cancelar servicio" class="btn btn-default" action="#{usuarioBean.modificarPerfil()}"/>
+                    </h:form>
+                </div>
+                <div class="col-md-6">
+                    <br/>
+                    <h2>Información del usuario del servicio:</h2>
+                    <br/>
+                    <br/>
+                    <div class="informacion">
+                        <section>
+                            <h:outputText value="#{usuarioBean.usuario.esAgente() ? 
+                                   (!usuarioBean.usuario.agente.tieneOcupacion()  ? 'Aquí se mostrará la información del agente creativo o programador. La información se va ajustando de acuerdo a la división definida de la pantalla' : usuarioBean.usuario.agente.ocupacion) 
+                                   : !usuarioBean.usuario.programador.tieneFormacion() ? 'Aquí se mostrará la información del agente creativo o programador. La información se va ajustando de acuerdo a la división definida de la pantalla' : usuarioBean.usuario.programador.formacion}"/>
+	
+                        </section>
+                    </div>
                 </div>
             </div>
         </div>	

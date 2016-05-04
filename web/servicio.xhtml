@@ -11,7 +11,7 @@
                 width:350px;
                 float:left;
                 padding:10px;
-                border: 1px solid blue;
+                border: 1px solid black;
             }
         </style>
         <title>Servicios</title>
@@ -27,7 +27,7 @@
             <div class="col-md-2">
                 <a href="perfil.xhtml">Mi perfil</a>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
 
                 <form id="searchform">
                     <input type="text" placeholder="Buscar aqu&iacute;..."/>
@@ -93,7 +93,7 @@
                         <p>$#{ser.presupuesto}</p>
                         <label>Descripción:</label>
                         <p>#{ser.description}</p>
-                            <h:commandButton value="Eliminar post" class="btn btn-primary btn-lg active" action="#{servicioBean.eliminar(ser)}" rendered="#{servicioBean.esElAgente(usuarioBean.usuario,ser)}" />                         
+                            <h:commandButton value="Eliminar servicio" class="btn btn-primary btn-lg active" action="#{servicioBean.eliminar(ser)}" rendered="#{servicioBean.esElAgente(usuarioBean.usuario,ser)}" />                         
                             <!--<h:commandButton value="Modificar post" class="btn btn-primary btn-lg active" action="{servicioBean.eliminar(ser)}"/> -->                                                 
                             <h:commandButton value="Responder solicitud y aceptar servicio" class="btn btn-primary btn-lg active" action="#{servicioBean.setProgramador(usuarioBean.usuario,ser)}" rendered="#{(!usuarioBean.usuario.esAgente() and !ser.finalizado)}"/>
                     </section>
