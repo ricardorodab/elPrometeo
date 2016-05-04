@@ -95,6 +95,7 @@ public class ServicioBean {
         return this.servicio == null ? "error" : "mostrarServicio";
     }
     
+    
         
     public String mostrarProgramador(Servicio ser){
         //System.out.println(ser.getIdServicio());        

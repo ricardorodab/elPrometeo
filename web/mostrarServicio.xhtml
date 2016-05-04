@@ -57,6 +57,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <br/>
         <br/>
         <br/>
+        <a href="../src/java/dao/OperacionesDAO.java"></a>
         <br/>
         <br/>
         <div class="container">
@@ -81,9 +82,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     <br/>
                     <br/>
                     <br/>
-                    <h:form>
-                    <h:commandButton value="Cancelar servicio" class="btn btn-default" action="#{usuarioBean.modificarPerfil()}"/>
-                    </h:form>
+
                 </div>
                 <div class="col-md-6">
                     <br/>
@@ -92,7 +91,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     <br/>
                     <div class="informacion">
                         <section>
-                          
                             <h:outputText value="#{servicioBean.servicio.finalizado ? (servicioBean.esElAgente(usuarioBean.usuario) ? servicioBean.getDatosProgramador(servicioBean.servicio) : servicioBean.getDatosAgente(servicioBean.servicio)) : 'Aquí aparecerán los datos de contacto del usuario que aceptó/solicita el servicio una vez que alguien desee tomar el trabajo.'}" />
                            <!-- <h:form rendered="{servicioBean.servicio.finalizado}">
                                 <h:commandLink value="CONTACTO" action="{servicioBean.mostrarProgramador(servicioBean.servicio)}" /> 
