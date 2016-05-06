@@ -17,7 +17,7 @@
         <property name="reputacionAgente" type="java.lang.Double">
             <column name="reputacion_agente" precision="17" scale="17" />
         </property>
-        <set name="servicios" table="pide_servicio" inverse="false" lazy="true" fetch="select">
+        <set name="servicios" table="pide_servicio" inverse="false" lazy="false" fetch="select">
             <key>
                 <column name="id_agente" not-null="true" />
             </key>

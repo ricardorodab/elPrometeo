@@ -117,7 +117,19 @@ public class Servicio  implements java.io.Serializable {
         this.programadors = programadors;
     }
 
-
+    @Override
+    public boolean equals(Object o){
+        if(o == null)
+            return false;
+        Servicio temp = (Servicio)o;
+        if(temp.getIdServicio() != this.getIdServicio())
+            return false;
+        if(!temp.getTitulo().equals(this.getTitulo()))
+            return false;
+        if(!this.getAgentes().equals(temp.getAgentes()))
+            return false;
+        return true;
+    }
 
 
 }

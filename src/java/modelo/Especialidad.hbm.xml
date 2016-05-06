@@ -11,7 +11,7 @@
         <property name="especialidad" type="string">
             <column name="especialidad" />
         </property>
-        <set name="programadors" table="se_dedica" inverse="true" lazy="true" fetch="select">
+        <set name="programadors" table="se_dedica" inverse="true" lazy="false" fetch="select">
             <key>
                 <column name="id_especialidad" not-null="true" />
             </key>
