@@ -45,4 +45,8 @@
             </many-to-many>
         </set>
     </class>
+     <sql-query name="Buscar">
+        <return alias="Servicio" class="modelo.Servicio"/>
+	<![CDATA[SELECT * FROM servicio WHERE LOWER(servicio.description) ~ :cadena]]>
+      </sql-query>
 </hibernate-mapping>

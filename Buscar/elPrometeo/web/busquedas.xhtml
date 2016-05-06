@@ -9,10 +9,10 @@
     <h:body>
         <h1>Buscar Servicio</h1>
          <h:form>
-            <h:inputText value="#{buscarBean.cadena}" label="Buscar"/>
-            <h:commandButton action="#{buscarBean.buscarServicio()}" value="Buscar"/>
+            <h:inputText value="#{busquedasBean.cadena}" label="Buscar"/>
+            <h:commandButton action="#{busquedasBean.buscarServicio()}" value="Buscar"/>
         </h:form>
-        <h:dataTable value="#{buscarBean.servicios}" var="servicio">
+        <h:dataTable value="#{busquedasBean.servicios}" var="servicio">
             <h:column>
                 <h:link value="#{servicio.titulo}" outcome="servicio">
                     <f:param name="Título" value="#{servicio.titulo}"/>
