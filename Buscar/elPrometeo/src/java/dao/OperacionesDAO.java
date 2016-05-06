@@ -311,5 +311,27 @@ public class OperacionesDAO {
         }*/
         return null;
     }
+    public List<Servicio> buscar_s(String cadena){
+            List<Servicio> resultado = null;
+            Transaction tx = session.beginTransaction();
+            try{
+                Query q = session.getNamedQuery("Buscar").setString("cadena", cadena);
+                resultado = (List<Servicio>) q.list();
+                session.getTransaction().commit();
+            } catch (Exception e){
+         session.getTransaction().rollback();
+        }
+    return resultado;
+    }
+
+    //no sé si este método va aquí :p
+    public String obtenerPalabra(String cadena){
+            if(cadena.length() > 0){
+                cadena = cadena.toLowerCase();
+                String [] palabras = cadena.split(" ");
+                return palabras[0];
+            }
+            return null;
+    }
 
 }

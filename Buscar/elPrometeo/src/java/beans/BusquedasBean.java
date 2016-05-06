@@ -30,30 +30,42 @@ import modelo.Servicio;
 @ManagedBean
 public class BusquedasBean {
     
-    private List<Servicio> condicion;
-    private String cond = new String("");
+    private List<Servicio> servicios;
+    private Servicio servicio;
+    private String cadena;
     private final OperacionesDAO dao;
     
     public BusquedasBean () {
         dao = new OperacionesDAO();
     }
     
-    public void setCond(String cond){
-        this.cond = cond;
+    public String getCadena() {
+        return cadena;
     }
-    
-    public String getCond(){
-        return this.cond;
+
+    public void setCadena(String cadena) {
+        this.cadena = cadena;
     }
-    
-    public String getServicios(){
-        //this.condicion = dao.obtenServicios(this.cond);
-        return "busquedas";
+
+    public List<Servicio> getServicios() {
+        return servicios;
     }
-    
-    public String getServicios(String cond){
-        //this.condicion = dao.obtenServicios(cond);
-        return "busquedas";
+
+    public void setServicios(List<Servicio> servicios) {
+        this.servicios = servicios;
     }
-    
+
+    public Servicio getServicio() {
+        return servicio;
+    }
+
+    public void setServicio(Servicio servicio) {
+        this.servicio = servicio;
+    }
+
+    public void buscarServicio(){
+        OperacionesDAO busq = new OperacionesDAO();
+        this.setServicios(busq.buscar_s(cadena));       
+    }
+
 }
