@@ -1,3 +1,30 @@
+/* -------------------------------------------------------------------
+* .java
+* versión 1.0
+* Copyright (C) 2016  Kan-Balam.
+* Facultad de Ciencias,
+* Universidad Nacional Autónoma de México, Mexico.
+*
+* Este programa es software libre; se puede redistribuir
+* y/o modificar en los términos establecidos por la
+* Licencia Pública General de GNU tal como fue publicada
+* por la Free Software Foundation en la versión 2 o
+* superior.
+*
+* Este programa es distribuido con la esperanza de que
+* resulte de utilidad, pero SIN GARANTÍA ALGUNA; de hecho
+* sin la garantía implícita de COMERCIALIZACIÓN o
+* ADECUACIÓN PARA PROPÓSITOS PARTICULARES. Véase la
+* Licencia Pública General de GNU para mayores detalles.
+*
+* Con este programa se debe haber recibido una copia de la
+* Licencia Pública General de GNU, de no ser así, visite el
+* siguiente URL:
+* http://www.gnu.org/licenses/gpl.html
+* o escriba a la Free Software Foundation Inc.,
+* 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+* -------------------------------------------------------------------
+*/
 package modelo;
 // Generated 08-abr-2016 1:26:04 by Hibernate Tools 4.3.1
 
@@ -22,21 +49,22 @@ public class Usuario  implements java.io.Serializable {
      private String genero;
      private Programador programador;
      private Agente agente;
+     private TipoUsuario tipo;
 
     public Usuario() {
     }
 
 	
-    public Usuario(int idUsuario, String nombre, String apellidoPaterno, String apellidoMaterno, String correo, String contrasenia) {
-        this.idUsuario = idUsuario;
+    public Usuario(String nombre, String apellidoPaterno, String apellidoMaterno, String correo, String contrasenia) {
+        //this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.correo = correo;
         this.contrasenia = contrasenia;
     }
-    public Usuario(int idUsuario, String nombre, String apellidoPaterno, String apellidoMaterno, Long telefono, String correo, String contrasenia, String estado, Date fechaDeNaciminiento, String genero, Programador programador, Agente agente) {
-       this.idUsuario = idUsuario;
+    public Usuario(String nombre, String apellidoPaterno, String apellidoMaterno, Long telefono, String correo, String contrasenia, String estado, Date fechaDeNaciminiento, String genero, Programador programador, Agente agente) {
+       //this.idUsuario = idUsuario;
        this.nombre = nombre;
        this.apellidoPaterno = apellidoPaterno;
        this.apellidoMaterno = apellidoMaterno;
@@ -49,6 +77,14 @@ public class Usuario  implements java.io.Serializable {
        this.programador = programador;
        this.agente = agente;
     }
+    
+    public TipoUsuario getTipoUsuario(){
+        return this.tipo;
+    }
+    
+    public void setTipoUsuario(TipoUsuario tipo){
+        this.tipo = tipo;
+    }
    
     public int getIdUsuario() {
         return this.idUsuario;
@@ -57,6 +93,7 @@ public class Usuario  implements java.io.Serializable {
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
+    
     public String getNombre() {
         return this.nombre;
     }
@@ -134,8 +171,10 @@ public class Usuario  implements java.io.Serializable {
     public void setAgente(Agente agente) {
         this.agente = agente;
     }
-
-
+    
+    public boolean esAgente(){
+        return this.agente != null;
+    }
 
 
 }

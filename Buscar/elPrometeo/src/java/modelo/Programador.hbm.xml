@@ -17,7 +17,7 @@
         <property name="reputacionProgramador" type="java.lang.Double">
             <column name="reputacion_programador" precision="17" scale="17" />
         </property>
-        <set name="especialidads" table="se_dedica" inverse="false" lazy="true" fetch="select">
+        <set name="especialidads" table="se_dedica" inverse="false" lazy="false" fetch="select">
             <key>
                 <column name="id_programador" not-null="true" />
             </key>
@@ -25,7 +25,7 @@
                 <column name="id_especialidad" not-null="true" />
             </many-to-many>
         </set>
-        <set name="servicios" table="presta_servicio" inverse="false" lazy="true" fetch="select">
+        <set name="servicios" table="presta_servicio" inverse="false" lazy="false" fetch="select">
             <key>
                 <column name="id_programador" not-null="true" />
             </key>

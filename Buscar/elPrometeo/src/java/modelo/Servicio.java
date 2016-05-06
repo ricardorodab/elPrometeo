@@ -1,3 +1,30 @@
+/* -------------------------------------------------------------------
+* .java
+* versión 1.0
+* Copyright (C) 2016  Kan-Balam.
+* Facultad de Ciencias,
+* Universidad Nacional Autónoma de México, Mexico.
+*
+* Este programa es software libre; se puede redistribuir
+* y/o modificar en los términos establecidos por la
+* Licencia Pública General de GNU tal como fue publicada
+* por la Free Software Foundation en la versión 2 o
+* superior.
+*
+* Este programa es distribuido con la esperanza de que
+* resulte de utilidad, pero SIN GARANTÍA ALGUNA; de hecho
+* sin la garantía implícita de COMERCIALIZACIÓN o
+* ADECUACIÓN PARA PROPÓSITOS PARTICULARES. Véase la
+* Licencia Pública General de GNU para mayores detalles.
+*
+* Con este programa se debe haber recibido una copia de la
+* Licencia Pública General de GNU, de no ser así, visite el
+* siguiente URL:
+* http://www.gnu.org/licenses/gpl.html
+* o escriba a la Free Software Foundation Inc.,
+* 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+* -------------------------------------------------------------------
+*/
 package modelo;
 // Generated 08-abr-2016 1:26:04 by Hibernate Tools 4.3.1
 
@@ -23,12 +50,7 @@ public class Servicio  implements java.io.Serializable {
     public Servicio() {
     }
 
-	
-    public Servicio(int idServicio) {
-        this.idServicio = idServicio;
-    }
-    public Servicio(int idServicio, Double presupuesto, String description, String titulo, Boolean finalizado, Set agentes, Set registros, Set programadors) {
-       this.idServicio = idServicio;
+    public Servicio(Double presupuesto, String description, String titulo, Boolean finalizado, Set agentes, Set registros, Set programadors) {
        this.presupuesto = presupuesto;
        this.description = description;
        this.titulo = titulo;
@@ -95,7 +117,19 @@ public class Servicio  implements java.io.Serializable {
         this.programadors = programadors;
     }
 
-
+    @Override
+    public boolean equals(Object o){
+        if(o == null)
+            return false;
+        Servicio temp = (Servicio)o;
+        if(temp.getIdServicio() != this.getIdServicio())
+            return false;
+        if(!temp.getTitulo().equals(this.getTitulo()))
+            return false;
+        if(!this.getAgentes().equals(temp.getAgentes()))
+            return false;
+        return true;
+    }
 
 
 }
