@@ -35,6 +35,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import modelo.Agente;
+import modelo.Mensaje;
 import modelo.Programador;
 import modelo.Registro;
 import modelo.Servicio;
@@ -65,7 +66,7 @@ public class OperacionesDAO {
         try {
             Query q = session().createSQLQuery("select * from usuario where id_Usuario = :id")
                              .addEntity(Usuario.class)
-                             .setInteger("id", id);
+                              .setInteger("id", id);
             return (Usuario) q.uniqueResult();
         } catch (Exception e) {
             e.printStackTrace(); // Lo mantengo para revisar el log.
@@ -125,6 +126,18 @@ public class OperacionesDAO {
         } else if (tipo == TipoUsuario.PROGRAMADOR) {
             guardaProgramador(u);
         }
+    }
+    
+    /* Guarda el mensaje en la base de datos */
+    public void guardaMensaje(Mensaje m) {
+       Transaction tx = session().beginTransaction();
+        try {
+            session().save(m);
+        } catch (Exception e) {
+            e.printStackTrace(); // Lo mantengo para revisar el log.
+            tx.rollback();
+        }
+        tx.commit();
     }
 
     public void guardaUsuario(Usuario u) {
