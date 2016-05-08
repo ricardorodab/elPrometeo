@@ -24,9 +24,9 @@ public class Servicio implements java.io.Serializable {
     private String titulo;
     private Boolean finalizado;
     private Set mensajes = new HashSet(0);
-    private Set agentes = new HashSet(0);
     /* El agente relacionado a este 
     servicio */
+    private Set agentes = new HashSet(0);
     private Set registros = new HashSet(0);
     private Set programadors = new HashSet(0);
 

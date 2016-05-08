@@ -219,4 +219,14 @@ public class ServicioBean {
             return "Mensaje enviado";
         }
     }
+
+    /* Regresa una lista con los mensajes del servicio, ordenados por su 
+    Timestamp */
+    public List muestraMensajes() {
+        /* Lista con todos los mensajes relacionados al servicio, ordenados por 
+        su Timestamp */
+        List<Mensaje> mensajes_del_servicio;
+        mensajes_del_servicio = dao.obtenMensajesServicio(this.servicio);
+        return mensajes_del_servicio;
+    }
 }
