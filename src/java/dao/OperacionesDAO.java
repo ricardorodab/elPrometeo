@@ -60,12 +60,12 @@ public class OperacionesDAO {
         return session;
     }
 
-    public Usuario buscaUsuario(int id){
-         Transaction tx = session().beginTransaction();
+    public Usuario buscaUsuario(int id) {
+        Transaction tx = session().beginTransaction();
         try {
             Query q = session().createSQLQuery("select * from usuario where id_Usuario = :id")
-                             .addEntity(Usuario.class)
-                             .setInteger("id", id);
+                    .addEntity(Usuario.class)
+                    .setInteger("id", id);
             return (Usuario) q.uniqueResult();
         } catch (Exception e) {
             e.printStackTrace(); // Lo mantengo para revisar el log.
@@ -75,13 +75,13 @@ public class OperacionesDAO {
         }
         return null;
     }
-    
+
     public Usuario buscaUsuarioPorCorreo(String correo) {
         Transaction tx = session().beginTransaction();
         try {
             Query q = session().createSQLQuery("select * from usuario where correo = :correo")
-                             .addEntity(Usuario.class)
-                             .setString("correo", correo);
+                    .addEntity(Usuario.class)
+                    .setString("correo", correo);
             return (Usuario) q.uniqueResult();
         } catch (Exception e) {
             e.printStackTrace(); // Lo mantengo para revisar el log.
@@ -90,6 +90,27 @@ public class OperacionesDAO {
             tx.commit();
         }
         return null;
+    }
+
+    /* Nos dice si el bloqueador bloqueó al bloqueado */
+    public boolean buscaBloqueado(Usuario bloqueador, Usuario bloqueado) {
+        Transaction tx = session().beginTransaction();
+        try {
+            Query q = session().createSQLQuery("select * from bloqueados"
+                    + " where id_bloqueado = " + bloqueado.getIdUsuario()
+                    + " and id_bloqueador = " + bloqueador.getIdUsuario());
+            if (q.uniqueResult() == null) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Lo mantengo para revisar el log.
+            tx.rollback();
+        } finally {
+            tx.commit();
+        }
+        return false;
     }
 
     private void guardaProgramador(Usuario u) {
@@ -115,8 +136,9 @@ public class OperacionesDAO {
             e.printStackTrace();
             tx.rollback();
         }
-        if(!tx.wasCommitted())
+        if (!tx.wasCommitted()) {
             tx.commit();
+        }
     }
 
     public void guarda(Usuario u, TipoUsuario tipo) {
@@ -155,9 +177,9 @@ public class OperacionesDAO {
         Transaction tx = session().beginTransaction();
         try {
             Query q = session().createSQLQuery("select * from usuario where correo = :correo and contrasenia = :contraseña")
-                             .addEntity(Usuario.class)
-                             .setString("correo", usuario.getCorreo())
-                             .setString("contraseña", usuario.getContrasenia());
+                    .addEntity(Usuario.class)
+                    .setString("correo", usuario.getCorreo())
+                    .setString("contraseña", usuario.getContrasenia());
             Usuario u = (Usuario) q.uniqueResult();
             tx.commit();
             return u;
@@ -173,11 +195,11 @@ public class OperacionesDAO {
             if (u.esAgente()) {
                 Agente a = u.getAgente();
                 Iterator ser = a.getServicios().iterator();
-                while (ser.hasNext()) {                
-                    Servicio s = (Servicio)ser.next();
+                while (ser.hasNext()) {
+                    Servicio s = (Servicio) ser.next();
                     session().delete(s);
-                }                    
-                a.getServicios().clear();                
+                }
+                a.getServicios().clear();
                 a = (Agente) session().merge(a);
                 session().delete(a);
                 session().delete(u);
@@ -218,10 +240,9 @@ public class OperacionesDAO {
             List<Servicio> lista = q.list();
             tx.commit();
             return lista;
-        } 
-        catch (TransactionException e) {
+        } catch (TransactionException e) {
             return obtenServicios();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -231,10 +252,10 @@ public class OperacionesDAO {
         Transaction tx = session().beginTransaction();
         try {
             for (Object o : servicio.getAgentes()) {
-                    Agente agente = (Agente) o;
-                    agente.getServicios().remove(servicio);
-                    //session().merge(agente);
-                    session().update(agente);
+                Agente agente = (Agente) o;
+                agente.getServicios().remove(servicio);
+                //session().merge(agente);
+                session().update(agente);
             }
             for (Object o : servicio.getProgramadors()) {
                 Programador programador = (Programador) o;
@@ -264,8 +285,8 @@ public class OperacionesDAO {
         Transaction tx = session().beginTransaction();
         try {
             Query q = session().createSQLQuery("select * from servicio where id_servicio = :id")
-                             .addEntity(Servicio.class)
-                             .setInteger("id", id);
+                    .addEntity(Servicio.class)
+                    .setInteger("id", id);
             Servicio servicio = (Servicio) q.uniqueResult();
             tx.commit();
             return servicio;
@@ -277,13 +298,13 @@ public class OperacionesDAO {
 
     public String finalizaServicio(Programador p, Servicio ser) {
         Transaction tx = session().beginTransaction();
-        try{
+        try {
             ser.getProgramadors().add(p);
             ser.setFinalizado(true);
             p.getServicios().add(ser);
             session().update(ser);
             tx.commit();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             tx.rollback();
             return "error";
@@ -299,8 +320,8 @@ public class OperacionesDAO {
             tx = session().getTransaction();
     } else {
             tx = session().beginTransaction();
-        }*/        
-        /*try {
+        }*/
+ /*try {
             Query q = session().createSQLQuery("select * from servicio where titulo like %:titulo% or description like %:description%")
                     .addEntity(Servicio.class).setString("titulo", cond).setString("description", cond);
             List<Servicio> lista = q.list();
