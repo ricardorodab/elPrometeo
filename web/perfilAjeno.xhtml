@@ -16,6 +16,7 @@
       <div class="col-md-3" style="color:black;font-size:400%;">El Prometeo</div>
       <div class="col-md-3">
         <a href="servicio.xhtml">Inicio y publicaciones</a>
+        <a href="perfil.xhtml">Mi Perfil</a>
       </div>
       <div class="col-md-3">          
          <!-- <h:form id="searchform">
@@ -41,26 +42,15 @@
 	<img style="border-radius=8px;" src="perfil.jpeg" alt="Perfil"/>
 	<br/>
 	<br/>
-        <div style="resize=both; overflow=auto;">Nombre: <h:outputText value="#{usuarioBean.usuario.nombre}" /></div>
-        <div style="resize=both; overflow=auto;">Apellido paterno: <h:outputText value="#{usuarioBean.usuario.apellidoPaterno}" /></div>
-        <div style="resize=both; overflow=auto;">Apellido materno: <h:outputText value="#{usuarioBean.usuario.apellidoMaterno}" /></div>
-        <div style="resize=both; overflow=auto;">Correo electrónico: <h:outputText value="#{usuarioBean.usuario.correo}" /></div>
-        <div style="resize=both; overflow=auto;">Teléfono: <h:outputText value="#{usuarioBean.usuario.telefono}" /></div>
+        <div style="resize=both; overflow=auto;">Nombre: <h:outputText value="#{usuarioBean.ajeno.nombre}" /></div>
+        <div style="resize=both; overflow=auto;">Apellido paterno: <h:outputText value="#{usuarioBean.ajeno.apellidoPaterno}" /></div>
+        <div style="resize=both; overflow=auto;">Apellido materno: <h:outputText value="#{usuarioBean.ajeno.apellidoMaterno}" /></div>
+        <div style="resize=both; overflow=auto;">Correo electrónico: <h:outputText value="#{usuarioBean.ajeno.correo}" /></div>
+        <div style="resize=both; overflow=auto;">Teléfono: <h:outputText value="#{usuarioBean.ajeno.telefono}" /></div>
 	<br/>
 	<br/>
 	<br/>
-	<br/>
-	 <h:form rendered="#{usuarioBean.verificarSesion()}">
-             <h:commandButton value="Modificar perfil" class="btn btn-primary btn-lg active" action="#{usuarioBean.irModificar()}"/>  
-             <br/>
-             <br/>
-             <br/>
-             <br/>
-             <br/>
-             <br/>
-             <br/>
-             <br/>
-         </h:form>         
+	<br/> 
         </div>	
 	<div class="col-md-6">
         <br/>
@@ -72,12 +62,12 @@
 	<br/>
 	<br/>
 	<div style="resize=both; overflow=auto;">
-            <h:outputText value="#{usuarioBean.usuario.esAgente() ? 
-                                   (!usuarioBean.usuario.agente.tieneOcupacion()  ? 'Aquí se mostrará la ocupación e información personal que usted desee exponer. Para modificar este espacio ingrese a Modificar perfil' : usuarioBean.usuario.agente.ocupacion) 
-                                   : !usuarioBean.usuario.programador.tieneFormacion() ? 'Aquí se mostrará la ocupación, formación como programador e información personal que usted desee exponer. Para modificar este espacio ingrese a Modificar perfil' : usuarioBean.usuario.programador.formacion}"/></div>
+            <h:outputText value="#{usuarioBean.ajeno.esAgente() ? 
+                                   (!usuarioBean.ajeno.agente.tieneOcupacion()  ? 'Aquí se mostrará la ocupación e información personal que usted desee exponer. Para modificar este espacio ingrese a Modificar perfil' : usuarioBean.usuario.agente.ocupacion) 
+                                   : !usuarioBean.ajeno.programador.tieneFormacion() ? 'Aquí se mostrará la ocupación, formación como programador e información personal que usted desee exponer. Para modificar este espacio ingrese a Modificar perfil' : usuarioBean.usuario.programador.formacion}"/></div>
 	<br/>
 	<br/>
-        <div style="resize=both; overflow=auto">Tipo de usuario: <h:outputText value="#{usuarioBean.usuario.esAgente() ? 'Agente Creativo' : 'Programador'}"/></div>
+        <div style="resize=both; overflow=auto">Tipo de usuario: <h:outputText value="#{usuarioBean.ajeno.esAgente() ? 'Agente Creativo' : 'Programador'}"/></div>
         <br/>
         <br/>
         <br/>
@@ -91,7 +81,7 @@
                           <div class="col-md-6">Hechos:
                               <br/>
                           <ui:repeat value="#{servicioBean.servicios}" var="ser">                
-                              <h:form rendered="#{((servicioBean.esElAgente(usuarioBean.usuario,ser) or servicioBean.esElProgramador(usuarioBean.usuario,ser)) and ser.finalizado)}">
+                              <h:form rendered="#{((servicioBean.esElAgente(usuarioBean.ajeno,ser) or servicioBean.esElProgramador(usuarioBean.ajeno,ser)) and ser.finalizado)}">
                                   <div class="servicios">
                                       <section>
                                           <br/>
@@ -105,7 +95,6 @@
                                           <p>#{ser.description}</p>
                                           <br/>
                                           <h:commandButton value="Eliminar post" class="btn btn-primary btn-lg active" action="#{servicioBean.eliminar(ser)}" rendered="false" />                         
-                                          <h:commandLink value="CONTACTO DEL PROGRAMADOR" action="#{usuarioBean.irAjeno(servicioBean.mostrarProgramador(ser))}" rendered="true"/>
                                           <!--<h:commandButton value="Modificar post" class="btn btn-primary btn-lg active" action="{servicioBean.eliminar(ser)}"/> -->                         
                                       </section>
                                   </div>
@@ -115,7 +104,7 @@
                           <div class="col-md-offset-6">Haciendo:
                               <br/>
                               <ui:repeat value="#{servicioBean.servicios}" var="ser">                
-                                  <h:form rendered="#{(servicioBean.esElAgente(usuarioBean.usuario,ser) and !ser.finalizado)}">
+                                  <h:form rendered="#{(servicioBean.esElAgente(usuarioBean.ajeno,ser) and !ser.finalizado)}">
                                       <div class="servicios">
                                           <section>
                                               <br/>
@@ -127,9 +116,7 @@
                                               <br/>
                                               <label>Descripción:</label>
                                               <p>#{ser.description}</p>
-                                              <br/>
-                                              <h:commandButton value="Eliminar servicio" class="btn btn-primary btn-lg active" action="#{servicioBean.eliminar(ser)}" rendered="#{servicioBean.esElAgente(usuarioBean.usuario,ser)}" />                         
-                                              
+                                              <br/>                        
                                               <!--<h:commandButton value="Modificar post" class="btn btn-primary btn-lg active" action="{servicioBean.eliminar(ser)}"/> -->                         
                                           </section>
                                       </div>

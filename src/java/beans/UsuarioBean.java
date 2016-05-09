@@ -59,6 +59,7 @@ public class UsuarioBean {
      * app.
      */
     private Usuario usuario = new Usuario();
+    private Usuario ajeno = new Usuario();
 
     private final OperacionesDAO dao;
 
@@ -77,6 +78,17 @@ public class UsuarioBean {
             usuario.setFechaDeNaciminiento(new Date(1950, 01, 01));
         }
         return usuario;
+    }
+    
+    public Usuario getAjeno(){
+        if (ajeno.getFechaDeNaciminiento() == null) {
+            ajeno.setFechaDeNaciminiento(new Date(1950, 01, 01));
+        }
+        return ajeno;
+    }
+    
+    public void setAjeno(Usuario ajeno){
+        this.ajeno = ajeno;
     }
 
     /**
@@ -100,15 +112,25 @@ public class UsuarioBean {
         /*
          * Primero verificamos que el usuario no esté registrado
          */
+        try{
         Usuario u = dao.buscaUsuarioPorCorreo(usuario.getCorreo());
+        u = dao.buscaUsuarioPorTelefono(usuario.getTelefono());
         if (u != null) {
-            return "El usuario con ese correo ya existe.";
+            return "El usuario con ese correo o número telefónico ya existe.";
         } else {
             dao.guarda(usuario, tipo);
             return verificarDatos();
         }
+        }catch(Exception e){
+            return "El usuario con ese correo o número telefónico ya existe.";
+        }
     }
 
+    public String irAjeno(Usuario user){
+        this.ajeno = dao.buscaUsuario(user.getIdUsuario());
+        return "perfilAjeno";
+    }
+    
     public String irModificar() {
         return "modificar";
     }

@@ -40,7 +40,8 @@
                 </h:form>
             </div>
             <div class="col-md-3">
-                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Crea tu servicio</button>
+                <h:form rendered="#{usuarioBean.usuario.esAgente()}">
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" >Crea tu servicio</button>
                 <!-- Modal -->
                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">
@@ -50,30 +51,31 @@
                                 <h4 class="modal-title" id="myModalLabel">¿Qué servicio ofreces?</h4>
                             </div>
                             <div class="modal-body">
-                                <h:form>
                                     <div class="form-group">
-                                        <h:inputText class="form-control" id="nombre" p:placeholder="Título" value="#{servicioBean.servicio.titulo}"/>
+                                        <h:inputText class="form-control" id="nombre" p:placeholder="Título" value="#{servicioBean.servicio.titulo}" required="true" requiredMessage="Debe tener un mensaje de título el servicio"/>
                                     </div>
                                     <div class="form-group">
                                         <label class="sr-only" for="exampleInputAmount">Presupuesto</label>
                                         <div class="input-group">
                                             <div class="input-group-addon">$</div>
-                                            <h:inputText class="form-control" id="exampleInputAmount" p:placeholder="Presupuesto" value="#{servicioBean.servicio.presupuesto}"/>
+                                            <h:inputText class="form-control" id="exampleInputAmount" p:placeholder="Presupuesto" value="#{servicioBean.servicio.presupuesto}" required="true" requiredMessage="Debe tener un presupuesto"  validatorMessage="El presupuesto debe ser un número mayor a 0 y menos a un millón">
+                                                <f:validateDoubleRange minimum="0.0" maximum="1000000"/>
+                                            </h:inputText>
                                             <div class="input-group-addon">.00</div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <h:inputTextarea class="form-control" rows="3" p:placeholder="Descripción" value="#{servicioBean.servicio.description}"/>
+                                        <h:inputTextarea class="form-control" rows="3" p:placeholder="Descripción" value="#{servicioBean.servicio.description}" required="true" requiredMessage="Debe tener una descripción el servicio"/>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                        <h:commandButton value="Crear" action="#{servicioBean.crear(usuarioBean.usuario)}"/>
+                                        <h:commandButton value="Crear" action="#{servicioBean.crear(usuarioBean.usuario)}" rendered="#{usuarioBean.usuario.esAgente()}"/>
                                     </div>
-                                </h:form>
                             </div>
                         </div>
                     </div>
                 </div>
+                </h:form>
             </div>
         </div>
         <br/>
@@ -98,7 +100,7 @@
                             <h:commandButton value="Responder solicitud y aceptar servicio" class="btn btn-primary btn-lg active" action="#{servicioBean.setProgramador(usuarioBean.usuario,ser)}" rendered="#{(!usuarioBean.usuario.esAgente() and !ser.finalizado)}"/>
                     </section>
                 </div>
-                 </h:form>
+                </h:form>
            </ui:repeat>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"/>

@@ -92,9 +92,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     <div class="informacion">
                         <section>
                             <h:outputText value="#{servicioBean.servicio.finalizado ? (servicioBean.esElAgente(usuarioBean.usuario) ? servicioBean.getDatosProgramador(servicioBean.servicio) : servicioBean.getDatosAgente(servicioBean.servicio)) : 'Aquí aparecerán los datos de contacto del usuario que aceptó/solicita el servicio una vez que alguien desee tomar el trabajo.'}" />
-                           <!-- <h:form rendered="{servicioBean.servicio.finalizado}">
-                                <h:commandLink value="CONTACTO" action="{servicioBean.mostrarProgramador(servicioBean.servicio)}" /> 
-                            </h:form> -->
+                            <h:form rendered="#{servicioBean.servicio.finalizado}">
+                                <a href="perfilAjeno.xhtml">CONTACTO</a>
+                                <!--<h:commandLink value="CONTACTO" action="{servicioBean.mostrarAgente(servicioBean.servicio)}" rendered="{!servicioBean.esElAgente(usuarioBean.usuario)}"/> -->
+                            </h:form>
                         </section>
                     </div>
                 </div>

@@ -50,7 +50,12 @@ public class ServicioBean {
                 return "error";
             }
             Programador p = usuario.getProgramador();
-            return dao.finalizaServicio(p,ser);
+            String result = dao.finalizaServicio(p,ser);
+            if(result.equalsIgnoreCase("mostrarServicio")){
+                return mostrar(ser.getIdServicio());
+            }else{
+                return "error";
+            }
         }
     }
     
@@ -97,11 +102,11 @@ public class ServicioBean {
     
     
         
-    public String mostrarProgramador(Servicio ser){
+    public Usuario mostrarProgramador(Servicio ser){
         //System.out.println(ser.getIdServicio());        
-        //Programador ag = getProgramador(buscar(ser.getIdServicio()));        
-        //usuarioBean.setUsuario(dao.buscaUsuario(ag.getIdProgramador()));
-        return "perfil";
+        Programador ag = getProgramador(buscar(ser.getIdServicio()));                
+        
+        return ag.getUsuario();
     }
     
     public String mostrarAgente(Servicio ser){

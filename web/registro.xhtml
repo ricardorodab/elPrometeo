@@ -36,25 +36,31 @@
                     <p style="color:black; font-size:300%;">Registro</p>
                     <h:form>
                         <div class="form-group">
-                            <h:inputText class="form-control" id="nombre" p:placeholder="Nombre" value="#{usuarioBean.usuario.nombre}"/>
-                        </div> 	
+                            <h:inputText class="form-control" id="nombre" p:placeholder="Nombre" value="#{usuarioBean.usuario.nombre}" required="true" requiredMessage="Ingrese un nombre"/>
+                        </div> 	                         	
+                        <div class="form-group">
+                            <h:inputText class="form-control" id="apellidoPaterno" p:placeholder="Apellido Paterno" value="#{usuarioBean.usuario.apellidoPaterno}" required="true" requiredMessage="Ingrese un apellido"/>
+                        </div>  
                         <div class="form-group">
                             <h:inputText class="form-control" id="apellidoMaterno" p:placeholder="Apellido Materno" value="#{usuarioBean.usuario.apellidoMaterno}"/>
-                        </div>   	
-                        <div class="form-group">
-                            <h:inputText class="form-control" id="apellidoPaterno" p:placeholder="Apellido Paterno" value="#{usuarioBean.usuario.apellidoPaterno}"/>
-                        </div>    
-                        <div class="form-group">
-                            <h:inputText class="form-control" id="correo" p:placeholder="Correo" value="#{usuarioBean.usuario.correo}"/>
                         </div> 
                         <div class="form-group">
-                            <h:inputSecret class="form-control" id="contraseña" p:placeholder="Contraseña" value="#{usuarioBean.usuario.contrasenia}"/>
+                            <h:inputText class="form-control" id="correo" p:placeholder="Correo" value="#{usuarioBean.usuario.correo}" validatorMessage="Formato incorrecto. Formato correcto: correo@dominio.com" required="true" requiredMessage="Favor de ingresar un correo electrónico">
+                                <f:validateRegex
+                                    pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                            </h:inputText>
+                        </div> 
+                        <div class="form-group">
+                            <h:inputSecret class="form-control" id="contraseña" p:placeholder="Contraseña" value="#{usuarioBean.usuario.contrasenia}" required="true" validatorMessage="Favor de ingresar una contraseña con al menos 6 caracteres" requiredMessage="Favor de ingresar una contraseña">
+                                <f:validateLength
+                                    minimum="6" />
+                            </h:inputSecret>
                         </div>
                         <div class="checkbox">
                             <label for="genero" style="color:black;">Género:</label>
                             <br/>
                             <label class="radio-inline"/>
-                            <h:selectOneRadio value="#{usuarioBean.usuario.genero}" style="display: inline;">
+                            <h:selectOneRadio value="#{usuarioBean.usuario.genero}" style="display: inline;" required="true" requiredMessage="Favor de seleccionar una opción de género.">
                                 <f:selectItem itemValue="H" itemLabel="Hombre" />
                                 <f:selectItem itemValue="M" itemLabel="Mujer" />
                             </h:selectOneRadio>
@@ -205,17 +211,17 @@
                             <label for="rol" style="color:black;">¿Cómo te quieres registrar?:</label>
                             <br/>
                             
-                            <h:selectOneRadio value="#{usuarioBean.usuario.tipoUsuario}" style="display: inline;">
-                                <f:selectItem itemValue="#{tipoUsuarioBean.programador}" itemLabel="Programador" />
+                            <h:selectOneRadio value="#{usuarioBean.usuario.tipoUsuario}" style="display: inline;" required="true" requiredMessage="Favor de seleccionar un tipo de usuario">
+                                <f:selectItem itemValue="#{tipoUsuarioBean.programador}" itemLabel="Programador"  />
                                 <f:selectItem itemValue="#{tipoUsuarioBean.agente}" itemLabel="Agente Creativo" />
                             </h:selectOneRadio>
                         </div>
                         <div class="form-group">
-                            <h:inputText class="form-control" id="telefono" p:placeholder="Teléfono" value="#{usuarioBean.usuario.telefono}"/>
+                            <h:inputText class="form-control" id="telefono" p:placeholder="Teléfono" value="#{usuarioBean.usuario.telefono}" required="true" requiredMessage="Favor de ingresar un número telefónico" validatorMessage="Ya existe ese número telefónico registrado o el formato es incorrecto. Intente con uno nuevo a 10 dígitos">
+                                <f:validateLength minimum="10" maximum="10" />
+                            </h:inputText>
                         </div> 
-                        <div class="checkbox">
-                            <input type="checkbox" style="color:black;"/> Acepto términos y condiciones
-                        </div>
+                        <h6>En el momento de presionar el botón de "Registrar" usted declara que está de acuerdo con nuestros <a href="terminosycondiciones.xhtml">Contrato de términos y condiciones</a> </h6>
                         <h:commandButton value="Registrar" class="btn btn-default" action="#{usuarioBean.registrar()}"/>
                     </h:form>
                     <br/>	
@@ -223,8 +229,8 @@
             </div>
         </div>	
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"/>
-        <script src="bootstrap.min.js"/>
-        <script src="docs/assets/js/ie10-viewport-bug-workaround.js"/>
+        <script src="js/bootstrap.min.js"/>
+        <script src="js/docs/assets/js/ie10-viewport-bug-workaround.js"/>
     </body>
 </html>
 
