@@ -115,8 +115,22 @@ public class OperacionesDAO {
 
     /* Regresa la lista de bloqueados de un Usuario. Aún no sé para qué, pero 
     seguro resultará útil */
-    
-    
+    public List<Usuario> obtenListaDeBloqueados(Usuario u) {
+        Transaction tx = session().beginTransaction();
+        try {
+            Query q = session().createSQLQuery("select * from bloqueados where "
+                    + "id_bloqueador = "
+                    + u.getIdUsuario()).addEntity(Usuario.class);
+            /* La lista de usuarios bloqueados */
+            List<Usuario> lista = q.list();
+            tx.commit();
+            return lista;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     private void guardaProgramador(Usuario u) {
         Transaction tx = session().beginTransaction();
         try {
