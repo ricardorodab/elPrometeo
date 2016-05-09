@@ -113,6 +113,10 @@ public class OperacionesDAO {
         return false;
     }
 
+    /* Regresa la lista de bloqueados de un Usuario. Aún no sé para qué, pero 
+    seguro resultará útil */
+    
+    
     private void guardaProgramador(Usuario u) {
         Transaction tx = session().beginTransaction();
         try {
