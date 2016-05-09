@@ -83,3 +83,9 @@ recibio INTEGER,
 FOREIGN KEY (id_mensaje) REFERENCES mensaje(id_mensaje),
 FOREIGN KEY (id_servicio) REFERENCES servicio(id_servicio)
 );
+
+/* Tabla con usuarios bloqueados */ 
+CREATE TABLE bloqueados(
+id_bloqueado INTEGER REFERENCES usuario(id_usuario),
+id_bloqueador INTEGER REFERENCES usuario(id_usuario)
+);
