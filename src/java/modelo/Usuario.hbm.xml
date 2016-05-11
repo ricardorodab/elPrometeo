@@ -37,6 +37,9 @@
         <property name="genero" type="string">
             <column name="genero" length="1" />
         </property>
+        <property name="imagen" type="string">
+            <column name="imagen" />
+        </property>
         <one-to-one name="programador" class="modelo.Programador"></one-to-one>
         <one-to-one name="agente" class="modelo.Agente"></one-to-one>
     </class>
