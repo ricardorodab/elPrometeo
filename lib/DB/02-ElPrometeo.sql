@@ -14,7 +14,8 @@ correo VARCHAR(255) UNIQUE NOT NULL,
 contrasenia VARCHAR(255) NOT NULL,
 estado VARCHAR(255),
 fecha_de_naciminiento DATE,
-genero VARCHAR(1)
+genero VARCHAR(1),
+imagen TEXT /* Foto de perfil(?) */
 );
 
 CREATE TABLE agente(
