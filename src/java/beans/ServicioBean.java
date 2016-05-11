@@ -229,4 +229,15 @@ public class ServicioBean {
         mensajes_del_servicio = dao.obtenMensajesServicio(this.servicio);
         return mensajes_del_servicio;
     }
+
+    /* Regresa una lista con los últimos n mensajes del servicio, ordenados por 
+    Timestamp */
+    public List muestraUltimosNMensajes(int n) {
+        /* La lista a regresar */
+        List<Mensaje> regreso = this.muestraMensajes();
+        /* El tamaño de la lista a regresar */
+        int tamano = regreso.size();
+        return regreso.subList(tamano - n, tamano);
+    }
+
 }
