@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<xhtml xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <body>
+            <ui:composition>
+        
+            <ui:define name="header">
+                <h:outputLabel value="No se ha iniciado sesión" rendered="#{usuarioBean.verificarSesion() eq false}"/>
+                <br/>
+                <br/> 
+                <div class="row">
+                    <img style="border-radius=8px;" src="../elPrometeo.jpg" alt="Logo"/>
+                    <div class="col-md-3" style="color:black;font-size:400%;">El Prometeo</div>
+                    <div class="col-md-3">
+                        <a href="servicio.xhtml">Inicio y publicaciones</a>
+                        <br/>
+                        <a href="perfil.xhtml">Mi Perfil</a>
+                    </div>
+                    <div class="col-md-3">          
+                        <!-- <h:form id="searchform">
+                             <h:inputText p:placeholder="Buscar aqu&iacute;..." value="{busquedasBean.cond}"/>
+                             <h:commandButton value="Buscar" action="{busquedasBean.getServicios()}" />
+                         </h:form> -->
+                    </div>    
+                    <div class="col-md-3">       
+                        <h:form rendered="#{usuarioBean.verificarSesion()}">
+                            <h:commandButton value="Cerrar Sesión" action="#{usuarioBean.cerrarSesion()}"/>                         
+                        </h:form> 
+                    </div>
+                </div>
+            </ui:define>
+        
+        </ui:composition>
+    </body>
+</xhtml>

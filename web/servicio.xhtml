@@ -17,29 +17,14 @@
         <title>Servicios</title>
         <link href="css/bootstrap.min.css" rel="stylesheet"/>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+                  <ui:include src="/WEB-INF/header.xhtml" />  
     </head>
 
     <body style="background-color:#D3D3D3">
         <br/>
         <br/>
-        <div class="row">
-            <div class="col-md-2" style="color:black;font-size:200%;">El Prometeo</div>
-            <div class="col-md-2">
-                <a href="perfil.xhtml">Mi perfil</a>
-            </div>
-            <div class="col-md-2">
-                <!--
-                <h:form id="searchform">
-                    <h:inputText p:placeholder="Buscar aqu&iacute;..." value="{busquedasBean.cond}"/>
-                    <h:commandButton value="Buscar" action="{busquedasBean.getServicios()}" />
-                </h:form> -->
-            </div>
-            <div class="col-md-3">
-                <h:form rendered="#{usuarioBean.verificarSesion()}">
-                    <h:commandButton value="Cerrar Sesión" action="#{usuarioBean.cerrarSesion()}"/>
-                </h:form>
-            </div>
-            <div class="col-md-3">
+        <div class="right">
+            <div class="center-block">
                 <h:form rendered="#{usuarioBean.usuario.esAgente()}">
                 <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" >Crea tu servicio</button>
                 <!-- Modal -->

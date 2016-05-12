@@ -103,9 +103,12 @@ public class ServicioBean {
     
         
     public Usuario mostrarProgramador(Servicio ser){
-        //System.out.println(ser.getIdServicio());        
-        Programador ag = getProgramador(buscar(ser.getIdServicio()));                
-        
+        System.out.println(ser.getIdServicio());    
+        System.out.println("111");
+        System.out.println("111");
+        System.out.println(this.servicio.getIdServicio());
+        Servicio ser2 = buscar(ser.getIdServicio());                
+        Programador ag = getProgramador(ser2);
         return ag.getUsuario();
     }
     
@@ -171,7 +174,8 @@ public class ServicioBean {
             return null;
         if(!ser.getFinalizado())
             return null;
-        return (Programador)ser.getProgramadors().iterator().next();
+        Programador p = (Programador)ser.getProgramadors().iterator().next();
+        return dao.buscaProgramador(p);
     }
     
     public Servicio buscar(int id){

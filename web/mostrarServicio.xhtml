@@ -19,8 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
+        <ui:include src="/WEB-INF/header.xhtml" />      
         <style>
             section {
                 width:350px;
@@ -36,23 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <h:outputLabel value="No se ha iniciado sesión" rendered="#{usuarioBean.verificarSesion() eq false}"/>
         <br/>
         <br/> 
-        <div class="row">
-            <div class="col-md-3" style="color:black;font-size:400%;">El Prometeo</div>
-            <div class="col-md-3">
-                <a href="servicio.xhtml">Inicio y publicaciones</a>
-            </div>
-            <div class="col-md-3">          
-                <form id="searchform">
-                    <input type="text" placeholder="Buscar aqu&iacute;..."/>
-                    <button type="submit">Buscar</button>
-                </form>  
-            </div>    
-            <div class="col-md-3">       
-                <h:form rendered="#{usuarioBean.verificarSesion()}">
-                    <h:commandButton value="Cerrar Sesión" action="#{usuarioBean.cerrarSesion()}"/>                         
-                </h:form> 
-            </div>
-        </div>
+
         <br/>
         <br/>
         <br/>
@@ -86,16 +72,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 </div>
                 <div class="col-md-6">
                     <br/>
-                    <h2><h:outputText value="#{servicioBean.esElAgente(usuarioBean.usuario) ? 'Información del programador:' : 'Información del agente creativo'}"/></h2>
+                    <h2><h:outputText value="#{servicioBean.esElAgente(usuarioBean.usuario, servicioBean.servicio) ? 'Información del programador:' : 'Información del agente creativo'}"/></h2>
                     <br/>
                     <br/>
                     <div class="informacion">
                         <section>
-                            <h:outputText value="#{servicioBean.servicio.finalizado ? (servicioBean.esElAgente(usuarioBean.usuario) ? servicioBean.getDatosProgramador(servicioBean.servicio) : servicioBean.getDatosAgente(servicioBean.servicio)) : 'Aquí aparecerán los datos de contacto del usuario que aceptó/solicita el servicio una vez que alguien desee tomar el trabajo.'}" />
-                            <h:form rendered="#{servicioBean.servicio.finalizado}">
-                                <a href="perfilAjeno.xhtml">CONTACTO</a>
-                                <!--<h:commandLink value="CONTACTO" action="{servicioBean.mostrarAgente(servicioBean.servicio)}" rendered="{!servicioBean.esElAgente(usuarioBean.usuario)}"/> -->
-                            </h:form>
+                            <h:outputText value="#{servicioBean.servicio.finalizado ? (servicioBean.esElAgente(usuarioBean.usuario) ? servicioBean.getDatosProgramador(servicioBean.servicio) : servicioBean.getDatosAgente(servicioBean.servicio)) : 'Aquí aparecerán los datos de contacto del usuario que aceptó/solicita el servicio una vez que alguien desee tomar el trabajo.'}" />                            
+                            <ui:repeat value="#{servicioBean.servicios}" var="ser" rendered="true">
+                                <h:form rendered="#{servicioBean.servicio.idServicio == ser.idServicio}">                                
+                                    <h:commandLink value="CONTACTO" action="#{usuarioBean.irAjeno(servicioBean.mostrarProgramador(ser))}" > </h:commandLink>
+                                </h:form>
+                            </ui:repeat>
                         </section>
                     </div>
                 </div>

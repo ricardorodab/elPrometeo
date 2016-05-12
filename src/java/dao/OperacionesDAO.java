@@ -380,5 +380,23 @@ public class OperacionesDAO {
         }*/
         return null;
     }
+
+    public Programador buscaProgramador(Programador programador) {
+         Transaction tx = session().beginTransaction();
+        try {
+            Query q = session().createSQLQuery("select * from programador where id_Programador = :id")
+                    .addEntity(Programador.class)
+                    .setInteger("id", programador.getIdProgramador());
+            return (Programador) q.uniqueResult();
+        } catch (Exception e) {
+            e.printStackTrace(); // Lo mantengo para revisar el log.
+            tx.rollback();
+        } finally {
+            if(!tx.wasCommitted())
+                tx.commit();
+            closeSession();
+        }
+        return null; 
+    }
     
 }

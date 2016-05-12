@@ -1,136 +1,112 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-   <h:head>
-    <title>Mi perfil</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet"/>
-  </h:head>
-  <h:body style="background-color:#D3D3D3">
-      <h:outputLabel value="No se ha iniciado sesión" rendered="#{usuarioBean.verificarSesion() eq false}"/>
-    <br/>
-    <br/> 
-    <div class="row">
-      <div class="col-md-3" style="color:black;font-size:400%;">El Prometeo</div>
-      <div class="col-md-3">
-        <a href="servicio.xhtml">Inicio y publicaciones</a>
-        <a href="perfil.xhtml">Mi Perfil</a>
-      </div>
-      <div class="col-md-3">          
-         <!-- <h:form id="searchform">
-              <h:inputText p:placeholder="Buscar aqu&iacute;..." value="#{busquedasBean.cond}"/>
-              <h:commandButton value="Buscar" action="#{busquedasBean.getServicios()}" />
-          </h:form> -->
-      </div>    
-      <div class="col-md-3">       
-       <h:form rendered="#{usuarioBean.verificarSesion()}">
-                 <h:commandButton value="Cerrar Sesión" action="#{usuarioBean.cerrarSesion()}"/>                         
-        </h:form> 
-      </div>
-    </div>
-    <div class="container">
-      <div class="row">
-	<div class="col-md-6">
-	<br/>
-	<br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-	<img style="border-radius=8px;" src="perfil.jpeg" alt="Perfil"/>
-	<br/>
-	<br/>
-        <div style="resize=both; overflow=auto;">Nombre: <h:outputText value="#{usuarioBean.ajeno.nombre}" /></div>
-        <div style="resize=both; overflow=auto;">Apellido paterno: <h:outputText value="#{usuarioBean.ajeno.apellidoPaterno}" /></div>
-        <div style="resize=both; overflow=auto;">Apellido materno: <h:outputText value="#{usuarioBean.ajeno.apellidoMaterno}" /></div>
-        <div style="resize=both; overflow=auto;">Correo electrónico: <h:outputText value="#{usuarioBean.ajeno.correo}" /></div>
-        <div style="resize=both; overflow=auto;">Teléfono: <h:outputText value="#{usuarioBean.ajeno.telefono}" /></div>
-	<br/>
-	<br/>
-	<br/>
-	<br/> 
+    <ui:include src="/WEB-INF/header.xhtml" />        
+    <h:body style="background-color:#D3D3D3">        
+        <title>Mi perfil</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet"/>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <img style="border-radius=8px;" src="perfil.jpeg" alt="Perfil"/>
+                    <br/>
+                    <br/>
+                    <div style="resize=both; overflow=auto;">Nombre: <h:outputText value="#{usuarioBean.ajeno.nombre}" /></div>
+                    <div style="resize=both; overflow=auto;">Apellido paterno: <h:outputText value="#{usuarioBean.ajeno.apellidoPaterno}" /></div>
+                    <div style="resize=both; overflow=auto;">Apellido materno: <h:outputText value="#{usuarioBean.ajeno.apellidoMaterno}" /></div>
+                    <div style="resize=both; overflow=auto;">Correo electrónico: <h:outputText value="#{usuarioBean.ajeno.correo}" /></div>
+                    <div style="resize=both; overflow=auto;">Teléfono: <h:outputText value="#{usuarioBean.ajeno.telefono}" /></div>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/> 
+                </div>	
+                <div class="col-md-6">
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <p style="color:black;font-size:400%;">Mi Perfil</p>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <div style="resize=both; overflow=auto;">
+                        <h:outputText value="#{usuarioBean.ajeno.esAgente() ? 
+                                               (!usuarioBean.ajeno.agente.tieneOcupacion()  ? 'Aquí se mostrará la ocupación e información personal que usted desee exponer. Para modificar este espacio ingrese a Modificar perfil' : usuarioBean.usuario.agente.ocupacion) 
+                                               : !usuarioBean.ajeno.programador.tieneFormacion() ? 'Aquí se mostrará la ocupación, formación como programador e información personal que usted desee exponer. Para modificar este espacio ingrese a Modificar perfil' : usuarioBean.usuario.programador.formacion}"/></div>
+                    <br/>
+                    <br/>
+                    <div style="resize=both; overflow=auto">Tipo de usuario: <h:outputText value="#{usuarioBean.ajeno.esAgente() ? 'Agente Creativo' : 'Programador'}"/></div>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <span class="glyphicon glyphicon-bell"/>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12" style="color:black;font-size:200%;">Servicios         
+                            <div class="row">
+                                <br/>
+                                <div class="col-md-6">Hechos:
+                                    <br/>
+                                    <ui:repeat value="#{servicioBean.servicios}" var="ser">                
+                                        <h:form rendered="#{((servicioBean.esElAgente(usuarioBean.ajeno,ser) or servicioBean.esElProgramador(usuarioBean.ajeno,ser)) and ser.finalizado)}">
+                                            <div class="servicios">
+                                                <section>
+                                                    <br/>
+                                                    <label> Titulo del servicio:</label>
+                                                    <p> <h:commandLink value="#{ser.titulo}" action="#{servicioBean.mostrar(ser.idServicio)}" > </h:commandLink> </p>
+                                                    <br/>
+                                                    <label>Presupuesto:</label>
+                                                    <p>$#{ser.presupuesto}</p>
+                                                    <br/>
+                                                    <label>Descripción:</label>
+                                                    <p>#{ser.description}</p>
+                                                    <br/>
+                                                    <h:commandButton value="Eliminar post" class="btn btn-primary btn-lg active" action="#{servicioBean.eliminar(ser)}" rendered="false" />                         
+                                                    <!--<h:commandButton value="Modificar post" class="btn btn-primary btn-lg active" action="{servicioBean.eliminar(ser)}"/> -->                         
+                                                </section>
+                                            </div>
+                                        </h:form>
+                                    </ui:repeat>
+                                </div>
+                                <div class="col-md-offset-6">Haciendo:
+                                    <br/>
+                                    <ui:repeat value="#{servicioBean.servicios}" var="ser">                
+                                        <h:form rendered="#{(servicioBean.esElAgente(usuarioBean.ajeno,ser) and !ser.finalizado)}">
+                                            <div class="servicios">
+                                                <section>
+                                                    <br/>
+                                                    <label> Titulo del servicio:</label>
+                                                    <p> <h:commandLink value="#{ser.titulo}" action="#{servicioBean.mostrar(ser.idServicio)}" > </h:commandLink> </p>
+                                                    <br/>
+                                                    <label>Presupuesto:</label>
+                                                    <p>$#{ser.presupuesto}</p>
+                                                    <br/>
+                                                    <label>Descripción:</label>
+                                                    <p>#{ser.description}</p>
+                                                    <br/>                        
+                                                    <!--<h:commandButton value="Modificar post" class="btn btn-primary btn-lg active" action="{servicioBean.eliminar(ser)}"/> -->                         
+                                                </section>
+                                            </div>
+                                        </h:form>
+                                    </ui:repeat>
+                                </div>
+                            </div>	
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>	
-	<div class="col-md-6">
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-	<p style="color:black;font-size:400%;">Mi Perfil</p>
-	<br/>
-	<br/>
-	<br/>
-	<div style="resize=both; overflow=auto;">
-            <h:outputText value="#{usuarioBean.ajeno.esAgente() ? 
-                                   (!usuarioBean.ajeno.agente.tieneOcupacion()  ? 'Aquí se mostrará la ocupación e información personal que usted desee exponer. Para modificar este espacio ingrese a Modificar perfil' : usuarioBean.usuario.agente.ocupacion) 
-                                   : !usuarioBean.ajeno.programador.tieneFormacion() ? 'Aquí se mostrará la ocupación, formación como programador e información personal que usted desee exponer. Para modificar este espacio ingrese a Modificar perfil' : usuarioBean.usuario.programador.formacion}"/></div>
-	<br/>
-	<br/>
-        <div style="resize=both; overflow=auto">Tipo de usuario: <h:outputText value="#{usuarioBean.ajeno.esAgente() ? 'Agente Creativo' : 'Programador'}"/></div>
-        <br/>
-        <br/>
-        <br/>
-        <span class="glyphicon glyphicon-bell"/>
-        </div>
-          <div class="container">
-              <div class="row">
-                  <div class="col-md-12" style="color:black;font-size:200%;">Servicios         
-                      <div class="row">
-                          <br/>
-                          <div class="col-md-6">Hechos:
-                              <br/>
-                          <ui:repeat value="#{servicioBean.servicios}" var="ser">                
-                              <h:form rendered="#{((servicioBean.esElAgente(usuarioBean.ajeno,ser) or servicioBean.esElProgramador(usuarioBean.ajeno,ser)) and ser.finalizado)}">
-                                  <div class="servicios">
-                                      <section>
-                                          <br/>
-                                          <label> Titulo del servicio:</label>
-                                          <p> <h:commandLink value="#{ser.titulo}" action="#{servicioBean.mostrar(ser.idServicio)}" > </h:commandLink> </p>
-                                          <br/>
-                                          <label>Presupuesto:</label>
-                                          <p>$#{ser.presupuesto}</p>
-                                          <br/>
-                                          <label>Descripción:</label>
-                                          <p>#{ser.description}</p>
-                                          <br/>
-                                          <h:commandButton value="Eliminar post" class="btn btn-primary btn-lg active" action="#{servicioBean.eliminar(ser)}" rendered="false" />                         
-                                          <!--<h:commandButton value="Modificar post" class="btn btn-primary btn-lg active" action="{servicioBean.eliminar(ser)}"/> -->                         
-                                      </section>
-                                  </div>
-                              </h:form>
-                          </ui:repeat>
-                          </div>
-                          <div class="col-md-offset-6">Haciendo:
-                              <br/>
-                              <ui:repeat value="#{servicioBean.servicios}" var="ser">                
-                                  <h:form rendered="#{(servicioBean.esElAgente(usuarioBean.ajeno,ser) and !ser.finalizado)}">
-                                      <div class="servicios">
-                                          <section>
-                                              <br/>
-                                              <label> Titulo del servicio:</label>
-                                              <p> <h:commandLink value="#{ser.titulo}" action="#{servicioBean.mostrar(ser.idServicio)}" > </h:commandLink> </p>
-                                              <br/>
-                                              <label>Presupuesto:</label>
-                                              <p>$#{ser.presupuesto}</p>
-                                              <br/>
-                                              <label>Descripción:</label>
-                                              <p>#{ser.description}</p>
-                                              <br/>                        
-                                              <!--<h:commandButton value="Modificar post" class="btn btn-primary btn-lg active" action="{servicioBean.eliminar(ser)}"/> -->                         
-                                          </section>
-                                      </div>
-                                  </h:form>
-                              </ui:repeat>
-                          </div>
-                      </div>	
-                  </div>
-              </div>
-          </div>
-      </div>
-    </div>	
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"/>
-    <script src="bootstrap.min.js"/>
-    <script src="docs/assets/js/ie10-viewport-bug-workaround.js"/>
-  </h:body>      
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"/>
+        <script src="bootstrap.min.js"/>
+        <script src="docs/assets/js/ie10-viewport-bug-workaround.js"/>
+    </h:body>      
 </html>

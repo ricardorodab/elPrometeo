@@ -12,23 +12,7 @@
       <h:outputLabel value="No se ha iniciado sesión" rendered="#{usuarioBean.verificarSesion() eq false}"/>
     <br/>
     <br/> 
-    <div class="row">
-      <div class="col-md-3" style="color:black;font-size:400%;">El Prometeo</div>
-      <div class="col-md-3">
-        <a href="servicio.xhtml">Inicio y publicaciones</a>
-      </div>
-      <div class="col-md-3">          
-         <!-- <h:form id="searchform">
-              <h:inputText p:placeholder="Buscar aqu&iacute;..." value="#{busquedasBean.cond}"/>
-              <h:commandButton value="Buscar" action="#{busquedasBean.getServicios()}" />
-          </h:form> -->
-      </div>    
-      <div class="col-md-3">       
-       <h:form rendered="#{usuarioBean.verificarSesion()}">
-                 <h:commandButton value="Cerrar Sesión" action="#{usuarioBean.cerrarSesion()}"/>                         
-        </h:form> 
-      </div>
-    </div>
+     <ui:include src="/WEB-INF/header.xhtml" />      
     <div class="container">
       <div class="row">
 	<div class="col-md-6">

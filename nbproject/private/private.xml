@@ -11,11 +11,14 @@
             <file>file:/Users/ricardo_rodab/NetBeansProjects/ElPrometeo/web/registro.xhtml</file>
             <file>file:/Users/ricardo_rodab/NetBeansProjects/ElPrometeo/src/java/modelo/Usuario.hbm.xml</file>
             <file>file:/Users/ricardo_rodab/NetBeansProjects/ElPrometeo/src/conf/MANIFEST.MF</file>
+            <file>file:/Users/ricardo_rodab/NetBeansProjects/ElPrometeo/web/terminosycondiciones.xhtml</file>
+            <file>file:/Users/ricardo_rodab/NetBeansProjects/ElPrometeo/web/perfilAjeno.xhtml</file>
             <file>file:/Users/ricardo_rodab/NetBeansProjects/ElPrometeo/web/WEB-INF/web.xml</file>
+            <file>file:/Users/ricardo_rodab/NetBeansProjects/ElPrometeo/web/errorRegistro.xhtml</file>
             <file>file:/Users/ricardo_rodab/NetBeansProjects/ElPrometeo/src/java/modelo/Usuario.java</file>
             <file>file:/Users/ricardo_rodab/NetBeansProjects/ElPrometeo/src/java/hibernate.cfg.xml</file>
             <file>file:/Users/ricardo_rodab/NetBeansProjects/ElPrometeo/src/java/modelo/Programador.hbm.xml</file>
-            <file>file:/Users/ricardo_rodab/NetBeansProjects/ElPrometeo/web/indexOriginal.xhtml</file>
+            <file>file:/Users/ricardo_rodab/NetBeansProjects/ElPrometeo/web/WEB-INF/faces-config.xml</file>
             <file>file:/Users/ricardo_rodab/NetBeansProjects/ElPrometeo/web/perfil.jpeg</file>
             <file>file:/Users/ricardo_rodab/NetBeansProjects/ElPrometeo/src/java/modelo/Especialidad.java</file>
             <file>file:/Users/ricardo_rodab/NetBeansProjects/ElPrometeo/src/java/modelo/Servicio.java</file>
@@ -23,16 +26,13 @@
             <file>file:/Users/ricardo_rodab/NetBeansProjects/ElPrometeo/web/error.xhtml</file>
             <file>file:/Users/ricardo_rodab/NetBeansProjects/ElPrometeo/web/servicio.xhtml</file>
             <file>file:/Users/ricardo_rodab/NetBeansProjects/ElPrometeo/src/java/modelo/Agente.java</file>
-            <file>file:/Users/ricardo_rodab/NetBeansProjects/ElPrometeo/web/exito.xhtml</file>
             <file>file:/Users/ricardo_rodab/NetBeansProjects/ElPrometeo/src/java/dao/OperacionesDAO.java</file>
             <file>file:/Users/ricardo_rodab/NetBeansProjects/ElPrometeo/web/index.xhtml</file>
             <file>file:/Users/ricardo_rodab/NetBeansProjects/ElPrometeo/src/java/beans/UsuarioBean.java</file>
             <file>file:/Users/ricardo_rodab/NetBeansProjects/ElPrometeo/src/java/modelo/Registro.hbm.xml</file>
             <file>file:/Users/ricardo_rodab/NetBeansProjects/ElPrometeo/src/java/beans/ServicioBean.java</file>
-            <file>file:/Users/ricardo_rodab/NetBeansProjects/ElPrometeo/src/java/beans/BusquedasBean.java</file>
             <file>file:/Users/ricardo_rodab/NetBeansProjects/ElPrometeo/src/java/modelo/Servicio.hbm.xml</file>
             <file>file:/Users/ricardo_rodab/NetBeansProjects/ElPrometeo/src/java/beans/TipoUsuarioBean.java</file>
-            <file>file:/Users/ricardo_rodab/NetBeansProjects/ElPrometeo/web/busquedas.xhtml</file>
             <file>file:/Users/ricardo_rodab/NetBeansProjects/ElPrometeo/src/java/modelo/Programador.java</file>
             <file>file:/Users/ricardo_rodab/NetBeansProjects/ElPrometeo/web/modificar.xhtml</file>
             <file>file:/Users/ricardo_rodab/NetBeansProjects/ElPrometeo/src/java/hibernate.reveng.xml</file>

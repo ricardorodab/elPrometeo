@@ -151,7 +151,14 @@ public class UsuarioBean {
     }
 
     public boolean verificarSesion() {
-        return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario") != null;
+       return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario") != null;
+    }
+    
+    public String verificaConectado(){
+        boolean result = FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario") != null;
+        if(!result)
+            return "inicia-sesion-now";
+        return "";
     }
 
     public String cerrarSesion() {
