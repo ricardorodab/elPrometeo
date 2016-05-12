@@ -238,10 +238,6 @@ public class OperacionesDAO {
                 }
                 a.getServicios().clear();
                 session().update(a);
-                Servicio s = (Servicio) ser.next();
-                session().delete(s);
-                a.getServicios().clear();
-                a = (Agente) session().merge(a);
                 session().delete(a);
                 session().delete(u);
             } else {
@@ -398,38 +394,27 @@ public class OperacionesDAO {
     }
     
     public List<Servicio> obtenServicios(String cond) {
-        //Transaction tx = session().beginTransaction();
-        /*Transaction tx;
-        if (session().getTransaction() != null
-        <<<<<<< HEAD
-        && session().getTransaction().isActive()) {
-        tx = session().getTransaction();
-        } else {
-        tx = session().beginTransaction();
-        }*/
-        /*try {
-        Query q = session().createSQLQuery("select * from servicio where titulo like %:titulo% or description like %:description%")
-        .addEntity(Servicio.class).setString("titulo", cond).setString("description", cond);
-        List<Servicio> lista = q.list();
-        tx.commit();
-        return lista;
-        =======
-        && session().getTransaction().isActive()) {
-        tx = session().getTransaction();
-        } else {
-        tx = session().beginTransaction();
-        }*/
-        /*try {
-        Query q = session().createSQLQuery("select * from servicio where titulo like %:titulo% or description like %:description%")
-        .addEntity(Servicio.class).setString("titulo", cond).setString("description", cond);
-        List<Servicio> lista = q.list();
-        tx.commit();
-        return lista;
-        >>>>>>> 9040699feb9942f29691c61c7b9ae8661ede1b6a
-        } catch (Exception e) {
-        e.printStackTrace();
-        }*/
-        return null;
+        Transaction tx = session().beginTransaction();
+        try {
+            Query q = session().createSQLQuery("select * from servicio as srv where lower(srv.titulo) LIKE :titulo or lower(srv.description) LIKE :description")
+                    .addEntity(Servicio.class).setString("titulo", "%"+cond.toLowerCase()+"%").setString("description", "%"+cond.toLowerCase()+"%");
+            List<Servicio> lista = q.list();
+            if(!tx.wasCommitted())
+                tx.commit();
+            for (int i = 0; i < lista.size(); i++) {
+                System.out.println(lista.get(i).getTitulo());
+            }
+            return lista;
+        }catch (Exception e) {
+            tx.commit();
+            e.printStackTrace();
+            tx.rollback();
+            return null;
+        }finally{
+            if(!tx.wasCommitted())
+                tx.commit();
+            closeSession();
+        }
     }
     
     public Programador buscaProgramador(Programador programador) {
@@ -439,6 +424,24 @@ public class OperacionesDAO {
                     .addEntity(Programador.class)
                     .setInteger("id", programador.getIdProgramador());
             return (Programador) q.uniqueResult();
+        } catch (Exception e) {
+            e.printStackTrace(); // Lo mantengo para revisar el log.
+            tx.rollback();
+        } finally {
+            if(!tx.wasCommitted())
+                tx.commit();
+            closeSession();
+        }
+        return null;
+    }
+    
+    public Agente buscaAgente(Agente a) {
+        Transaction tx = session().beginTransaction();
+        try {
+            Query q = session().createSQLQuery("select * from agente where id_Agente = :id")
+                    .addEntity(Agente.class)
+                    .setInteger("id", a.getIdAgente());
+            return (Agente) q.uniqueResult();
         } catch (Exception e) {
             e.printStackTrace(); // Lo mantengo para revisar el log.
             tx.rollback();

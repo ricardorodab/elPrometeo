@@ -3,7 +3,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
    <h:head>
     <title>Mi perfil</title>
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
@@ -68,58 +69,45 @@
         <span class="glyphicon glyphicon-bell"/>
         </div>
           <div class="container">
+              <h4>SERVICIOS DE ESTE USUARIO:</h4>
+              <img src="greenArrow.jpeg" onclick="window.scrollBy(0,500)" onmouseover="this.style.cursor='pointer'"/>
               <div class="row">
                   <div class="col-md-12" style="color:black;font-size:200%;">Servicios         
                       <div class="row">
-                          <br/>
-                          <div class="col-md-6">Hechos:
+                          <br/>                          
+                          <div class="col-md-6">Servicio contactados:
                               <br/>
                           <ui:repeat value="#{servicioBean.servicios}" var="ser">                
                               <h:form rendered="#{((servicioBean.esElAgente(usuarioBean.usuario,ser) or servicioBean.esElProgramador(usuarioBean.usuario,ser)) and ser.finalizado)}">
                                   <div class="servicios">
                                       <section>
                                           <br/>
-                                          <label> Titulo del servicio:</label>
-                                          <p> <h:commandLink value="#{ser.titulo}" action="#{servicioBean.mostrar(ser.idServicio)}" > </h:commandLink> </p>
-                                          <br/>
-                                          <label>Presupuesto:</label>
-                                          <p>$#{ser.presupuesto}</p>
-                                          <br/>
-                                          <label>Descripción:</label>
-                                          <p>#{ser.description}</p>
-                                          <br/>
+                                          <label> Mis servicios:</label>
+                                          <p> Nombre:<h:commandLink value="#{ser.titulo}" action="#{servicioBean.mostrar(ser.idServicio)}" > </h:commandLink> </p>                                          
                                           <h:commandButton value="Eliminar post" class="btn btn-primary btn-lg active" action="#{servicioBean.eliminar(ser)}" rendered="false" />                         
-                                          <h:commandLink value="CONTACTO DEL PROGRAMADOR" action="#{usuarioBean.irAjeno(servicioBean.mostrarProgramador(ser))}" rendered="true"/>
-                                          <!--<h:commandButton value="Modificar post" class="btn btn-primary btn-lg active" action="{servicioBean.eliminar(ser)}"/> -->                         
+                                          <h:commandLink value="CONTACTO DEL SERVICIO" action="#{usuarioBean.irAjeno(servicioBean.mostrarProgramador(ser))}" rendered="#{usuarioBean.usuario.esAgente()}"/>  
+                                          <h:commandLink value="CONTACTO DEL SERVICIO" action="#{usuarioBean.irAjeno(servicioBean.mostrarAgente(ser))}" rendered="#{!usuarioBean.usuario.esAgente()}"/>  
                                       </section>
                                   </div>
                               </h:form>
                           </ui:repeat>
                           </div>
-                          <div class="col-md-offset-6">Haciendo:
+                          <c:if test="#{usuarioBean.usuario.esAgente()}" >
+                          <div class="col-md-offset-6">Buscando un programador:
                               <br/>
                               <ui:repeat value="#{servicioBean.servicios}" var="ser">                
                                   <h:form rendered="#{(servicioBean.esElAgente(usuarioBean.usuario,ser) and !ser.finalizado)}">
                                       <div class="servicios">
                                           <section>
                                               <br/>
-                                              <label> Titulo del servicio:</label>
-                                              <p> <h:commandLink value="#{ser.titulo}" action="#{servicioBean.mostrar(ser.idServicio)}" > </h:commandLink> </p>
-                                              <br/>
-                                              <label>Presupuesto:</label>
-                                              <p>$#{ser.presupuesto}</p>
-                                              <br/>
-                                              <label>Descripción:</label>
-                                              <p>#{ser.description}</p>
-                                              <br/>
-                                              <h:commandButton value="Eliminar servicio" class="btn btn-primary btn-lg active" action="#{servicioBean.eliminar(ser)}" rendered="#{servicioBean.esElAgente(usuarioBean.usuario,ser)}" />                         
-                                              
-                                              <!--<h:commandButton value="Modificar post" class="btn btn-primary btn-lg active" action="{servicioBean.eliminar(ser)}"/> -->                         
+                                              <p>Nombre: <h:commandLink value="#{ser.titulo}" action="#{servicioBean.mostrar(ser.idServicio)}" > </h:commandLink> </p>
+                                              <h:commandButton value="Eliminar servicio" class="btn btn-primary btn-lg active" action="#{servicioBean.eliminar(ser)}" rendered="#{servicioBean.esElAgente(usuarioBean.usuario,ser)}" />                                                                                               
                                           </section>
                                       </div>
                                   </h:form>
                               </ui:repeat>
                           </div>
+                          </c:if>
                       </div>	
                   </div>
               </div>

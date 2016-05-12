@@ -81,23 +81,23 @@ public class ServicioBean {
             if (u.esAgente()) {
                 return false;
             }
-            Programador dueno = (Programador) ser.getProgramadors().iterator().next(); // new ArrayList<Agente>(this.servicio.getAgentes()).get(0);
-            return dueno.getIdProgramador() == usuario.getProgramador().getIdProgramador();
+            Programador dueno = this.getProgramador(ser); // new ArrayList<Agente>(this.servicio.getAgentes()).get(0);
+            return dueno.getIdProgramador() == u.getProgramador().getIdProgramador();
         }
     }
 
     public boolean esElAgente(Usuario usuario, Servicio ser) {
 
         /* Primero verificamos que el usuario esté registrado y sea un agente. */
-        Usuario u = dao.buscaUsuarioPorCorreo(usuario.getCorreo());
+        Usuario u = dao.buscaUsuario(usuario.getIdUsuario());
         if (u == null) {
             return false;
         } else {
             if (!u.esAgente()) {
                 return false;
             }
-            Agente dueno = (Agente) ser.getAgentes().iterator().next(); // new ArrayList<Agente>(this.servicio.getAgentes()).get(0);
-            return dueno.getIdAgente() == usuario.getAgente().getIdAgente();
+            Agente dueno = this.getAgente(ser); // new ArrayList<Agente>(this.servicio.getAgentes()).get(0);
+            return dueno.getIdAgente() == u.getAgente().getIdAgente();
         }
     }
 
@@ -109,17 +109,15 @@ public class ServicioBean {
     
         
     public Usuario mostrarProgramador(Servicio ser){
-        System.out.println(ser.getIdServicio());    
-        System.out.println("111");
-        System.out.println("111");
-        System.out.println(this.servicio.getIdServicio());
         Servicio ser2 = buscar(ser.getIdServicio());                
         Programador ag = getProgramador(ser2);
         return ag.getUsuario();
     }
 
-    public String mostrarAgente(Servicio ser) {
-        return "perfil";
+    public Usuario mostrarAgente(Servicio ser) {
+       Servicio ser2 = buscar(ser.getIdServicio());
+       Agente ag = getAgente(ser2);
+       return ag.getUsuario();
     }
 
     /**
@@ -172,29 +170,32 @@ public class ServicioBean {
     }
 
     public Agente getAgente(Servicio ser) {
-        if (ser == null) {
+        Servicio ser2 = dao.buscaServicioPorId(ser.getIdServicio());
+        if (ser2 == null) {
             return null;
         }
-        return (Agente) ser.getAgentes().iterator().next();
+        Agente a = (Agente) ser2.getAgentes().iterator().next();
+        return dao.buscaAgente(a);
     }
 
     public Programador getProgramador(Servicio ser) {
-        if (ser == null) {
+        Servicio ser2 = dao.buscaServicioPorId(ser.getIdServicio());
+        if (ser2 == null) {
             return null;
         }
         if (!ser.getFinalizado()) {
             return null;
         }
-        Programador p = (Programador)ser.getProgramadors().iterator().next();
+        Programador p = (Programador)ser2.getProgramadors().iterator().next();
         return dao.buscaProgramador(p);        
     }
 
     public Servicio buscar(int id) {
-        Servicio servicio = dao.buscaServicioPorId(id);
-        if (servicio == null) {
+        Servicio servicio2 = dao.buscaServicioPorId(id);
+        if (servicio2 == null) {
             return null;
         } else {
-            return servicio;
+            return servicio2;
         }
     }
 

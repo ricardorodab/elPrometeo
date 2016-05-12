@@ -33,14 +33,14 @@
                     <br/>
                     <br/>
                     <br/>
-                    <p style="color:black;font-size:400%;">Mi Perfil</p>
+                    <p style="color:black;font-size:400%;">Perfil de contacto:</p>
                     <br/>
                     <br/>
                     <br/>
                     <div style="resize=both; overflow=auto;">
                         <h:outputText value="#{usuarioBean.ajeno.esAgente() ? 
-                                               (!usuarioBean.ajeno.agente.tieneOcupacion()  ? 'Aquí se mostrará la ocupación e información personal que usted desee exponer. Para modificar este espacio ingrese a Modificar perfil' : usuarioBean.usuario.agente.ocupacion) 
-                                               : !usuarioBean.ajeno.programador.tieneFormacion() ? 'Aquí se mostrará la ocupación, formación como programador e información personal que usted desee exponer. Para modificar este espacio ingrese a Modificar perfil' : usuarioBean.usuario.programador.formacion}"/></div>
+                                               (!usuarioBean.ajeno.agente.tieneOcupacion()  ? 'No hay información adicional que haya puesto el contacto' : usuarioBean.usuario.agente.ocupacion) 
+                                               : !usuarioBean.ajeno.programador.tieneFormacion() ? 'No hay información adicional que haya puesto el contacto' : usuarioBean.usuario.programador.formacion}"/></div>
                     <br/>
                     <br/>
                     <div style="resize=both; overflow=auto">Tipo de usuario: <h:outputText value="#{usuarioBean.ajeno.esAgente() ? 'Agente Creativo' : 'Programador'}"/></div>
@@ -50,6 +50,8 @@
                     <span class="glyphicon glyphicon-bell"/>
                 </div>
                 <div class="container">
+                    <h4>SERVICIOS DE ESTE USUARIO:</h4>
+                    <img src="greenArrow.jpeg" onclick="window.scrollBy(0,500)" onmouseover="this.style.cursor='pointer'"/>
                     <div class="row">
                         <div class="col-md-12" style="color:black;font-size:200%;">Servicios         
                             <div class="row">

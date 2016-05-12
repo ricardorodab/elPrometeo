@@ -72,7 +72,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 </div>
                 <div class="col-md-6">
                     <br/>
-                    <h2><h:outputText value="#{servicioBean.esElAgente(usuarioBean.usuario, servicioBean.servicio) ? 'Información del programador:' : 'Información del agente creativo'}"/></h2>
+                    <h2><h:outputText value="#{servicioBean.esElAgente(usuarioBean.usuario,servicioBean.servicio) ? 'Información del programador:' : 'Información del agente creativo'}"/></h2>
                     <br/>
                     <br/>
                     <div class="informacion">
@@ -80,7 +80,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             <h:outputText value="#{servicioBean.servicio.finalizado ? (servicioBean.esElAgente(usuarioBean.usuario) ? servicioBean.getDatosProgramador(servicioBean.servicio) : servicioBean.getDatosAgente(servicioBean.servicio)) : 'Aquí aparecerán los datos de contacto del usuario que aceptó/solicita el servicio una vez que alguien desee tomar el trabajo.'}" />                            
                             <ui:repeat value="#{servicioBean.servicios}" var="ser" rendered="true">
                                 <h:form rendered="#{servicioBean.servicio.idServicio == ser.idServicio}">                                
-                                    <h:commandLink value="CONTACTO" action="#{usuarioBean.irAjeno(servicioBean.mostrarProgramador(ser))}" > </h:commandLink>
+                                    <h:commandLink value="CONTACTO" action="#{usuarioBean.irAjeno(servicioBean.mostrarProgramador(ser))}" rendered="#{usuarioBean.usuario.esAgente() and ser.finalizado}"> </h:commandLink>                                    
+                                    <h:commandLink value="CONTACTO" action="#{usuarioBean.irAjeno(servicioBean.mostrarAgente(ser))}" rendered="#{!usuarioBean.usuario.esAgente() and ser.finalizado}"> </h:commandLink>                                    
                                 </h:form>
                             </ui:repeat>
                         </section>
