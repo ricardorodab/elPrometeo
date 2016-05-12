@@ -35,6 +35,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import modelo.Agente;
+import modelo.Mensaje;
 import modelo.Programador;
 import modelo.Registro;
 import modelo.Servicio;
@@ -159,6 +160,21 @@ public class OperacionesDAO {
         }
     }
     
+    /* Guarda el mensaje en la base de datos */
+    public void guardaMensaje(Mensaje m) {
+        Transaction tx = session().beginTransaction();
+        try {
+            session().save(m);
+        } catch (Exception e) {
+            e.printStackTrace(); // Lo mantengo para revisar el log.
+            tx.rollback();
+        }finally{
+            if(!tx.wasCommitted())
+                tx.commit();
+            closeSession();
+        }
+    }
+    
     public void guardaUsuario(Usuario u) {
         Transaction tx = session().beginTransaction();
         try {
@@ -222,6 +238,10 @@ public class OperacionesDAO {
                 }
                 a.getServicios().clear();
                 session().update(a);
+                Servicio s = (Servicio) ser.next();
+                session().delete(s);
+                a.getServicios().clear();
+                a = (Agente) session().merge(a);
                 session().delete(a);
                 session().delete(u);
             } else {
@@ -260,6 +280,22 @@ public class OperacionesDAO {
         }
     }
     
+    /* Regresa los mensajes relacionados con el servicio s */
+    public List<Mensaje> obtenMensajesServicio(Servicio s) {
+        Transaction tx = session().beginTransaction();
+        try {
+            Query q = session().createSQLQuery("select * from mensaje where id_servicio ="
+                    + s.getIdServicio()
+                    + " order by fecha_de_envio desc").addEntity(Mensaje.class);
+            List<Mensaje> lista = q.list();
+            tx.commit();
+            return lista;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
     public List<Servicio> obtenServicios() {
         Transaction tx = session().beginTransaction();
         try {
@@ -271,7 +307,7 @@ public class OperacionesDAO {
         }
         catch (TransactionException e) {
             return obtenServicios();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }finally{
             if(!tx.wasCommitted())
@@ -341,7 +377,7 @@ public class OperacionesDAO {
     
     public String finalizaServicio(Programador p, Servicio ser) {
         Transaction tx = session().beginTransaction();
-        try{
+        try {
             ser.getProgramadors().add(p);
             ser.setFinalizado(true);
             p.getServicios().add(ser);
@@ -349,6 +385,7 @@ public class OperacionesDAO {
             if(!tx.wasCommitted())
                 tx.commit();
         }catch (Exception e){
+            tx.commit();
             e.printStackTrace();
             tx.rollback();
             return "error";
@@ -364,6 +401,7 @@ public class OperacionesDAO {
         //Transaction tx = session().beginTransaction();
         /*Transaction tx;
         if (session().getTransaction() != null
+        <<<<<<< HEAD
         && session().getTransaction().isActive()) {
         tx = session().getTransaction();
         } else {
@@ -375,14 +413,27 @@ public class OperacionesDAO {
         List<Servicio> lista = q.list();
         tx.commit();
         return lista;
+        =======
+        && session().getTransaction().isActive()) {
+        tx = session().getTransaction();
+        } else {
+        tx = session().beginTransaction();
+        }*/
+        /*try {
+        Query q = session().createSQLQuery("select * from servicio where titulo like %:titulo% or description like %:description%")
+        .addEntity(Servicio.class).setString("titulo", cond).setString("description", cond);
+        List<Servicio> lista = q.list();
+        tx.commit();
+        return lista;
+        >>>>>>> 9040699feb9942f29691c61c7b9ae8661ede1b6a
         } catch (Exception e) {
         e.printStackTrace();
         }*/
         return null;
     }
-
+    
     public Programador buscaProgramador(Programador programador) {
-         Transaction tx = session().beginTransaction();
+        Transaction tx = session().beginTransaction();
         try {
             Query q = session().createSQLQuery("select * from programador where id_Programador = :id")
                     .addEntity(Programador.class)
@@ -396,7 +447,7 @@ public class OperacionesDAO {
                 tx.commit();
             closeSession();
         }
-        return null; 
+        return null;
     }
     
 }

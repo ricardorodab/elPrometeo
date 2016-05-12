@@ -47,7 +47,11 @@ finalizado BOOLEAN
 
 CREATE TABLE mensaje(
 id_mensaje SERIAL PRIMARY KEY,
-mensaje TEXT
+texto TEXT,
+fecha_de_envio TIMESTAMP NOT NULL,
+id_remitente INTEGER REFERENCES usuario(id_usuario),
+id_destinatario INTEGER REFERENCES usuario(id_usuario),
+id_servicio INTEGER REFERENCES servicio(id_servicio)
 );
 
 /* Relaciones */

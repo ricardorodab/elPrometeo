@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 08-abr-2016 1:26:04 by Hibernate Tools 4.3.1 -->
+<!-- Generated May 6, 2016 1:12:13 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="modelo.Servicio" table="servicio" schema="public" optimistic-lock="version">
         <id name="idServicio" type="int">
             <column name="id_servicio" />
-              <generator class="sequence" >
+            <generator class="sequence" >
                 <param name="sequence">servicio_id_servicio_seq</param>
             </generator>
         </id>
@@ -43,6 +43,12 @@
             <many-to-many entity-name="modelo.Programador">
                 <column name="id_programador" not-null="true" />
             </many-to-many>
+        </set>
+        <set name="mensajes" table="mensaje" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_servicio" />
+            </key>
+            <one-to-many class="modelo.Mensaje" />
         </set>
     </class>
 </hibernate-mapping>

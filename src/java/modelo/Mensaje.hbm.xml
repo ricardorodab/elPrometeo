@@ -1,16 +1,29 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 08-abr-2016 1:26:04 by Hibernate Tools 4.3.1 -->
+<!-- Generated May 6, 2016 1:12:13 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="modelo.Mensaje" table="mensaje" schema="public" optimistic-lock="version">
         <id name="idMensaje" type="int">
             <column name="id_mensaje" />
-            <generator class="assigned" />
+            <generator class="sequence" >
+                <param name="sequence">mensaje_id_mensaje_seq</param>
+            </generator>
         </id>
-        <property name="mensaje" type="string">
-            <column name="mensaje" />
+        <many-to-one name="servicio" class="modelo.Servicio" fetch="select">
+            <column name="id_servicio" />
+        </many-to-one>
+        <many-to-one name="usuarioByIdRemitente" class="modelo.Usuario" fetch="select">
+            <column name="id_remitente" />
+        </many-to-one>
+        <many-to-one name="usuarioByIdDestinatario" class="modelo.Usuario" fetch="select">
+            <column name="id_destinatario" />
+        </many-to-one>
+        <property name="texto" type="string">
+            <column name="texto" />
         </property>
-        <one-to-one name="registro" class="modelo.Registro"></one-to-one>
+        <property name="fechaDeEnvio" type="timestamp">
+            <column name="fecha_de_envio" length="29" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>
