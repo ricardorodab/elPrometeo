@@ -1,2 +1,15 @@
-/dist/
+*/target/
+nbproject/private
+nb-configuration.xml
+javadoc/
 /build/
+/dist/
+session.*
+/**/*.elc
+/**/*~
+/semanticdb/
+projectile.cache
+.recentf
+ac-comphist.dat
+/nbproject
+build.xml
