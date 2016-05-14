@@ -12,6 +12,7 @@ import javax.faces.bean.RequestScoped;
 
 import dao.OperacionesDAO;
 import java.util.Date;
+import java.util.Iterator;
 import modelo.Agente;
 import modelo.Mensaje;
 import modelo.Programador;
@@ -153,17 +154,35 @@ public class ServicioBean {
         return dao.obtenServicios();
     }
 
-    public String getDatosProgramador(Servicio ser) {
+    public String getDatosProgramador(Usuario usuarioActual, Servicio ser) {
+        List<Integer> list = dao.obtenListaDeBloqueados(usuarioActual);        
         Programador ag = getProgramador(buscar(ser.getIdServicio()));
-        Usuario us = dao.buscaUsuario(ag.getIdProgramador());
+        Usuario us = dao.buscaUsuario(ag.getIdProgramador());        
+        Iterator i = list.iterator();
+        while(i.hasNext()){
+            if((Integer)i.next() == us.getIdUsuario())
+                return "El usuario ha sido bloqueado! Por seguridad sus datos ya no podrán ser vistos";
+        }
         return "Nombre del programador: " + us.getNombre() + " " + us.getApellidoPaterno() + "\n"
                 + "Correo del programador: " + us.getCorreo() + "\n"
                 + "Teléfono: " + us.getTelefono() + "\n";
     }
 
-    public String getDatosAgente(Servicio ser) {
+    public String getDatosAgente(Usuario usuarioActual, Servicio ser) {
+        List<Integer> list = dao.obtenListaDeBloqueados(usuarioActual);        
         Agente ag = getAgente(buscar(ser.getIdServicio()));
-        Usuario us = dao.buscaUsuario(ag.getIdAgente());
+        Usuario us = dao.buscaUsuario(ag.getIdAgente());        
+        Iterator i = list.iterator();
+        while(i.hasNext()){
+            if((Integer)i.next() == us.getIdUsuario())
+                return "El usuario ha sido bloqueado! Por seguridad sus datos ya no podrán ser vistos";
+        }
+        list = dao.obtenListaDeBloqueados(us);
+        i = list.iterator();
+         while(i.hasNext()){
+            if((Integer)i.next() == usuarioActual.getIdUsuario())
+                return "El usuario te ha bloqueado! Por seguridad sus datos ya no podrán ser vistos";
+        }
         return "Nombre del agente: " + us.getNombre() + " " + us.getApellidoPaterno() + "\n"
                 + "Correo del agente: " + us.getCorreo() + "\n"
                 + "Teléfono: " + us.getTelefono() + "\n";

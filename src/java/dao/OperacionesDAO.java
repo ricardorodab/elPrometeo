@@ -41,7 +41,9 @@ import modelo.Registro;
 import modelo.Servicio;
 import modelo.TipoUsuario;
 import modelo.Usuario;
+import org.hibernate.SQLQuery;
 import org.hibernate.TransactionException;
+import org.hibernate.type.StandardBasicTypes;
 import util.HibernateUtil;
 
 /**
@@ -120,41 +122,23 @@ public class OperacionesDAO {
         return null;
     }
     
-    /* Nos dice si el bloqueador bloqueó al bloqueado */
-    public boolean buscaBloqueado(Usuario bloqueador, Usuario bloqueado) {
-        Transaction tx = session().beginTransaction();
-        try {
-            Query q = session().createSQLQuery("select * from bloqueados"
-                    + " where id_bloqueado = " + bloqueado.getIdUsuario()
-                    + " and id_bloqueador = " + bloqueador.getIdUsuario());
-            if (q.uniqueResult() == null) {
-                return false;
-            } else {
-                return true;
-            }
-        } catch (Exception e) {
-            e.printStackTrace(); // Lo mantengo para revisar el log.
-            tx.rollback();
-        } finally {
-            tx.commit();
-        }
-        return false;
-    }
-    
     /* Regresa la lista de bloqueados de un Usuario. Aún no sé para qué, pero
     seguro resultará útil */
-    public List<Usuario> obtenListaDeBloqueados(Usuario u) {
+    public List<Integer> obtenListaDeBloqueados(Usuario u) {
         Transaction tx = session().beginTransaction();
         try {
-            Query q = session().createSQLQuery("select * from bloqueados where "
-                    + "id_bloqueador = "
-                    + u.getIdUsuario()).addEntity(Usuario.class);
+            Query q = session().createSQLQuery("select id_bloqueado from bloqueados where "
+                    + "id_bloqueador = :id").addScalar("id_bloqueado",StandardBasicTypes.INTEGER);
+            q.setInteger("id", u.getIdUsuario());
             /* La lista de usuarios bloqueados */
-            List<Usuario> lista = q.list();
-            tx.commit();
+            List<Integer> lista = q.list();
             return lista;
         } catch (Exception e) {
             e.printStackTrace();
+        }finally{
+            if(!tx.wasCommitted())
+                tx.commit();
+            closeSession();
         }
         return null;
     }
@@ -481,6 +465,27 @@ public class OperacionesDAO {
             tx.rollback();
             return null;
         }finally{
+            if(!tx.wasCommitted())
+                tx.commit();
+            closeSession();
+        }
+    }
+    
+    public String bloquear(Usuario usuario, Usuario u) {
+        Usuario pet,dang;
+        pet = buscaUsuario(usuario.getIdUsuario());
+        dang = buscaUsuario(u.getIdUsuario());
+        Transaction tx = session().beginTransaction();
+        try {
+            Query sql = session().createSQLQuery("INSERT INTO bloqueados"
+                    + "(id_bloqueado,id_bloqueador) VALUES("+dang.getIdUsuario()+","+pet.getIdUsuario()+")");
+            sql.executeUpdate();
+            return "servicio";
+        } catch (Exception e) {
+            e.printStackTrace(); // Lo mantengo para revisar el log.
+            tx.rollback();
+            return "error";
+        } finally {
             if(!tx.wasCommitted())
                 tx.commit();
             closeSession();

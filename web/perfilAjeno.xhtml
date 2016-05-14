@@ -18,6 +18,11 @@
                     <img style="border-radius=8px;" src="perfil.jpeg" alt="Perfil"/>
                     <br/>
                     <br/>
+                    <h:form>
+                        <h:commandLink value="BLOQUEAR USUARIO" action="#{usuarioBean.bloquear(usuarioBean.usuario,usuarioBean.ajeno)}" />                        
+                    </h:form>
+                    <br/>
+                    <br/>
                     <div style="resize=both; overflow=auto;">Nombre: <h:outputText value="#{usuarioBean.ajeno.nombre}" /></div>
                     <div style="resize=both; overflow=auto;">Apellido paterno: <h:outputText value="#{usuarioBean.ajeno.apellidoPaterno}" /></div>
                     <div style="resize=both; overflow=auto;">Apellido materno: <h:outputText value="#{usuarioBean.ajeno.apellidoMaterno}" /></div>
