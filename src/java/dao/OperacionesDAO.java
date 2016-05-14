@@ -67,7 +67,7 @@ public class OperacionesDAO {
         }
     }
     
-    public Usuario buscaUsuario(int id){
+    public Usuario buscaUsuario(int id) {
         Transaction tx = session().beginTransaction();
         try {
             Query q = session().createSQLQuery("select * from usuario where id_Usuario = :id")
@@ -116,6 +116,45 @@ public class OperacionesDAO {
             if(!tx.wasCommitted())
                 tx.commit();
             closeSession();
+        }
+        return null;
+    }
+    
+    /* Nos dice si el bloqueador bloqueó al bloqueado */
+    public boolean buscaBloqueado(Usuario bloqueador, Usuario bloqueado) {
+        Transaction tx = session().beginTransaction();
+        try {
+            Query q = session().createSQLQuery("select * from bloqueados"
+                    + " where id_bloqueado = " + bloqueado.getIdUsuario()
+                    + " and id_bloqueador = " + bloqueador.getIdUsuario());
+            if (q.uniqueResult() == null) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Lo mantengo para revisar el log.
+            tx.rollback();
+        } finally {
+            tx.commit();
+        }
+        return false;
+    }
+    
+    /* Regresa la lista de bloqueados de un Usuario. Aún no sé para qué, pero
+    seguro resultará útil */
+    public List<Usuario> obtenListaDeBloqueados(Usuario u) {
+        Transaction tx = session().beginTransaction();
+        try {
+            Query q = session().createSQLQuery("select * from bloqueados where "
+                    + "id_bloqueador = "
+                    + u.getIdUsuario()).addEntity(Usuario.class);
+            /* La lista de usuarios bloqueados */
+            List<Usuario> lista = q.list();
+            tx.commit();
+            return lista;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }
@@ -238,7 +277,6 @@ public class OperacionesDAO {
                 }
                 a.getServicios().clear();
                 session().update(a);
-                session().delete(a);
                 session().delete(u);
             } else {
                 Programador p = u.getProgramador();
@@ -302,7 +340,6 @@ public class OperacionesDAO {
             return lista;
         }
         catch (TransactionException e) {
-            return obtenServicios();
         } catch (Exception e) {
             e.printStackTrace();
         }finally{
@@ -378,10 +415,7 @@ public class OperacionesDAO {
             ser.setFinalizado(true);
             p.getServicios().add(ser);
             session().update(ser);
-            if(!tx.wasCommitted())
-                tx.commit();
-        }catch (Exception e){
-            tx.commit();
+        } catch (Exception e) {
             e.printStackTrace();
             tx.rollback();
             return "error";
@@ -391,6 +425,42 @@ public class OperacionesDAO {
             closeSession();
         }
         return "mostrarServicio";
+    }
+    
+    public Agente buscaAgente(Agente a) {
+        Transaction tx = session().beginTransaction();
+        try {
+            Query q = session().createSQLQuery("select * from agente where id_Agente = :id")
+                    .addEntity(Agente.class)
+                    .setInteger("id", a.getIdAgente());
+            return (Agente) q.uniqueResult();
+        } catch (Exception e) {
+            e.printStackTrace(); // Lo mantengo para revisar el log.
+            tx.rollback();
+        } finally {
+            if(!tx.wasCommitted())
+                tx.commit();
+            closeSession();
+        }
+        return null;
+    }
+    
+    public Programador buscaProgramador(Programador programador) {
+        Transaction tx = session().beginTransaction();
+        try {
+            Query q = session().createSQLQuery("select * from programador where id_Programador = :id")
+                    .addEntity(Programador.class)
+                    .setInteger("id", programador.getIdProgramador());
+            return (Programador) q.uniqueResult();
+        } catch (Exception e) {
+            e.printStackTrace(); // Lo mantengo para revisar el log.
+            tx.rollback();
+        } finally {
+            if(!tx.wasCommitted())
+                tx.commit();
+            closeSession();
+        }
+        return null;
     }
     
     public List<Servicio> obtenServicios(String cond) {
@@ -415,42 +485,6 @@ public class OperacionesDAO {
                 tx.commit();
             closeSession();
         }
-    }
-    
-    public Programador buscaProgramador(Programador programador) {
-        Transaction tx = session().beginTransaction();
-        try {
-            Query q = session().createSQLQuery("select * from programador where id_Programador = :id")
-                    .addEntity(Programador.class)
-                    .setInteger("id", programador.getIdProgramador());
-            return (Programador) q.uniqueResult();
-        } catch (Exception e) {
-            e.printStackTrace(); // Lo mantengo para revisar el log.
-            tx.rollback();
-        } finally {
-            if(!tx.wasCommitted())
-                tx.commit();
-            closeSession();
-        }
-        return null;
-    }
-    
-    public Agente buscaAgente(Agente a) {
-        Transaction tx = session().beginTransaction();
-        try {
-            Query q = session().createSQLQuery("select * from agente where id_Agente = :id")
-                    .addEntity(Agente.class)
-                    .setInteger("id", a.getIdAgente());
-            return (Agente) q.uniqueResult();
-        } catch (Exception e) {
-            e.printStackTrace(); // Lo mantengo para revisar el log.
-            tx.rollback();
-        } finally {
-            if(!tx.wasCommitted())
-                tx.commit();
-            closeSession();
-        }
-        return null;
     }
     
 }

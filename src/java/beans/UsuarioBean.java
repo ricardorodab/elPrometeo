@@ -47,16 +47,14 @@ import modelo.Usuario;
  * Clase para poder manejar a los usuarios.</p>
  *
  * <p>
- * Clase controladora en particular de las sesiones de los
- * usuarios.</p>
+ * Clase controladora en particular de las sesiones de los usuarios.</p>
  */
 @ManagedBean
 @SessionScoped
 public class UsuarioBean {
 
     /**
-     * Es el atributo para poder manejar al usuario actual de nuestra
-     * app.
+     * Es el atributo para poder manejar al usuario actual de nuestra app.
      */
     private Usuario usuario = new Usuario();
     private Usuario ajeno = new Usuario();
@@ -68,8 +66,8 @@ public class UsuarioBean {
     }
 
     /**
-     * Metodo que nos regresa al usuario de la clase, el atributo
-     * privado de la clase.
+     * Metodo que nos regresa al usuario de la clase, el atributo privado de la
+     * clase.
      *
      * @return - El atributo usuario de la clase.
      */
@@ -171,8 +169,13 @@ public class UsuarioBean {
      *
      * @return
      */
-    public String eliminar() {       
+    public String eliminar() {
         dao.elimina(usuario);
         return "index";
+    }
+
+    /* Nos dice si el Usuario está bloqueado por el Usuario actual */
+    public boolean estaBloqueado(Usuario u) {
+        return dao.buscaBloqueado(this.usuario, u);
     }
 } //Fin de UsuarioBean.java
