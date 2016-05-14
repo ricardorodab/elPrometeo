@@ -4,43 +4,44 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
-    <head style="background-color:#3e8f3e">
+    <head style="background-color:blue">
+        <div class="color" style="background-color: #00FFBF">
         <h:outputLabel value="No se ha iniciado sesión" rendered="#{usuarioBean.verificarSesion() eq false}"/>
         <c:if test="#{(usuarioBean.verificarSesion() eq false) or (usuarioBean.usuario.idUsuario == 0)}" >
             <meta http-equiv="refresh" content="0;url=inicio.xhtml" />
         </c:if>
-        <br/>
-        <br/>              
-        <div class="row">            
-            <div class="col-md-2"  >
+
+        <div class="row">
+            <div class="col-md-3">
                 <a href="servicio.xhtml" style="margin:10%"> 
                     <img style="border-radius=8px;" height="140" width="140" src="../elPrometeo.jpg" alt="Logo" onmouseover="this.style.cursor='pointer'"/>
                 </a>
             </div>
-            <div class="col-md-3" style="color:black;font-size:300%;margin:1%;" >El Prometeo</div>
-            <div class="col-md-3">
- 
-                    <h:form id="searchform">
-                        <h:inputText p:placeholder="Buscar aquí;..." value="#{busquedasBean.busqueda}"/>
-                        <h:commandButton value="Buscar" action="resultadoBusquedas.xhtml" />
-                    </h:form> 
-                <br/>
-                <a href="servicio.xhtml">Inicio y publicaciones</a>
-                <br/>
-                <br/>
-                <a href="perfil.xhtml">Mi Perfil</a>
-            </div>
-            <div class="col-md-3">          
-            </div>   
-            
-            <div class="col-md-3">       
-                <h:form rendered="#{usuarioBean.verificarSesion()}">
-                    <h:commandButton value="Cerrar Sesión" action="#{usuarioBean.cerrarSesion()}"/>                         
-                </h:form> 
-            </div>
+            <div class="col-md-5"/>
+            <div class="col-md-3" style="color:black;font-size:300%;margin:1%;text-align:right">El Prometeo</div>
             
         </div>
-        
+        <br/>
+        <div id="topnav" class="navbar" style="position: relative; top: 0px;">
+            <ul class="nav nav-tabs">
+                <li role="presentation" class="active"><a href="servicio.xhtml">Publicaciones</a></li>
+                <li role="presentation" class="active"><a href="perfil.xhtml">Perfil</a></li>
+                
+                
+                <div style="float: right; width: 10%; overflow: hidden; height: 45px;">
+                    <h:form rendered="#{usuarioBean.verificarSesion()}">
+                        <h:commandButton value="Cerrar Sesión" action="#{usuarioBean.cerrarSesion()}"/>                         
+                    </h:form> 
+                </div>
+                <div style="float: right; width: 20%; overflow: hidden; height: 45px;">
+                    <h:form id="searchform">
+                        <h:inputText p:placeholder="Buscar aquí" value="#{busquedasBean.busqueda}"/>
+                        <h:commandButton value="Buscar" action="resultadoBusquedas.xhtml" />
+                    </h:form>
+                </div>
+            </ul>
+        </div>
+        </div>
     </head>
 </ui:composition>
 
