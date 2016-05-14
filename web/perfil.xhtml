@@ -9,10 +9,9 @@
     <title>Mi perfil</title>
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
   </h:head>
-  <h:body style="background-color:#D3D3D3">
+  <h:body style="background-color:white">
+      <div class="container" style="background-color: orange">
       <h:outputLabel value="No se ha iniciado sesión" rendered="#{usuarioBean.verificarSesion() eq false}"/>
-    <br/>
-    <br/> 
      <ui:include src="/WEB-INF/header.xhtml" />      
     <div class="container">
       <div class="row">
@@ -65,12 +64,16 @@
         <div style="resize=both; overflow=auto">Tipo de usuario: <h:outputText value="#{usuarioBean.usuario.esAgente() ? 'Agente Creativo' : 'Programador'}"/></div>
         <br/>
         <br/>
-        <br/>
         <span class="glyphicon glyphicon-bell"/>
-        </div>
-          <div class="container">
+
+
+              <br/>
+              <br/>
               <h4>SERVICIOS DE ESTE USUARIO:</h4>
-              <img src="greenArrow.jpeg" onclick="window.scrollBy(0,500)" onmouseover="this.style.cursor='pointer'"/>
+              <br/>
+              <br/>
+              <img src="greenArrow.jpeg" onclick="window.scrollBy(0,500)" onmouseover="this.style.cursor='pointer'" title="Haz click para ver los servicios"/>
+           </div>
               <div class="row">
                   <div class="col-md-12" style="color:black;font-size:200%;">Servicios         
                       <div class="row">
@@ -84,6 +87,7 @@
                                           <br/>
                                           <label> Mis servicios:</label>
                                           <p> Nombre:<h:commandLink value="#{ser.titulo}" action="#{servicioBean.mostrar(ser.idServicio)}" > </h:commandLink> </p>                                          
+                                          <br/>
                                           <h:commandButton value="Eliminar post" class="btn btn-primary btn-lg active" action="#{servicioBean.eliminar(ser)}" rendered="false" />                         
                                           <h:commandLink value="CONTACTO DEL SERVICIO" action="#{usuarioBean.irAjeno(servicioBean.mostrarProgramador(ser))}" rendered="#{usuarioBean.usuario.esAgente()}"/>  
                                           <h:commandLink value="CONTACTO DEL SERVICIO" action="#{usuarioBean.irAjeno(servicioBean.mostrarAgente(ser))}" rendered="#{!usuarioBean.usuario.esAgente()}"/>  
@@ -101,6 +105,7 @@
                                           <section>
                                               <br/>
                                               <p>Nombre: <h:commandLink value="#{ser.titulo}" action="#{servicioBean.mostrar(ser.idServicio)}" > </h:commandLink> </p>
+                                              <br/>
                                               <h:commandButton value="Eliminar servicio" class="btn btn-primary btn-lg active" action="#{servicioBean.eliminar(ser)}" rendered="#{servicioBean.esElAgente(usuarioBean.usuario,ser)}" />                                                                                               
                                           </section>
                                       </div>
@@ -113,9 +118,10 @@
               </div>
           </div>
       </div>
-    </div>	
+	
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"/>
     <script src="bootstrap.min.js"/>
     <script src="docs/assets/js/ie10-viewport-bug-workaround.js"/>
+      </div>
   </h:body>      
 </html>
