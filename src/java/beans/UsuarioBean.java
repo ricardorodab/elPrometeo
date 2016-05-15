@@ -36,7 +36,6 @@ import javax.faces.context.FacesContext;
 import dao.OperacionesDAO;
 import java.util.Iterator;
 import java.util.List;
-import modelo.Servicio;
 import modelo.TipoUsuario;
 import modelo.Usuario;
 
@@ -192,5 +191,5 @@ public class UsuarioBean {
     public String bloquear(Usuario yo,Usuario u){
         return dao.bloquear(yo,u);
     }
-    
+      
 } //Fin de UsuarioBean.java

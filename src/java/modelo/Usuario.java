@@ -176,7 +176,6 @@ public class Usuario implements java.io.Serializable {
         this.correo = correo;
     }
 
-
     @Column(name = "contrasenia", nullable = false)
     public String getContrasenia() {
         return this.contrasenia;
@@ -186,7 +185,6 @@ public class Usuario implements java.io.Serializable {
         this.contrasenia = contrasenia;
     }
 
-
     @Column(name = "estado")
     public String getEstado() {
         return this.estado;
@@ -195,7 +193,6 @@ public class Usuario implements java.io.Serializable {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-
 
     @Temporal(TemporalType.DATE)
     @Column(name = "fecha_de_naciminiento", length = 13)
@@ -227,7 +224,6 @@ public class Usuario implements java.io.Serializable {
     public void setProgramador(Programador programador) {
         this.programador = programador;
     }
-
 
     /* Nos regresa al usuario como instancia de tipo Agente */
     public Agente getAgente() {

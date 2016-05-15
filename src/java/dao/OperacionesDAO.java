@@ -24,7 +24,7 @@
 * o escriba a la Free Software Foundation Inc.,
 * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 * -------------------------------------------------------------------
-*/
+ */
 package dao;
 
 import java.util.Iterator;
@@ -51,9 +51,9 @@ import util.HibernateUtil;
  * @author ricardo
  */
 public class OperacionesDAO {
-    
+
     private Session session;
-    
+
     private synchronized Session session() {
         if (HibernateUtil.getSessionFactory().isClosed()) {
             session = HibernateUtil.getSessionFactory().openSession();
@@ -62,13 +62,13 @@ public class OperacionesDAO {
         }
         return session;
     }
-    
-    private synchronized void closeSession(){
+
+    private synchronized void closeSession() {
         if (session != null && session.isOpen()) {
             session.close();
         }
     }
-    
+
     public Usuario buscaUsuario(int id) {
         Transaction tx = session().beginTransaction();
         try {
@@ -80,12 +80,14 @@ public class OperacionesDAO {
             e.printStackTrace(); // Lo mantengo para revisar el log.
             tx.rollback();
         } finally {
-            if(!tx.wasCommitted())
+            if (!tx.wasCommitted()) {
                 tx.commit();
+            }
             closeSession();
         }
         return null;
     }
+
     public Usuario buscaUsuarioPorTelefono(Long telefono) {
         Transaction tx = session().beginTransaction();
         try {
@@ -97,13 +99,14 @@ public class OperacionesDAO {
             e.printStackTrace(); // Lo mantengo para revisar el log.
             tx.rollback();
         } finally {
-            if(!tx.wasCommitted())
+            if (!tx.wasCommitted()) {
                 tx.commit();
+            }
             closeSession();
         }
         return null;
     }
-    
+
     public Usuario buscaUsuarioPorCorreo(String correo) {
         Transaction tx = session().beginTransaction();
         try {
@@ -115,34 +118,36 @@ public class OperacionesDAO {
             e.printStackTrace(); // Lo mantengo para revisar el log.
             tx.rollback();
         } finally {
-            if(!tx.wasCommitted())
+            if (!tx.wasCommitted()) {
                 tx.commit();
+            }
             closeSession();
         }
         return null;
     }
-    
+
     /* Regresa la lista de bloqueados de un Usuario. Aún no sé para qué, pero
     seguro resultará útil */
     public List<Integer> obtenListaDeBloqueados(Usuario u) {
         Transaction tx = session().beginTransaction();
         try {
             Query q = session().createSQLQuery("select id_bloqueado from bloqueados where "
-                    + "id_bloqueador = :id").addScalar("id_bloqueado",StandardBasicTypes.INTEGER);
+                    + "id_bloqueador = :id").addScalar("id_bloqueado", StandardBasicTypes.INTEGER);
             q.setInteger("id", u.getIdUsuario());
             /* La lista de usuarios bloqueados */
             List<Integer> lista = q.list();
             return lista;
         } catch (Exception e) {
             e.printStackTrace();
-        }finally{
-            if(!tx.wasCommitted())
+        } finally {
+            if (!tx.wasCommitted()) {
                 tx.commit();
+            }
             closeSession();
         }
         return null;
     }
-    
+
     private void guardaProgramador(Usuario u) {
         Transaction tx = session().beginTransaction();
         try {
@@ -152,13 +157,14 @@ public class OperacionesDAO {
         } catch (Exception e) {
             e.printStackTrace();
             tx.rollback();
-        }finally{
-            if(!tx.wasCommitted())
+        } finally {
+            if (!tx.wasCommitted()) {
                 tx.commit();
+            }
             closeSession();
         }
     }
-    
+
     private void guardaAgente(Usuario u) {
         Transaction tx = session().beginTransaction();
         try {
@@ -168,13 +174,14 @@ public class OperacionesDAO {
         } catch (Exception e) {
             e.printStackTrace();
             tx.rollback();
-        }finally{
-            if(!tx.wasCommitted())
+        } finally {
+            if (!tx.wasCommitted()) {
                 tx.commit();
+            }
             closeSession();
         }
     }
-    
+
     public void guarda(Usuario u, TipoUsuario tipo) {
         if (tipo == TipoUsuario.AGENTE) {
             guardaAgente(u);
@@ -182,7 +189,7 @@ public class OperacionesDAO {
             guardaProgramador(u);
         }
     }
-    
+
     /* Guarda el mensaje en la base de datos */
     public void guardaMensaje(Mensaje m) {
         Transaction tx = session().beginTransaction();
@@ -191,13 +198,14 @@ public class OperacionesDAO {
         } catch (Exception e) {
             e.printStackTrace(); // Lo mantengo para revisar el log.
             tx.rollback();
-        }finally{
-            if(!tx.wasCommitted())
+        } finally {
+            if (!tx.wasCommitted()) {
                 tx.commit();
+            }
             closeSession();
         }
     }
-    
+
     public void guardaUsuario(Usuario u) {
         Transaction tx = session().beginTransaction();
         try {
@@ -205,13 +213,14 @@ public class OperacionesDAO {
         } catch (Exception e) {
             e.printStackTrace(); // Lo mantengo para revisar el log.
             tx.rollback();
-        }finally{
-            if(!tx.wasCommitted())
+        } finally {
+            if (!tx.wasCommitted()) {
                 tx.commit();
+            }
             closeSession();
         }
     }
-    
+
     public boolean actualizaUsuario(Usuario u) {
         Transaction tx = session().beginTransaction();
         try {
@@ -220,14 +229,51 @@ public class OperacionesDAO {
             e.printStackTrace(); // Lo mantengo para revisar el log.
             tx.rollback();
             return false;
-        } finally{
-            if(!tx.wasCommitted())
+        } finally {
+            if (!tx.wasCommitted()) {
                 tx.commit();
+            }
             closeSession();
         }
         return true;
     }
-    
+
+    /* Actualiza al agente */
+    public boolean actualizaAgente(Agente a) {
+        Transaction tx = session().beginTransaction();
+        try {
+            session().update(a);
+        } catch (Exception e) {
+            e.printStackTrace(); // Lo mantengo para revisar el log.
+            tx.rollback();
+            return false;
+        } finally {
+            if (!tx.wasCommitted()) {
+                tx.commit();
+            }
+            closeSession();
+        }
+        return true;
+    }
+
+    /* Actualiza al programador */
+    public boolean actualizaProgramador(Programador p) {
+        Transaction tx = session().beginTransaction();
+        try {
+            session().update(p);
+        } catch (Exception e) {
+            e.printStackTrace(); // Lo mantengo para revisar el log.
+            tx.rollback();
+            return false;
+        } finally {
+            if (!tx.wasCommitted()) {
+                tx.commit();
+            }
+            closeSession();
+        }
+        return true;
+    }
+
     public Usuario verificarDatos(Usuario usuario) {
         Transaction tx = session().beginTransaction();
         try {
@@ -236,19 +282,21 @@ public class OperacionesDAO {
                     .setString("correo", usuario.getCorreo())
                     .setString("contraseña", usuario.getContrasenia());
             Usuario u = (Usuario) q.uniqueResult();
-            if(!tx.wasCommitted())
+            if (!tx.wasCommitted()) {
                 tx.commit();
+            }
             return u;
         } catch (Exception e) {
             e.printStackTrace();
-        }finally{
-            if(!tx.wasCommitted())
+        } finally {
+            if (!tx.wasCommitted()) {
                 tx.commit();
+            }
             closeSession();
         }
         return null;
     }
-    
+
     public boolean elimina(Usuario u) {
         Transaction tx = session().beginTransaction();
         try {
@@ -256,7 +304,7 @@ public class OperacionesDAO {
                 Agente a = u.getAgente();
                 Iterator ser = a.getServicios().iterator();
                 while (ser.hasNext()) {
-                    Servicio s = (Servicio)ser.next();
+                    Servicio s = (Servicio) ser.next();
                     session().delete(s);
                 }
                 a.getServicios().clear();
@@ -273,14 +321,15 @@ public class OperacionesDAO {
             e.printStackTrace();
             tx.rollback();
             return false;
-        }finally{
-            if(!tx.wasCommitted())
+        } finally {
+            if (!tx.wasCommitted()) {
                 tx.commit();
+            }
             closeSession();
         }
         return true;
     }
-    
+
     public void actualizaServicio(Usuario u, Servicio s) {
         Transaction tx = session().beginTransaction();
         try {
@@ -291,13 +340,14 @@ public class OperacionesDAO {
             e.printStackTrace();
             tx.rollback();
             return;
-        }finally{
-            if(!tx.wasCommitted())
+        } finally {
+            if (!tx.wasCommitted()) {
                 tx.commit();
+            }
             closeSession();
         }
     }
-    
+
     /* Regresa los mensajes relacionados con el servicio s */
     public List<Mensaje> obtenMensajesServicio(Servicio s) {
         Transaction tx = session().beginTransaction();
@@ -313,27 +363,28 @@ public class OperacionesDAO {
         }
         return null;
     }
-    
+
     public List<Servicio> obtenServicios() {
         Transaction tx = session().beginTransaction();
         try {
             Query q = session().createSQLQuery("select * from servicio").addEntity(Servicio.class);
             List<Servicio> lista = q.list();
-            if(!tx.wasCommitted())
+            if (!tx.wasCommitted()) {
                 tx.commit();
+            }
             return lista;
-        }
-        catch (TransactionException e) {
+        } catch (TransactionException e) {
         } catch (Exception e) {
             e.printStackTrace();
-        }finally{
-            if(!tx.wasCommitted())
+        } finally {
+            if (!tx.wasCommitted()) {
                 tx.commit();
+            }
             closeSession();
         }
         return null;
     }
-    
+
     public void eliminarServicio(Servicio servicio) {
         Transaction tx = session().beginTransaction();
         try {
@@ -360,18 +411,20 @@ public class OperacionesDAO {
             //servicio = (Servicio) session().merge(servicio);
             session().update(servicio);
             session().delete(servicio);
-            if(!tx.wasCommitted())
+            if (!tx.wasCommitted()) {
                 tx.commit();
+            }
         } catch (Exception e) {
             e.printStackTrace();
             tx.rollback();
-        }finally{
-            if(!tx.wasCommitted())
+        } finally {
+            if (!tx.wasCommitted()) {
                 tx.commit();
+            }
             closeSession();
         }
     }
-    
+
     public Servicio buscaServicioPorId(int id) {
         Transaction tx = session().beginTransaction();
         try {
@@ -379,19 +432,21 @@ public class OperacionesDAO {
                     .addEntity(Servicio.class)
                     .setInteger("id", id);
             Servicio servicio = (Servicio) q.uniqueResult();
-            if(!tx.wasCommitted())
+            if (!tx.wasCommitted()) {
                 tx.commit();
+            }
             return servicio;
         } catch (Exception e) {
             e.printStackTrace();
-        }finally{
-            if(!tx.wasCommitted())
+        } finally {
+            if (!tx.wasCommitted()) {
                 tx.commit();
+            }
             closeSession();
         }
         return null;
     }
-    
+
     public String finalizaServicio(Programador p, Servicio ser) {
         Transaction tx = session().beginTransaction();
         try {
@@ -403,14 +458,15 @@ public class OperacionesDAO {
             e.printStackTrace();
             tx.rollback();
             return "error";
-        }finally{
-            if(!tx.wasCommitted())
+        } finally {
+            if (!tx.wasCommitted()) {
                 tx.commit();
+            }
             closeSession();
         }
         return "mostrarServicio";
     }
-    
+
     public Agente buscaAgente(Agente a) {
         Transaction tx = session().beginTransaction();
         try {
@@ -422,13 +478,14 @@ public class OperacionesDAO {
             e.printStackTrace(); // Lo mantengo para revisar el log.
             tx.rollback();
         } finally {
-            if(!tx.wasCommitted())
+            if (!tx.wasCommitted()) {
                 tx.commit();
+            }
             closeSession();
         }
         return null;
     }
-    
+
     public Programador buscaProgramador(Programador programador) {
         Transaction tx = session().beginTransaction();
         try {
@@ -440,45 +497,48 @@ public class OperacionesDAO {
             e.printStackTrace(); // Lo mantengo para revisar el log.
             tx.rollback();
         } finally {
-            if(!tx.wasCommitted())
+            if (!tx.wasCommitted()) {
                 tx.commit();
+            }
             closeSession();
         }
         return null;
     }
-    
+
     public List<Servicio> obtenServicios(String cond) {
         Transaction tx = session().beginTransaction();
         try {
             Query q = session().createSQLQuery("select * from servicio as srv where lower(srv.titulo) LIKE :titulo or lower(srv.description) LIKE :description")
-                    .addEntity(Servicio.class).setString("titulo", "%"+cond.toLowerCase()+"%").setString("description", "%"+cond.toLowerCase()+"%");
+                    .addEntity(Servicio.class).setString("titulo", "%" + cond.toLowerCase() + "%").setString("description", "%" + cond.toLowerCase() + "%");
             List<Servicio> lista = q.list();
-            if(!tx.wasCommitted())
+            if (!tx.wasCommitted()) {
                 tx.commit();
+            }
             for (int i = 0; i < lista.size(); i++) {
                 System.out.println(lista.get(i).getTitulo());
             }
             return lista;
-        }catch (Exception e) {
+        } catch (Exception e) {
             tx.commit();
             e.printStackTrace();
             tx.rollback();
             return null;
-        }finally{
-            if(!tx.wasCommitted())
+        } finally {
+            if (!tx.wasCommitted()) {
                 tx.commit();
+            }
             closeSession();
         }
     }
-    
+
     public String bloquear(Usuario usuario, Usuario u) {
-        Usuario pet,dang;
+        Usuario pet, dang;
         pet = buscaUsuario(usuario.getIdUsuario());
         dang = buscaUsuario(u.getIdUsuario());
         Transaction tx = session().beginTransaction();
         try {
             Query sql = session().createSQLQuery("INSERT INTO bloqueados"
-                    + "(id_bloqueado,id_bloqueador) VALUES("+dang.getIdUsuario()+","+pet.getIdUsuario()+")");
+                    + "(id_bloqueado,id_bloqueador) VALUES(" + dang.getIdUsuario() + "," + pet.getIdUsuario() + ")");
             sql.executeUpdate();
             return "servicio";
         } catch (Exception e) {
@@ -486,10 +546,128 @@ public class OperacionesDAO {
             tx.rollback();
             return "error";
         } finally {
-            if(!tx.wasCommitted())
+            if (!tx.wasCommitted()) {
                 tx.commit();
+            }
             closeSession();
         }
     }
-    
+
+    /* El usuario calificador califica al calificado 
+     * (Se inserta en la base de datos)
+     */
+    public String califica(Usuario calificador, Usuario calificado,
+            double calificacion) {
+        if (calificacion < 1 || calificacion > 5) {
+            return "error";
+        }
+        borraCalificacion(calificador, calificado);
+        /* Los usuarios que se insertarán en la tabla */
+        Usuario calificadorU, calificadoU;
+        calificadorU = buscaUsuario(calificador.getIdUsuario());
+        calificadoU = buscaUsuario(calificado.getIdUsuario());
+        Transaction tx = session().beginTransaction();
+        try {
+            Query sql = session().createSQLQuery("INSERT INTO calificacion"
+                    + "(id_calificador ,id_calificado, calificacion) VALUES("
+                    + calificadorU.getIdUsuario() + ","
+                    + calificadoU.getIdUsuario() + ","
+                    + Double.toString(calificacion) + ")");
+            sql.executeUpdate();
+
+            /* Nos falta actualizar la calificación del programador/agente */
+            if (calificadoU.esAgente()) {
+                promediaAgente(calificadoU.getAgente());
+            } else {
+                promediaProgramador(calificadoU.getProgramador());
+            }
+            return "servicio";
+        } catch (Exception e) {
+            e.printStackTrace(); // Lo mantengo para revisar el log.
+            tx.rollback();
+            return "error";
+        } finally {
+            if (!tx.wasCommitted()) {
+                tx.commit();
+            }
+            closeSession();
+        }
+    }
+
+    /* Saca el promedio de la calificación del Agente y lo actualiza en la base 
+    de datos */
+    public void promediaAgente(Agente p) {
+        Transaction tx = session().beginTransaction();
+        try {
+            Query q = session().createSQLQuery("select avg(calificacion) from "
+                    + "calificacion where id_calificado = :id")
+                    .addScalar("calificacion", StandardBasicTypes.DOUBLE)
+                    .setInteger("id", p.getUsuario().getIdUsuario());
+            /* La reputación nueva del Agente */
+            double promedio = (Double) q.uniqueResult();
+            p.setReputacionAgente(promedio);
+            actualizaAgente(p);
+        } catch (Exception e) {
+            e.printStackTrace(); // Lo mantengo para revisar el log.
+            tx.rollback();
+        } finally {
+            if (!tx.wasCommitted()) {
+                tx.commit();
+            }
+            closeSession();
+        }
+    }
+
+    /* Saca el promedio de la calificación del Programador */
+    public void promediaProgramador(Programador p) {
+        Transaction tx = session().beginTransaction();
+        try {
+            Query q = session().createSQLQuery("select avg(calificacion) from "
+                    + "calificacion where id_calificado = :id")
+                    .addScalar("calificacion", StandardBasicTypes.DOUBLE)
+                    .setInteger("id", p.getUsuario().getIdUsuario());
+            /* La reputación nueva del Programador */
+            double promedio = (Double) q.uniqueResult();
+            p.setReputacionProgramador(promedio);
+            actualizaProgramador(p);
+        } catch (Exception e) {
+            e.printStackTrace(); // Lo mantengo para revisar el log.
+            tx.rollback();
+        } finally {
+            if (!tx.wasCommitted()) {
+                tx.commit();
+            }
+            closeSession();
+        }
+    }
+
+    /* Borra la calificación del servicio anterior (si existe). */
+    public void borraCalificacion(Usuario calificador, Usuario calificado) {
+        Transaction tx = session().beginTransaction();
+        try {
+            Query q = session().createSQLQuery("select * from "
+                    + "calificacion where id_calificado = :id and id_calificador"
+                    + " = :id2")
+                    .setInteger("id", calificado.getIdUsuario())
+                    .setInteger("id2", calificador.getIdUsuario());
+            /* Lo usamos para saber si hay resultados */
+            Object hayResultados = q.uniqueResult();
+            if (hayResultados != null) {
+                Query sql = session().createSQLQuery("DELETE FROM calificacion"
+                        + "WHERE id_calificado = :id and id_calificador = :id2")
+                        .setInteger("id", calificado.getIdUsuario())
+                        .setInteger("id2", calificador.getIdUsuario());
+                sql.executeUpdate();
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Lo mantengo para revisar el log.
+            tx.rollback();
+        } finally {
+            if (!tx.wasCommitted()) {
+                tx.commit();
+            }
+            closeSession();
+        }
+    }
+
 }
