@@ -21,8 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
        xmlns:f="http://xmlns.jcp.org/jsf/core"
        xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
        xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-    <h:head>
-        <ui:include src="/WEB-INF/header.xhtml" />      
+    <h:head>     
         <style>
             section {
                 width:350px;
@@ -31,33 +30,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 border: 1px solid black;
             }
         </style>
-        <title>Mi perfil</title>
+        <title>Mensajes</title>
         <link href="css/bootstrap.min.css" rel="stylesheet"/>
     </h:head>
-    <h:body style="background-color:#D3D3D3">
+    <h:body style="background-color:white">
         <h:outputLabel value="No se ha iniciado sesión" rendered="#{usuarioBean.verificarSesion() eq false}"/>
-        <a href="../src/java/dao/OperacionesDAO.java"></a>
-        <br/>
-        <br/>
-            
-        <div class="container">
+        <a href="../src/java/dao/OperacionesDAO.java"></a>  
+        <div class="container" style="background-color:#e42d40">
+            <ui:include src="/WEB-INF/header.xhtml" /> 
             <div class="row">	
                 <ui:repeat value="#{servicioBean.servicios}" var="ser">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <br/>
                         <h1>Mensaje nuevo:</h1>
                         <br/>
                         <br/>
                         <div style="resize=both; overflow=auto">
                             <h:form rendered="#{(servicioBean.servicio.idServicio == ser.idServicio) and servicioBean.esElAgente(usuarioBean.usuario,ser)}">
-                                <h:inputTextarea id="mensaje" p:placeholder="Ingrese mensaje nuevo para el programador" value="#{servicioBean.mensajeNuevo}">
-                                    <h:commandButton value="Enviar mensaje nuevo" action="#{servicioBean.enviarMensaje(usuarioBean.usuario.idUsuario,servicioBean.mostrarProgramador(ser).idUsuario, servicioBean.mensajeNuevo,ser)}" />
-                                </h:inputTextarea>
+                                <h:inputTextarea id="mensaje" p:placeholder="Ingrese mensaje nuevo para el programador" value="#{servicioBean.mensajeNuevo}">                                
+                                </h:inputTextarea>                               
+                                <div> 
+                                    <br/>
+                                    <h:commandButton value="Enviar mensaje nuevo" action="#{servicioBean.enviarMensaje(usuarioBean.usuario.idUsuario,servicioBean.mostrarProgramador(ser).idUsuario, servicioBean.mensajeNuevo,ser)}" /></div>                                
                             </h:form>
                             <h:form rendered="#{(servicioBean.servicio.idServicio == ser.idServicio) and servicioBean.esElProgramador(usuarioBean.usuario,ser)}">
-                                <h:inputTextarea id="mensaje" p:placeholder="Ingrese mensaje nuevo para el agente" value="#{servicioBean.mensajeNuevo}">
-                                    <h:commandButton value="Enviar mensaje nuevo" action="#{servicioBean.enviarMensaje(usuarioBean.usuario.idUsuario,servicioBean.mostrarAgente(ser).idUsuario, servicioBean.mensajeNuevo,ser)}" />
-                                </h:inputTextarea>
+                                <h:inputTextarea id="mensaje" p:placeholder="Ingrese mensaje nuevo para el agente" value="#{servicioBean.mensajeNuevo}">                                
+                                </h:inputTextarea>                                
+                                <div>
+                                    <br/>
+                                    <h:commandButton value="Enviar mensaje nuevo" action="#{servicioBean.enviarMensaje(usuarioBean.usuario.idUsuario,servicioBean.mostrarAgente(ser).idUsuario, servicioBean.mensajeNuevo,ser)}" /></div>
                             </h:form>
                         </div>
                         <br/>
@@ -76,14 +77,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         </h:outputText>
                     </h:form>
                 </ui:repeat>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <ui:repeat value="#{servicioBean.servicios}" var="ser">
                         <h:form  rendered="#{servicioBean.servicio.idServicio == ser.idServicio}"> 
+                            <br/>
+                            <br/>
                             <h:commandLink value="REGRESAR AL SERVICIO" action="#{servicioBean.mostrar(ser.idServicio)}"> </h:commandLink>
                         </h:form> 
                     </ui:repeat>
                 </div>
             </div>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
         </div>	 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"/>
         <script src="bootstrap.min.js"/>

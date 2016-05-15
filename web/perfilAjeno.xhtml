@@ -2,11 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-    <ui:include src="/WEB-INF/header.xhtml" />        
-    <h:body style="background-color:#D3D3D3">        
-        <title>Mi perfil</title>
+
+    <h:body style="background-color:white">        
+        <title>Perfil Visitado</title>
         <link href="css/bootstrap.min.css" rel="stylesheet"/>
-        <div class="container">
+        <div class="container" style="background-color: #e42d40">
+            <ui:include src="/WEB-INF/header.xhtml" /> 
             <div class="row">
                 <div class="col-md-6">
                     <br/>
@@ -53,10 +54,15 @@
                     <br/>
                     <br/>
                     <span class="glyphicon glyphicon-bell"/>
+                <br/>
+                <br/>
                 </div>
+                
                 <div class="container">
                     <h4>SERVICIOS DE ESTE USUARIO:</h4>
-                    <img src="greenArrow.jpeg" onclick="window.scrollBy(0,500)" onmouseover="this.style.cursor='pointer'"/>
+                    <br/>
+                    <br/>
+                    <span class="glyphicon glyphicon-arrow-down" style="font-size: 100px" onclick="window.scrollBy(0, 500)" onmouseover="this.style.cursor = 'pointer'" title="Haz click para ver los servicios"/>
                     <div class="row">
                         <div class="col-md-12" style="color:black;font-size:200%;">Servicios         
                             <div class="row">
