@@ -17,9 +17,9 @@
         <title>Servicios</title>
         <link href="css/bootstrap.min.css" rel="stylesheet"/>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
-                  <ui:include src="/WEB-INF/header.xhtml" />  
+        <ui:include src="/WEB-INF/header.xhtml" />  
     </head>
-
+        
     <body style="background-color:#D3D3D3">
         <br/>
         <br/>
@@ -27,15 +27,15 @@
             <div class="center-block" style="margin-left:40%;">
                 <h:form rendered="#{usuarioBean.usuario.esAgente()}">
                     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" >Crea tu servicio</button>
-                <!-- Modal -->
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">¿Qué servicio ofreces?</h4>
-                            </div>
-                            <div class="modal-body">
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">¿Qué servicio ofreces?</h4>
+                                </div>
+                                <div class="modal-body">
                                     <div class="form-group">
                                         <h:inputText class="form-control" id="nombre" p:placeholder="Título" value="#{servicioBean.servicio.titulo}" required="true" requiredMessage="Debe tener un mensaje de título el servicio"/>
                                     </div>
@@ -56,10 +56,10 @@
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                         <h:commandButton value="Crear" action="#{servicioBean.crear(usuarioBean.usuario)}" rendered="#{usuarioBean.usuario.esAgente()}"/>
                                     </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 </h:form>
             </div>
         </div>
@@ -69,25 +69,25 @@
         <br/>
         <br/>
         <br/>
-         <div class="container">
-             <ui:repeat value="#{busquedasBean.servicios}" var="serb" rendered="#{!serb.finalizado}">
-                 <h:form rendered="#{!serb.finalizado}">
-                <div class="servicios">
-                    <section>
-                        <label> Titulo del servicio:</label>
-                        <p>#{serb.titulo}
- <!-- <h:commandLink value="{serb.titulo}" action="{servicioBean.mostrar(serb.idServicio)}" > </h:commandLink> --> </p>
-                        <label>Presupuesto:</label>
-                        <p>$#{serb.presupuesto}</p>
-                        <label>Descripción:</label>
-                        <p>#{serb.description}</p>
-                           <!-- <h:commandButton value="Eliminar servicio" class="btn btn-primary btn-lg active" action="{servicioBean.eliminar(serb)}" rendered="{servicioBean.esElAgente(usuarioBean.usuario,serb)}" />   -->                        
+        <div class="container">
+            <ui:repeat value="#{busquedasBean.servicios}" var="serb" rendered="#{!serb.finalizado}">
+                <h:form rendered="#{!serb.finalizado}">
+                    <div class="servicios">
+                        <section>
+                            <label> Titulo del servicio:</label>
+                            <p>#{serb.titulo}
+                                <!-- <h:commandLink value="{serb.titulo}" action="{servicioBean.mostrar(serb.idServicio)}" > </h:commandLink> --> </p>
+                            <label>Presupuesto:</label>
+                            <p>$#{serb.presupuesto}</p>
+                            <label>Descripción:</label>
+                            <p>#{serb.description}</p>
+                            <!-- <h:commandButton value="Eliminar servicio" class="btn btn-primary btn-lg active" action="{servicioBean.eliminar(serb)}" rendered="{servicioBean.esElAgente(usuarioBean.usuario,serb)}" />   -->                        
                             <!--<h:commandButton value="Modificar post" class="btn btn-primary btn-lg active" action="{servicioBean.eliminar(ser)}"/> -->                                                 
-                           <!-- <h:commandButton value="Responder solicitud y aceptar servicio" class="btn btn-primary btn-lg active" action="{servicioBean.setProgramador(usuarioBean.usuario,serb)}" rendered="{(!usuarioBean.usuario.esAgente() and !serb.finalizado)}"/>-->  
-                    </section>
-                </div>
+                            <!-- <h:commandButton value="Responder solicitud y aceptar servicio" class="btn btn-primary btn-lg active" action="{servicioBean.setProgramador(usuarioBean.usuario,serb)}" rendered="{(!usuarioBean.usuario.esAgente() and !serb.finalizado)}"/>-->  
+                        </section>
+                    </div>
                 </h:form>
-           </ui:repeat>
+            </ui:repeat>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"/>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"/>
