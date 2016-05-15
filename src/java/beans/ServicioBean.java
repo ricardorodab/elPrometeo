@@ -28,7 +28,7 @@ import modelo.Usuario;
 public class ServicioBean {
 
     private Servicio servicio = new Servicio();
-
+    private String mensajeNuevo = "";
     private final OperacionesDAO dao;
 
     public ServicioBean() {
@@ -38,11 +38,19 @@ public class ServicioBean {
     public Servicio getServicio() {
         return this.servicio;
     }
+    
+    public String getMensajeNuevo(){
+        return this.mensajeNuevo;       
+    }
+    
+    public void setMensajeNuevo(String mensajeNuevo){
+        this.mensajeNuevo = mensajeNuevo;
+    }
 
     public String setProgramador(Usuario usuario) {
         return setProgramador(usuario, this.servicio);
     }
-
+    
     public String setProgramador(Usuario usuario, Servicio ser) {
         /* Primero verificamos que el usuario esté registrado y sea un agente. */
         Usuario u = dao.buscaUsuarioPorCorreo(usuario.getCorreo());
@@ -53,16 +61,12 @@ public class ServicioBean {
                 return "error";
             }
             Programador p = usuario.getProgramador();
-//<<<<<<< HEAD
             String result = dao.finalizaServicio(p,ser);
             if(result.equalsIgnoreCase("mostrarServicio")){
                 return mostrar(ser.getIdServicio());
             }else{
                 return "error";
             }
-/*=======
-            return dao.finalizaServicio(p, ser);
->>>>>>> 9040699feb9942f29691c61c7b9ae8661ede1b6a */
         }
     }
 
@@ -220,15 +224,17 @@ public class ServicioBean {
 
     /* Envía un mensaje del remitente al destinatario */
     public String enviarMensaje(int id_remitente, int id_destinatario,
-            String mensaje) {
-        Servicio actual = this.servicio;
+            String mensaje,Servicio ser) {
+        Servicio actual = dao.buscaServicioPorId(ser.getIdServicio());
+        if(actual == null)
+            return "Servicio inválido";
         /* El servicio actual */
         Programador pactual = this.getProgramador(actual);
         /* El programador 
             del servicio actual */
         Agente agactual = this.getAgente(actual);
         /* El agente que solicitó el servicio actual */
-        if (actual == null || pactual == null || agactual == null) {
+        if (pactual == null || agactual == null) {
             return "Servicio inválido";
         } else {
             int idprog = pactual.getIdProgramador();
@@ -238,7 +244,7 @@ public class ServicioBean {
             /* El id del agente actual */
             Mensaje m = new Mensaje();
             /* La instancia del mensaje a enviar */
-            m.setServicio(this.servicio);
+            m.setServicio(actual);
             m.setTexto(mensaje);
             m.setFechaDeEnvio(new Date());
             if (idprog == id_remitente && idagente == id_destinatario) {
@@ -251,18 +257,21 @@ public class ServicioBean {
                 return "Servicio inválido";
             }
             dao.guardaMensaje(m);
-            return "Mensaje enviado";
+            System.out.println("mensajes");
+            System.out.println("111");
+            System.out.println("111");
+            return mostrarMensajes(ser);
         }
     }
 
     /* Regresa una lista con los mensajes del servicio, ordenados por su 
     Timestamp */
-    public List muestraMensajes() {
+    public List<Mensaje> muestraMensajes() {
         /* Lista con todos los mensajes relacionados al servicio, ordenados por 
         su Timestamp */
-        List<Mensaje> mensajes_del_servicio;
-        mensajes_del_servicio = dao.obtenMensajesServicio(this.servicio);
-        return mensajes_del_servicio;
+        List<Mensaje> mensajesDelServicio;
+        mensajesDelServicio = dao.obtenMensajesServicio(this.servicio);
+        return mensajesDelServicio;
     }
 
     /* Regresa una lista con los últimos n mensajes del servicio, ordenados por 
@@ -275,4 +284,11 @@ public class ServicioBean {
         return regreso.subList(tamano - n, tamano);
     }
 
+    public String mostrarMensajes(Servicio ser){
+        this.servicio = dao.buscaServicioPorId(ser.getIdServicio());        
+        if(servicio == null)
+            return "error";
+        return "mensajes";
+    }
+    
 }

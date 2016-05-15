@@ -17,6 +17,7 @@
 package beans;
 
 import dao.OperacionesDAO;
+import java.util.Iterator;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -61,6 +62,7 @@ public class BusquedasBean {
     public List<Servicio> getServicios(String busqueda){
         return dao.obtenServicios(busqueda);
     }
+    
     
     /*public String mostrarServicioBuscado(Servicio ser){
         this.servicio = this.buscar(ser.getIdServicio());

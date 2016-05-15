@@ -1,0 +1,92 @@
+<!--
+Copyright (C) 2016 ricardo_rodab
+    
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+    
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+    
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<xhtml xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+       xmlns:f="http://xmlns.jcp.org/jsf/core"
+       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <ui:include src="/WEB-INF/header.xhtml" />      
+        <style>
+            section {
+                width:350px;
+                float:left;
+                padding:10px;
+                border: 1px solid black;
+            }
+        </style>
+        <title>Mi perfil</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    </h:head>
+    <h:body style="background-color:#D3D3D3">
+        <h:outputLabel value="No se ha iniciado sesión" rendered="#{usuarioBean.verificarSesion() eq false}"/>
+        <a href="../src/java/dao/OperacionesDAO.java"></a>
+        <br/>
+        <br/>
+            
+        <div class="container">
+            <div class="row">	
+                <ui:repeat value="#{servicioBean.servicios}" var="ser">
+                    <div class="col-md-6">
+                        <br/>
+                        <h1>Mensaje nuevo:</h1>
+                        <br/>
+                        <br/>
+                        <div style="resize=both; overflow=auto">
+                            <h:form rendered="#{(servicioBean.servicio.idServicio == ser.idServicio) and servicioBean.esElAgente(usuarioBean.usuario,ser)}">
+                                <h:inputTextarea id="mensaje" p:placeholder="Ingrese mensaje nuevo para el programador" value="#{servicioBean.mensajeNuevo}">
+                                    <h:commandButton value="Enviar mensaje nuevo" action="#{servicioBean.enviarMensaje(usuarioBean.usuario.idUsuario,servicioBean.mostrarProgramador(ser).idUsuario, servicioBean.mensajeNuevo,ser)}" />
+                                </h:inputTextarea>
+                            </h:form>
+                            <h:form rendered="#{(servicioBean.servicio.idServicio == ser.idServicio) and servicioBean.esElProgramador(usuarioBean.usuario,ser)}">
+                                <h:inputTextarea id="mensaje" p:placeholder="Ingrese mensaje nuevo para el agente" value="#{servicioBean.mensajeNuevo}">
+                                    <h:commandButton value="Enviar mensaje nuevo" action="#{servicioBean.enviarMensaje(usuarioBean.usuario.idUsuario,servicioBean.mostrarAgente(ser).idUsuario, servicioBean.mensajeNuevo,ser)}" />
+                                </h:inputTextarea>
+                            </h:form>
+                        </div>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <div style="resize=both; overflow=auto;">                            
+                        </div>
+                        <br/>
+                        <br/>
+                        <br/>       
+                    </div>
+                </ui:repeat>  
+                <ui:repeat value="#{servicioBean.muestraMensajes()}" var="act">
+                    <h:form rendered="#{act.servicio.idServicio == servicioBean.servicio.idServicio}">
+                        <h:outputText value="#{act.texto}">                                
+                        </h:outputText>
+                    </h:form>
+                </ui:repeat>
+                <div class="col-md-6">
+                    <ui:repeat value="#{servicioBean.servicios}" var="ser">
+                        <h:form  rendered="#{servicioBean.servicio.idServicio == ser.idServicio}"> 
+                            <h:commandLink value="REGRESAR AL SERVICIO" action="#{servicioBean.mostrar(ser.idServicio)}"> </h:commandLink>
+                        </h:form> 
+                    </ui:repeat>
+                </div>
+            </div>
+        </div>	 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"/>
+        <script src="bootstrap.min.js"/>
+        <script src="docs/assets/js/ie10-viewport-bug-workaround.js"/>
+    </h:body>      
+</xhtml>

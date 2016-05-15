@@ -306,10 +306,14 @@ public class OperacionesDAO {
                     + s.getIdServicio()
                     + " order by fecha_de_envio desc").addEntity(Mensaje.class);
             List<Mensaje> lista = q.list();
-            tx.commit();
             return lista;
         } catch (Exception e) {
             e.printStackTrace();
+            tx.rollback();
+        }finally{
+            if(!tx.wasCommitted())
+                tx.commit();
+            closeSession();
         }
         return null;
     }
@@ -455,9 +459,6 @@ public class OperacionesDAO {
             List<Servicio> lista = q.list();
             if(!tx.wasCommitted())
                 tx.commit();
-            for (int i = 0; i < lista.size(); i++) {
-                System.out.println(lista.get(i).getTitulo());
-            }
             return lista;
         }catch (Exception e) {
             tx.commit();
