@@ -61,6 +61,10 @@ public class UsuarioBean {
 
     private final OperacionesDAO dao;
 
+    /* La calificación con la que va a calificar el 
+    usuario a otro */
+    private double calificacion;
+
     public UsuarioBean() {
         dao = new OperacionesDAO();
     }
@@ -196,9 +200,12 @@ public class UsuarioBean {
     }
 
     /* El usuario calificador califica al calificado */
-    public String califica(Usuario calificador, Usuario calificado,
-            double calificacion) {
-        return dao.califica(calificador, calificado, calificacion);
-    }
+    public String califica(Usuario calificador, Usuario calificado,double c) {
+        this.calificacion = c;
+        boolean f = dao.hayCalificacion(calificador, calificado);
+        if(f)
+        return dao.califica(calificador, calificado, this.calificacion);
+        return "osheno"
+;    }
 
 } //Fin de UsuarioBean.java

@@ -561,7 +561,9 @@ public class OperacionesDAO {
         if (calificacion < 1 || calificacion > 5) {
             return "error";
         }
-        borraCalificacion(calificador, calificado);
+        if (hayCalificacion(calificador, calificado)) {
+            borraCalificacion(calificador, calificado);
+        }
         /* Los usuarios que se insertarán en la tabla */
         Usuario calificadorU, calificadoU;
         calificadorU = buscaUsuario(calificador.getIdUsuario());
@@ -574,14 +576,6 @@ public class OperacionesDAO {
                     + calificadoU.getIdUsuario() + ","
                     + Double.toString(calificacion) + ")");
             sql.executeUpdate();
-
-            /* Nos falta actualizar la calificación del programador/agente */
-            if (calificadoU.esAgente()) {
-                promediaAgente(calificadoU.getAgente());
-            } else {
-                promediaProgramador(calificadoU.getProgramador());
-            }
-            return "servicio";
         } catch (Exception e) {
             e.printStackTrace(); // Lo mantengo para revisar el log.
             tx.rollback();
@@ -592,6 +586,13 @@ public class OperacionesDAO {
             }
             closeSession();
         }
+        /* Nos falta actualizar la calificación del programador/agente */
+        if (calificadoU.esAgente()) {
+            promediaAgente(calificadoU.getAgente());
+        } else {
+            promediaProgramador(calificadoU.getProgramador());
+        }
+        return "servicio";
     }
 
     /* Saca el promedio de la calificación del Agente y lo actualiza en la base 
@@ -606,7 +607,6 @@ public class OperacionesDAO {
             /* La reputación nueva del Agente */
             double promedio = (Double) q.uniqueResult();
             p.setReputacionAgente(promedio);
-            actualizaAgente(p);
         } catch (Exception e) {
             e.printStackTrace(); // Lo mantengo para revisar el log.
             tx.rollback();
@@ -616,6 +616,7 @@ public class OperacionesDAO {
             }
             closeSession();
         }
+        actualizaAgente(p);
     }
 
     /* Saca el promedio de la calificación del Programador */
@@ -629,7 +630,7 @@ public class OperacionesDAO {
             /* La reputación nueva del Programador */
             double promedio = (Double) q.uniqueResult();
             p.setReputacionProgramador(promedio);
-            actualizaProgramador(p);
+            
         } catch (Exception e) {
             e.printStackTrace(); // Lo mantengo para revisar el log.
             tx.rollback();
@@ -639,32 +640,52 @@ public class OperacionesDAO {
             }
             closeSession();
         }
+        actualizaProgramador(p);
     }
 
-    /* Borra la calificación del servicio anterior (si existe). */
-    public void borraCalificacion(Usuario calificador, Usuario calificado) {
+    /* Nos dice si el calificador ya calificó al calificado. */
+    public boolean hayCalificacion(Usuario calificador, Usuario calificado) {
         Transaction tx = session().beginTransaction();
+        /* Lo usamos para saber si hay resultados */
+        Object hayResultados = null;
         try {
             Query q = session().createSQLQuery("select * from "
                     + "calificacion where id_calificado = :id and id_calificador"
                     + " = :id2")
                     .setInteger("id", calificado.getIdUsuario())
                     .setInteger("id2", calificador.getIdUsuario());
-            /* Lo usamos para saber si hay resultados */
-            Object hayResultados = q.uniqueResult();
-            if (hayResultados != null) {
-                Query sql = session().createSQLQuery("DELETE FROM calificacion"
-                        + "WHERE id_calificado = :id and id_calificador = :id2")
-                        .setInteger("id", calificado.getIdUsuario())
-                        .setInteger("id2", calificador.getIdUsuario());
-                sql.executeUpdate();
+            hayResultados = q.uniqueResult();
+            if (!tx.wasCommitted()) {
+                tx.commit();
             }
+            closeSession();
         } catch (Exception e) {
             e.printStackTrace(); // Lo mantengo para revisar el log.
             tx.rollback();
         } finally {
             if (!tx.wasCommitted()) {
                 tx.commit();
+            }
+            closeSession();
+        }
+        return (hayResultados != null);
+    }
+
+    /* Borra una calificación existente */
+    public void borraCalificacion(Usuario calificador, Usuario calificado) {
+        Transaction tx2 = session().beginTransaction();
+        try {
+            Query sql = session().createSQLQuery("DELETE FROM calificacion"
+                    + "WHERE id_calificado = :id and id_calificador = :id2")
+                    .setInteger("id", calificado.getIdUsuario())
+                    .setInteger("id2", calificador.getIdUsuario());
+            sql.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace(); // Lo mantengo para revisar el log.
+            tx2.rollback();
+        } finally {
+            if (!tx2.wasCommitted()) {
+                tx2.commit();
             }
             closeSession();
         }
