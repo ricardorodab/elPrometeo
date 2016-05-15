@@ -271,5 +271,10 @@ public class Usuario implements java.io.Serializable {
     public void setMensajesForIdDestinatario(Set mensajesForIdDestinatario) {
         this.mensajesForIdDestinatario = mensajesForIdDestinatario;
     }
+    
+    /* Regresa la ruta absoluta a la imagen del usuario */
+    public String getRutaImagen(){
+        return System.getProperty("user.dir") + "/imagenes/" + this.getImagen();
+    }
 
 }

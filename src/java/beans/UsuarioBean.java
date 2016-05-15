@@ -34,10 +34,16 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import dao.OperacionesDAO;
-import java.util.Iterator;
-import modelo.Servicio;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import javax.imageio.ImageIO;
 import modelo.TipoUsuario;
 import modelo.Usuario;
+import org.apache.commons.io.FileUtils;
+import java.awt.image.BufferedImage;
+
+import org.primefaces.model.UploadedFile;
 
 /**
  * @author Jimenez Méndez Ricardo
@@ -47,19 +53,20 @@ import modelo.Usuario;
  * Clase para poder manejar a los usuarios.</p>
  *
  * <p>
- * Clase controladora en particular de las sesiones de los
- * usuarios.</p>
+ * Clase controladora en particular de las sesiones de los usuarios.</p>
  */
 @ManagedBean
 @SessionScoped
 public class UsuarioBean {
 
     /**
-     * Es el atributo para poder manejar al usuario actual de nuestra
-     * app.
+     * Es el atributo para poder manejar al usuario actual de nuestra app.
      */
     private Usuario usuario = new Usuario();
     private Usuario ajeno = new Usuario();
+
+    /* La imagen del usuario (?)*/
+    private UploadedFile imagen;
 
     private final OperacionesDAO dao;
 
@@ -67,9 +74,19 @@ public class UsuarioBean {
         dao = new OperacionesDAO();
     }
 
+    /* Regresa la imagen del usuario */
+    public UploadedFile getImagen() {
+        return imagen;
+    }
+
+    /* Pone la imagen del usuario */
+    public void setImagen(UploadedFile img) {
+        this.imagen = img;
+    }
+
     /**
-     * Metodo que nos regresa al usuario de la clase, el atributo
-     * privado de la clase.
+     * Metodo que nos regresa al usuario de la clase, el atributo privado de la
+     * clase.
      *
      * @return - El atributo usuario de la clase.
      */
@@ -79,15 +96,15 @@ public class UsuarioBean {
         }
         return usuario;
     }
-    
-    public Usuario getAjeno(){
+
+    public Usuario getAjeno() {
         if (ajeno.getFechaDeNaciminiento() == null) {
             ajeno.setFechaDeNaciminiento(new Date(1950, 01, 01));
         }
         return ajeno;
     }
-    
-    public void setAjeno(Usuario ajeno){
+
+    public void setAjeno(Usuario ajeno) {
         this.ajeno = ajeno;
     }
 
@@ -109,28 +126,64 @@ public class UsuarioBean {
      * @param tipo - el tipo de usuario a registrar.
      */
     public String registrar(TipoUsuario tipo) {
+
         /*
          * Primero verificamos que el usuario no esté registrado
          */
-        try{
-        Usuario u = dao.buscaUsuarioPorCorreo(usuario.getCorreo());
-        u = dao.buscaUsuarioPorTelefono(usuario.getTelefono());
-        if (u != null) {
-            return "El usuario con ese correo o número telefónico ya existe.";
-        } else {
-            dao.guarda(usuario, tipo);
-            return verificarDatos();
-        }
-        }catch(Exception e){
+        try {
+            Usuario u = dao.buscaUsuarioPorCorreo(usuario.getCorreo());
+            u = dao.buscaUsuarioPorTelefono(usuario.getTelefono());
+            if (u != null) {
+                return "El usuario con ese correo o número telefónico ya existe.";
+            } else {
+                dao.guarda(usuario, tipo);
+                return verificarDatos();
+            }
+        } catch (Exception e) {
             return "El usuario con ese correo o número telefónico ya existe.";
         }
     }
 
-    public String irAjeno(Usuario user){
+    /* Guarda la imagen del usuario actual */
+    public String guardaImagen() throws IOException, Exception {
+        String type = imagen.getContentType();
+        /* El formato de la imagen a guardar */
+        String tipo = type.substring(6);
+        if (type.startsWith("image")) {
+            /* El InputStream de la imagen leída */
+            InputStream inputStr;
+            try {
+                inputStr = imagen.getInputstream();
+            } catch (IOException e) {
+                return "La imagen subida tiene un error";
+            }
+            /* Crea el directorio si no existe */
+            File directorio = new File(System.getProperty("user.dir") + "/imagenes");
+            /* Crea el directorio de imagenes */
+            directorio.mkdir();
+            /* El id del usuario actual */
+            String id = Integer.toString(this.usuario.getIdUsuario());
+            /* La ruta de del destino */
+            String destPath = System.getProperty("user.dir") + "/imagenes/"
+                    + id + "." + tipo;
+            this.usuario.setImagen(id + "." + tipo);
+            dao.actualizaUsuario(this.usuario);
+            /* Imágen a escribir */
+            BufferedImage bi = ImageIO.read(inputStr);
+            /* Archivo de destino */
+            File destino = new File(destPath);
+            ImageIO.write(bi, tipo, destino);
+        } else {
+            return "El archivo no es una imagen";
+        }
+        return null;
+    }
+
+    public String irAjeno(Usuario user) {
         this.ajeno = dao.buscaUsuario(user.getIdUsuario());
         return "perfilAjeno";
     }
-    
+
     public String irModificar() {
         return "modificar";
     }
@@ -151,13 +204,14 @@ public class UsuarioBean {
     }
 
     public boolean verificarSesion() {
-       return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario") != null;
+        return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario") != null;
     }
-    
-    public String verificaConectado(){
+
+    public String verificaConectado() {
         boolean result = FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario") != null;
-        if(!result)
+        if (!result) {
             return "inicia-sesion-now";
+        }
         return "";
     }
 
@@ -171,7 +225,7 @@ public class UsuarioBean {
      *
      * @return
      */
-    public String eliminar() {       
+    public String eliminar() {
         dao.elimina(usuario);
         return "index";
     }
