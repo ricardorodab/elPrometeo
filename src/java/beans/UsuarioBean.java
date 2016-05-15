@@ -37,8 +37,15 @@ import dao.OperacionesDAO;
 import java.util.Iterator;
 import java.util.List;
 import modelo.Servicio;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import javax.imageio.ImageIO;
 import modelo.TipoUsuario;
 import modelo.Usuario;
+import java.awt.image.BufferedImage;
+
+import org.primefaces.model.UploadedFile;
 
 /**
  * @author Jimenez Méndez Ricardo
@@ -59,11 +66,22 @@ public class UsuarioBean {
      */
     private Usuario usuario = new Usuario();
     private Usuario ajeno = new Usuario();
-    
+    /* La imagen del usuario (?)*/
+    private UploadedFile imagen;
     private final OperacionesDAO dao;
     
     public UsuarioBean() {
         dao = new OperacionesDAO();
+    }
+    
+    /* Regresa la imagen del usuario */
+    public UploadedFile getImagen() {
+        return imagen;
+    }
+    
+    /* Pone la imagen del usuario */
+    public void setImagen(UploadedFile img) {
+        this.imagen = img;
     }
     
     /**
@@ -79,14 +97,14 @@ public class UsuarioBean {
         return usuario;
     }
     
-    public Usuario getAjeno(){
+    public Usuario getAjeno() {
         if (ajeno.getFechaDeNaciminiento() == null) {
             ajeno.setFechaDeNaciminiento(new Date(1950, 01, 01));
         }
         return ajeno;
     }
     
-    public void setAjeno(Usuario ajeno){
+    public void setAjeno(Usuario ajeno) {
         this.ajeno = ajeno;
     }
     
@@ -108,10 +126,11 @@ public class UsuarioBean {
      * @param tipo - el tipo de usuario a registrar.
      */
     public String registrar(TipoUsuario tipo) {
+        
         /*
         * Primero verificamos que el usuario no esté registrado
         */
-        try{
+        try {
             Usuario u = dao.buscaUsuarioPorCorreo(usuario.getCorreo());
             u = dao.buscaUsuarioPorTelefono(usuario.getTelefono());
             if (u != null) {
@@ -125,10 +144,45 @@ public class UsuarioBean {
         }
     }
     
+    /* Guarda la imagen del usuario actual */
+    public String guardaImagen() throws IOException, Exception {
+        String type = imagen.getContentType();
+        /* El formato de la imagen a guardar */
+        String tipo = type.substring(6);
+        if (type.startsWith("image")) {
+            /* El InputStream de la imagen leída */
+            InputStream inputStr;
+            try {
+                inputStr = imagen.getInputstream();
+            } catch (IOException e) {
+                return "La imagen subida tiene un error";
+            }
+            /* Crea el directorio si no existe */
+            File directorio = new File(System.getProperty("user.dir") + "/imagenes");
+            /* Crea el directorio de imagenes */
+            directorio.mkdir();
+            /* El id del usuario actual */
+            String id = Integer.toString(this.usuario.getIdUsuario());
+            /* La ruta de del destino */
+            String destPath = System.getProperty("user.dir") + "/imagenes/"
+                    + id + "." + tipo;
+            this.usuario.setImagen(id + "." + tipo);
+            dao.actualizaUsuario(this.usuario);
+            /* Imágen a escribir */
+            BufferedImage bi = ImageIO.read(inputStr);
+            /* Archivo de destino */
+            File destino = new File(destPath);
+            ImageIO.write(bi, tipo, destino);
+        } else {
+            return "El archivo no es una imagen";
+        }
+        return null;
+    }
+    
     public String irAjeno(Usuario user){
         this.ajeno = dao.buscaUsuario(user.getIdUsuario());
-        List<Integer> list = dao.obtenListaDeBloqueados(this.usuario);        
-        Iterator i = list.iterator();        
+        List<Integer> list = dao.obtenListaDeBloqueados(this.usuario);
+        Iterator i = list.iterator();
         while(i.hasNext()) {
             int u = (Integer) i.next();
             if(u == this.ajeno.getIdUsuario())
@@ -167,10 +221,11 @@ public class UsuarioBean {
         return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario") != null;
     }
     
-    public String verificaConectado(){
+    public String verificaConectado() {
         boolean result = FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario") != null;
-        if(!result)
+        if (!result) {
             return "inicia-sesion-now";
+        }
         return "";
     }
     
