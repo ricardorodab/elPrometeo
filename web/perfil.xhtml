@@ -10,7 +10,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
   </h:head>
   <h:body style="background-color:white">
-      <div class="container" style="background-color: orange">
+      <div class="container" style="background-color: #e42d40">
       <h:outputLabel value="No se ha iniciado sesión" rendered="#{usuarioBean.verificarSesion() eq false}"/>
      <ui:include src="/WEB-INF/header.xhtml" />      
     <div class="container">
@@ -28,6 +28,8 @@
         <div style="resize=both; overflow=auto;">Nombre: <h:outputText value="#{usuarioBean.usuario.nombre}" /></div>
         <div style="resize=both; overflow=auto;">Apellido paterno: <h:outputText value="#{usuarioBean.usuario.apellidoPaterno}" /></div>
         <div style="resize=both; overflow=auto;">Apellido materno: <h:outputText value="#{usuarioBean.usuario.apellidoMaterno}" /></div>
+        <div style="resize=both; overflow=auto;">Fecha de nacimiento: <h:outputText value="#{usuarioBean.usuario.fechaDeNaciminiento}" /></div>
+        <div style="resize=both; overflow=auto;">Estado: <h:outputText value="#{usuarioBean.usuario.estado}" /></div>
         <div style="resize=both; overflow=auto;">Correo electrónico: <h:outputText value="#{usuarioBean.usuario.correo}" /></div>
         <div style="resize=both; overflow=auto;">Teléfono: <h:outputText value="#{usuarioBean.usuario.telefono}" /></div>
 	<br/>
@@ -72,7 +74,7 @@
               <h4>SERVICIOS DE ESTE USUARIO:</h4>
               <br/>
               <br/>
-              <img src="greenArrow.jpeg" onclick="window.scrollBy(0,500)" onmouseover="this.style.cursor='pointer'" title="Haz click para ver los servicios"/>
+              <span class="glyphicon glyphicon-arrow-down" style="font-size: 100px" onclick="window.scrollBy(0,500)" onmouseover="this.style.cursor='pointer'" title="Haz click para ver los servicios"/>
            </div>
               <div class="row">
                   <div class="col-md-12" style="color:black;font-size:200%;">Servicios         
@@ -122,6 +124,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"/>
     <script src="bootstrap.min.js"/>
     <script src="docs/assets/js/ie10-viewport-bug-workaround.js"/>
+            <br/>
+        <br/>
       </div>
   </h:body>      
 </html>

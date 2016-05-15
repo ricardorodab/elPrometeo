@@ -5,7 +5,7 @@
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <head style="background-color:blue">
-        <div class="color" style="background-color: #00FFBF">
+        <div class="color" style="background-color:#142b3b">
         <h:outputLabel value="No se ha iniciado sesión" rendered="#{usuarioBean.verificarSesion() eq false}"/>
         <c:if test="#{(usuarioBean.verificarSesion() eq false) or (usuarioBean.usuario.idUsuario == 0)}" >
             <meta http-equiv="refresh" content="0;url=inicio.xhtml" />
@@ -33,7 +33,7 @@
                         <h:commandButton value="Cerrar Sesión" action="#{usuarioBean.cerrarSesion()}"/>                         
                     </h:form> 
                 </div>
-                <div style="float: right; width: 20%; overflow: hidden; height: 45px;">
+                <div style="float: right; width: 25%; overflow: hidden; height: 45px;">
                     <h:form id="searchform">
                         <h:inputText p:placeholder="Buscar aquí" value="#{busquedasBean.busqueda}"/>
                         <h:commandButton value="Buscar" action="resultadoBusquedas.xhtml" />

@@ -7,31 +7,28 @@
         <title>Registro</title>
         <link href="css/bootstrap.min.css" rel="stylesheet"/>	
     </head>  
-    <body style="background-color:#D3D3D3">
-        <br/>
-        <br/> 
-        <div class="row">
-            <div class="col-md-7" style="color:black;font-size:400%;">El Prometeo</div>     
-            <div class="col-md-5">       
-                <h:form class="form-inline">
-                    <div class="form-group">
-                        <label class="sr-only" for="correo">Correo Electrónico</label>
-                        <h:inputText class="form-control" id="correo" p:placeholder="Correo Electrónico" value="#{usuarioBean.usuario.correo}"/>
-                    </div>
-                    <div class="form-group">
-                        <label class="sr-only" for="contraseña">Contraseña</label>
-                        <h:inputSecret class="form-control" id="contraseña" p:placeholder="Contraseña" value="#{usuarioBean.usuario.contrasenia}"/>
-                    </div>
-                    <h:commandButton value="Iniciar sesión" class="btn btn-default" action="#{usuarioBean.verificarDatos()}"/>
-                </h:form>
+    <body style="background-color:white">
+
+        <div class="container" style="background-color: #e42d40">
+            <div class="row" style="background-color: #142b3b">
+                <div class="col-md-4" style="color:black;font-size:400%;">El Prometeo</div>     
+                <div class="col-md-6 col-md-offset-2">       
+                    <h:form class="form-inline">
+                        <div class="form-group">
+                            <label class="sr-only" for="correo">Correo Electrónico</label>
+                            <h:inputText class="form-control" id="correo" p:placeholder="Correo Electrónico" value="#{usuarioBean.usuario.correo}"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="contraseña">Contraseña</label>
+                            <h:inputSecret class="form-control" id="contraseña" p:placeholder="Contraseña" value="#{usuarioBean.usuario.contrasenia}"/>
+                        </div>
+                        <h:commandButton value="Iniciar sesión" class="btn btn-default" action="#{usuarioBean.verificarDatos()}"/>
+                    </h:form>
+                </div>
             </div>
-        </div>
-        <div class="container">
             <div class="row">
                 <div class="col-md-4 col-md-offset-4 text-center">		
                     <br/>
-                    <br/>
-                    <br/> 	
                     <br/>
                     <p style="color:black; font-size:300%;">Registro</p>
                     <h:form>
@@ -167,11 +164,11 @@
                                     <f:selectItem itemValue="11" itemLabel="Noviembre" />
                                     <f:selectItem itemValue="12" itemLabel="Diciembre" />                                
                                 </h:selectOneMenu>		
-                                
+
                             </div>
                             <div class="col-xs-4">
                                 <label for="mes" style="color:black;">Día:</label> 
-                                <h:selectOneMenu value="#{usuarioBean.usuario.fechaDeNaciminiento.month}">
+                                <h:selectOneMenu value="#{usuarioBean.usuario.fechaDeNaciminiento.day}">
                                     <f:selectItem itemValue="1" itemLabel="1" />
                                     <f:selectItem itemValue="2" itemLabel="2" />
                                     <f:selectItem itemValue="3" itemLabel="3" />
@@ -207,10 +204,45 @@
                             </div>	      
                         </div>
                         <br/>
+                        <label for="estado" style="color:black;">Estado:</label>
+                        <h:selectOneMenu value="#{usuarioBean.usuario.estado}">
+                            <f:selectItem itemValue="Aguascalientes" itemLabel="Aguascalientes" />
+                            <f:selectItem itemValue="Baja California" itemLabel="Baja California" />
+                            <f:selectItem itemValue="Baja California Sur" itemLabel="Baja California Sur" />
+                            <f:selectItem itemValue="Campeche" itemLabel="Campeche" />
+                            <f:selectItem itemValue="Coahuila" itemLabel="Coahuila" />
+                            <f:selectItem itemValue="Colima" itemLabel="Colima" />
+                            <f:selectItem itemValue="Chiapas" itemLabel="Chiapas" />
+                            <f:selectItem itemValue="Chihuahua" itemLabel="Chihuahua" />
+                            <f:selectItem itemValue="Ciudad de México" itemLabel="Ciudad de México" />
+                            <f:selectItem itemValue="Durango" itemLabel="Durango" />
+                            <f:selectItem itemValue="Guanajuato" itemLabel="Guanajuato" />
+                            <f:selectItem itemValue="Guerrero" itemLabel="Guerrero" />
+                            <f:selectItem itemValue="Hidalgo" itemLabel="Hidalgo" />
+                            <f:selectItem itemValue="Jalisco" itemLabel="Jalisco" />
+                            <f:selectItem itemValue="Estado de México" itemLabel="Estado de México" />
+                            <f:selectItem itemValue="Michoacán" itemLabel="Michoacán" />
+                            <f:selectItem itemValue="Morelos" itemLabel="Morelos" />
+                            <f:selectItem itemValue="Nayarit" itemLabel="Nayarit" />
+                            <f:selectItem itemValue="Nuevo León" itemLabel="Nuevo León" />
+                            <f:selectItem itemValue="Oaxaca" itemLabel="Oaxaca" />
+                            <f:selectItem itemValue="Puebla" itemLabel="Puebla" />
+                            <f:selectItem itemValue="Querétaro" itemLabel="Querétaro" />
+                            <f:selectItem itemValue="Quintana Roo" itemLabel="Quintana Roo" />
+                            <f:selectItem itemValue="San Luis Potosí" itemLabel="San Luis Potosí" />
+                            <f:selectItem itemValue="Sinaloa" itemLabel="Sinaloa" />
+                            <f:selectItem itemValue="Sonora" itemLabel="Sonora" />
+                            <f:selectItem itemValue="Tabasco" itemLabel="Tabasco" />
+                            <f:selectItem itemValue="Tamaulipas" itemLabel="Tamaulipas" />
+                            <f:selectItem itemValue="Tlaxcala" itemLabel="Tlaxcala" />
+                            <f:selectItem itemValue="Veracruz" itemLabel="Veracruz" />
+                            <f:selectItem itemValue="Yucatán" itemLabel="Yucatán" />
+                            <f:selectItem itemValue="Zacatecas" itemLabel="Zacatecas" />
+                        </h:selectOneMenu>
                         <div class="checkbox">
                             <label for="rol" style="color:black;">¿Cómo te quieres registrar?:</label>
                             <br/>
-                            
+
                             <h:selectOneRadio value="#{usuarioBean.usuario.tipoUsuario}" style="display: inline;" required="true" requiredMessage="Favor de seleccionar un tipo de usuario">
                                 <f:selectItem itemValue="#{tipoUsuarioBean.programador}" itemLabel="Programador"  />
                                 <f:selectItem itemValue="#{tipoUsuarioBean.agente}" itemLabel="Agente Creativo" />
@@ -224,9 +256,11 @@
                         <h6>En el momento de presionar el botón de "Registrar" usted declara que está de acuerdo con nuestros <a href="terminosycondiciones.xhtml">Contrato de términos y condiciones</a> </h6>
                         <h:commandButton value="Registrar" class="btn btn-default" action="#{usuarioBean.registrar()}"/>
                     </h:form>
-                    <br/>	
+                    <br/>
+                    <br/>
                 </div>	
             </div>
+
         </div>	
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"/>
         <script src="js/bootstrap.min.js"/>

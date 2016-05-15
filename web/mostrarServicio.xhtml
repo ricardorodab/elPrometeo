@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <ui:include src="/WEB-INF/header.xhtml" />      
+            
         <style>
             section {
                 width:350px;
@@ -34,12 +34,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <title>Mi perfil</title>
         <link href="css/bootstrap.min.css" rel="stylesheet"/>
     </h:head>
-    <h:body style="background-color:#D3D3D3">
+    <h:body style="background-color:white">
         <h:outputLabel value="No se ha iniciado sesión" rendered="#{usuarioBean.verificarSesion() eq false}"/>
-        <a href="../src/java/dao/OperacionesDAO.java"></a>
-        <br/>
-        <br/>
-        <div class="container">
+
+        <div class="container" style="background-color:#e42d40">
+            <ui:include src="/WEB-INF/header.xhtml" />  
             <div class="row">	
                 <div class="col-md-6">
                     <br/>
