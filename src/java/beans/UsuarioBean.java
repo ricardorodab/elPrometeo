@@ -202,10 +202,7 @@ public class UsuarioBean {
     /* El usuario calificador califica al calificado */
     public String califica(Usuario calificador, Usuario calificado,double c) {
         this.calificacion = c;
-        boolean f = dao.hayCalificacion(calificador, calificado);
-        if(f)
         return dao.califica(calificador, calificado, this.calificacion);
-        return "osheno"
-;    }
+    }
 
 } //Fin de UsuarioBean.java

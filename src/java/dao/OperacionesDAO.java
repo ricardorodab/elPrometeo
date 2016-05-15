@@ -558,39 +558,74 @@ public class OperacionesDAO {
      */
     public String califica(Usuario calificador, Usuario calificado,
             double calificacion) {
+        System.out.println("LlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamada");
         if (calificacion < 1 || calificacion > 5) {
             return "error";
         }
-        if (hayCalificacion(calificador, calificado)) {
-            borraCalificacion(calificador, calificado);
-        }
-        /* Los usuarios que se insertarán en la tabla */
-        Usuario calificadorU, calificadoU;
-        calificadorU = buscaUsuario(calificador.getIdUsuario());
-        calificadoU = buscaUsuario(calificado.getIdUsuario());
+        /* Lo usamos para saber si hay resultados */
+        Object hayResultados = null;
         Transaction tx = session().beginTransaction();
         try {
-            Query sql = session().createSQLQuery("INSERT INTO calificacion"
+            /*Aquí se ve si hay calificación */
+            Query busca = session().createSQLQuery("select * from "
+                    + "calificacion where id_calificado = :id and id_calificador"
+                    + " = :id2")
+                    .setInteger("id", calificado.getIdUsuario())
+                    .setInteger("id2", calificador.getIdUsuario());
+            hayResultados = busca.uniqueResult();
+            if (hayResultados != null) {
+
+                /* Si hay calificación, se borra esta */
+                Query borra = session().createSQLQuery("DELETE FROM calificacion"
+                        + "WHERE id_calificado = :id and id_calificador = :id2")
+                        .setInteger("id", calificado.getIdUsuario())
+                        .setInteger("id2", calificador.getIdUsuario());
+                borra.executeUpdate();
+
+            }
+
+            /* Se inserta */
+            Query inserta = session().createSQLQuery("INSERT INTO calificacion"
                     + "(id_calificador ,id_calificado, calificacion) VALUES("
-                    + calificadorU.getIdUsuario() + ","
-                    + calificadoU.getIdUsuario() + ","
+                    + calificador.getIdUsuario() + ","
+                    + calificado.getIdUsuario() + ","
                     + Double.toString(calificacion) + ")");
-            sql.executeUpdate();
+            inserta.executeUpdate();
+            if (calificado.esAgente()) {
+                /* Se califica al agente */
+                Query q = session().createSQLQuery("select avg(calificacion) from "
+                        + "calificacion where id_calificado = :id")
+                        .addScalar("calificacion", StandardBasicTypes.DOUBLE)
+                        .setInteger("id", calificado.getIdUsuario());
+                /* La reputación nueva del Agente */
+                double promedio = (Double) q.uniqueResult();
+                /* La instancia del usuario como agente */
+                Agente c = calificado.getAgente();
+                c.setReputacionAgente(promedio);
+                actualizaAgente(c);
+            } else {
+                /* Se califica al programador */
+                Query q = session().createSQLQuery("select avg(calificacion) from "
+                        + "calificacion where id_calificado = :id")
+                        .addScalar("calificacion", StandardBasicTypes.DOUBLE)
+                        .setInteger("id", calificado.getIdUsuario());
+                /* La reputación nueva del programador */
+                double promedio = (Double) q.uniqueResult();
+                /* La instancia del usuario como programador */
+                Programador c = calificado.getProgramador();
+                c.setReputacionProgramador(promedio);
+                actualizaProgramador(c);
+            }
+
         } catch (Exception e) {
             e.printStackTrace(); // Lo mantengo para revisar el log.
             tx.rollback();
             return "error";
         } finally {
             if (!tx.wasCommitted()) {
-                tx.commit();
+                //tx.commit();
             }
             closeSession();
-        }
-        /* Nos falta actualizar la calificación del programador/agente */
-        if (calificadoU.esAgente()) {
-            promediaAgente(calificadoU.getAgente());
-        } else {
-            promediaProgramador(calificadoU.getProgramador());
         }
         return "servicio";
     }
@@ -630,7 +665,7 @@ public class OperacionesDAO {
             /* La reputación nueva del Programador */
             double promedio = (Double) q.uniqueResult();
             p.setReputacionProgramador(promedio);
-            
+
         } catch (Exception e) {
             e.printStackTrace(); // Lo mantengo para revisar el log.
             tx.rollback();
