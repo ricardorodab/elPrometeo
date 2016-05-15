@@ -40,7 +40,6 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import modelo.TipoUsuario;
 import modelo.Usuario;
-import org.apache.commons.io.FileUtils;
 import java.awt.image.BufferedImage;
 
 import org.primefaces.model.UploadedFile;
