@@ -8,3 +8,6 @@ ALTER TABLE presta_servicio OWNER TO prometeo;
 ALTER TABLE registro OWNER TO prometeo;
 ALTER TABLE se_dedica OWNER TO prometeo;
 ALTER TABLE servicio OWNER TO prometeo;
+ALTER TABLE bloqueados OWNER TO prometeo;
+ALTER TABLE calificacion OWNER TO prometeo;
+ 
