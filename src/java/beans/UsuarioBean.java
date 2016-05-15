@@ -24,7 +24,7 @@
 * o escriba a la Free Software Foundation Inc.,
 * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 * -------------------------------------------------------------------
-*/
+ */
 package beans;
 
 import java.sql.Date;
@@ -52,19 +52,19 @@ import modelo.Usuario;
 @ManagedBean
 @SessionScoped
 public class UsuarioBean {
-    
+
     /**
      * Es el atributo para poder manejar al usuario actual de nuestra app.
      */
     private Usuario usuario = new Usuario();
     private Usuario ajeno = new Usuario();
-    
+
     private final OperacionesDAO dao;
-    
+
     public UsuarioBean() {
         dao = new OperacionesDAO();
     }
-    
+
     /**
      * Metodo que nos regresa al usuario de la clase, el atributo privado de la
      * clase.
@@ -77,18 +77,18 @@ public class UsuarioBean {
         }
         return usuario;
     }
-    
-    public Usuario getAjeno(){
+
+    public Usuario getAjeno() {
         if (ajeno.getFechaDeNaciminiento() == null) {
             ajeno.setFechaDeNaciminiento(new Date(1950, 01, 01));
         }
         return ajeno;
     }
-    
-    public void setAjeno(Usuario ajeno){
+
+    public void setAjeno(Usuario ajeno) {
         this.ajeno = ajeno;
     }
-    
+
     /**
      *
      * @param usuario
@@ -96,11 +96,11 @@ public class UsuarioBean {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-    
+
     public String registrar() {
         return this.registrar(this.usuario.getTipoUsuario());
     }
-    
+
     /**
      * Se registra al usuario en el sistema.
      *
@@ -109,8 +109,8 @@ public class UsuarioBean {
     public String registrar(TipoUsuario tipo) {
         /*
         * Primero verificamos que el usuario no esté registrado
-        */
-        try{
+         */
+        try {
             Usuario u = dao.buscaUsuarioPorCorreo(usuario.getCorreo());
             u = dao.buscaUsuarioPorTelefono(usuario.getTelefono());
             if (u != null) {
@@ -119,39 +119,41 @@ public class UsuarioBean {
                 dao.guarda(usuario, tipo);
                 return verificarDatos();
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             return "El usuario con ese correo o número telefónico ya existe.";
         }
     }
-    
-    public String irAjeno(Usuario user){
+
+    public String irAjeno(Usuario user) {
         this.ajeno = dao.buscaUsuario(user.getIdUsuario());
-        List<Integer> list = dao.obtenListaDeBloqueados(this.usuario);        
-        Iterator i = list.iterator();        
-        while(i.hasNext()) {
+        List<Integer> list = dao.obtenListaDeBloqueados(this.usuario);
+        Iterator i = list.iterator();
+        while (i.hasNext()) {
             int u = (Integer) i.next();
-            if(u == this.ajeno.getIdUsuario())
+            if (u == this.ajeno.getIdUsuario()) {
                 return "usuarioBloqueado";
+            }
         }
         list = dao.obtenListaDeBloqueados(this.ajeno);
         i = list.iterator();
-        while(i.hasNext()){
+        while (i.hasNext()) {
             int u = (Integer) i.next();
-            if(u == this.usuario.getIdUsuario())
+            if (u == this.usuario.getIdUsuario()) {
                 return "usuarioBloqueado";
+            }
         }
         return "perfilAjeno";
     }
-    
+
     public String irModificar() {
         return "modificar";
     }
-    
+
     public String modificarPerfil() {
         boolean actualizado = dao.actualizaUsuario(usuario);
         return actualizado ? "perfil" : "error";
     }
-    
+
     public String verificarDatos() {
         Usuario su = dao.verificarDatos(usuario);
         if (su != null) {
@@ -161,23 +163,24 @@ public class UsuarioBean {
         }
         return "error";
     }
-    
+
     public boolean verificarSesion() {
         return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario") != null;
     }
-    
-    public String verificaConectado(){
+
+    public String verificaConectado() {
         boolean result = FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario") != null;
-        if(!result)
+        if (!result) {
             return "inicia-sesion-now";
+        }
         return "";
     }
-    
+
     public String cerrarSesion() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "index";
     }
-    
+
     /**
      * Se elimina al usuario del sistema.
      *
@@ -187,9 +190,15 @@ public class UsuarioBean {
         dao.elimina(usuario);
         return "index";
     }
-    
-    public String bloquear(Usuario yo,Usuario u){
-        return dao.bloquear(yo,u);
+
+    public String bloquear(Usuario yo, Usuario u) {
+        return dao.bloquear(yo, u);
     }
-      
+
+    /* El usuario calificador califica al calificado */
+    public String califica(Usuario calificador, Usuario calificado,
+            double calificacion) {
+        return dao.califica(calificador, calificado, calificacion);
+    }
+
 } //Fin de UsuarioBean.java
