@@ -558,13 +558,14 @@ public class OperacionesDAO {
      */
     public String califica(Usuario calificador, Usuario calificado,
             double calificacion) {
-        System.out.println("LlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamadaLlamada");
         if (calificacion < 1 || calificacion > 5) {
             return "error";
         }
         /* Lo usamos para saber si hay resultados */
         Object hayResultados = null;
         Transaction tx = session().beginTransaction();
+        /* Lista de calificaciones */
+        List<Double> lista;
         try {
             /*Aquí se ve si hay calificación */
             Query busca = session().createSQLQuery("select * from "
@@ -576,8 +577,9 @@ public class OperacionesDAO {
             if (hayResultados != null) {
 
                 /* Si hay calificación, se borra esta */
-                Query borra = session().createSQLQuery("DELETE FROM calificacion"
-                        + "WHERE id_calificado = :id and id_calificador = :id2")
+                Query borra = session().createSQLQuery("DELETE FROM "
+                        + "calificacion WHERE id_calificado = :id and "
+                        + "id_calificador = :id2")
                         .setInteger("id", calificado.getIdUsuario())
                         .setInteger("id2", calificador.getIdUsuario());
                 borra.executeUpdate();
@@ -591,43 +593,48 @@ public class OperacionesDAO {
                     + calificado.getIdUsuario() + ","
                     + Double.toString(calificacion) + ")");
             inserta.executeUpdate();
-            if (calificado.esAgente()) {
-                /* Se califica al agente */
-                Query q = session().createSQLQuery("select avg(calificacion) from "
-                        + "calificacion where id_calificado = :id")
-                        .addScalar("calificacion", StandardBasicTypes.DOUBLE)
-                        .setInteger("id", calificado.getIdUsuario());
-                /* La reputación nueva del Agente */
-                double promedio = (Double) q.uniqueResult();
-                /* La instancia del usuario como agente */
-                Agente c = calificado.getAgente();
-                c.setReputacionAgente(promedio);
-                actualizaAgente(c);
-            } else {
-                /* Se califica al programador */
-                Query q = session().createSQLQuery("select avg(calificacion) from "
-                        + "calificacion where id_calificado = :id")
-                        .addScalar("calificacion", StandardBasicTypes.DOUBLE)
-                        .setInteger("id", calificado.getIdUsuario());
-                /* La reputación nueva del programador */
-                double promedio = (Double) q.uniqueResult();
-                /* La instancia del usuario como programador */
-                Programador c = calificado.getProgramador();
-                c.setReputacionProgramador(promedio);
-                actualizaProgramador(c);
-            }
+
+            /* Se va a promediar */
+            Query q = session().createSQLQuery("select calificacion from "
+                    + "calificacion where id_calificado = :id")
+                    .addScalar("calificacion", StandardBasicTypes.DOUBLE)
+                    .setInteger("id", calificado.getIdUsuario());
+            /* La reputación nueva del Usuario */
+            lista = q.list();
 
         } catch (Exception e) {
             e.printStackTrace(); // Lo mantengo para revisar el log.
             tx.rollback();
             return "error";
         } finally {
-            if (!tx.wasCommitted()) {
-                //tx.commit();
-            }
             closeSession();
         }
+        /* Estúpido hibernate hace que mi código se vea feo y me obliga a 
+        actualizar instancias después de la transacción */
+        if (calificado.esAgente()) {
+            /* La instancia del usuario como agente */
+            Agente c = calificado.getAgente();
+            c.setReputacionAgente(promedioLista(lista));
+            actualizaAgente(c);
+        } else {
+            /* La instancia del usuario como programador */
+            Programador c = calificado.getProgramador();
+            c.setReputacionProgramador(promedioLista(lista));
+            actualizaProgramador(c);
+        }
+
         return "servicio";
+    }
+
+    /* Saca el promedio de una lista de dobles */
+    private Double promedioLista(List<Double> lista) {
+        Double promedio = 0.0;
+        /* El promedio que vamos a regresar */
+        for (Double d : lista) {
+            promedio += d;
+        }
+        promedio /= lista.size();
+        return promedio;
     }
 
     /* Saca el promedio de la calificación del Agente y lo actualiza en la base 
