@@ -47,18 +47,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <br/>
                         <div style="resize=both; overflow=auto">
                             <h:form rendered="#{(servicioBean.servicio.idServicio == ser.idServicio) and servicioBean.esElAgente(usuarioBean.usuario,ser)}">
-                                <h:inputTextarea id="mensaje" p:placeholder="Ingrese mensaje nuevo para el programador" value="#{servicioBean.mensajeNuevo}">                                
-                                </h:inputTextarea>                               
-                                <div> 
-                                    <br/>
-                                    <h:commandButton value="Enviar mensaje nuevo" action="#{servicioBean.enviarMensaje(usuarioBean.usuario.idUsuario,servicioBean.mostrarProgramador(ser).idUsuario, servicioBean.mensajeNuevo,ser)}" /></div>                                
+                                <h:inputTextarea id="mensaje" p:placeholder="Ingrese mensaje nuevo para el programador" value="#{servicioBean.mensajeNuevo}" requiredMessage="true">
+                                    <h:commandButton value="Enviar mensaje nuevo" action="#{servicioBean.enviarMensaje(usuarioBean.usuario.idUsuario,servicioBean.mostrarProgramador(ser).idUsuario, servicioBean.mensajeNuevo,ser)}" />
+                                </h:inputTextarea>
                             </h:form>
                             <h:form rendered="#{(servicioBean.servicio.idServicio == ser.idServicio) and servicioBean.esElProgramador(usuarioBean.usuario,ser)}">
-                                <h:inputTextarea id="mensaje" p:placeholder="Ingrese mensaje nuevo para el agente" value="#{servicioBean.mensajeNuevo}">                                
-                                </h:inputTextarea>                                
-                                <div>
-                                    <br/>
-                                    <h:commandButton value="Enviar mensaje nuevo" action="#{servicioBean.enviarMensaje(usuarioBean.usuario.idUsuario,servicioBean.mostrarAgente(ser).idUsuario, servicioBean.mensajeNuevo,ser)}" /></div>
+                                <h:inputTextarea id="mensaje" p:placeholder="Ingrese mensaje nuevo para el agente" value="#{servicioBean.mensajeNuevo}" requiredMessage="true">
+                                    <h:commandButton value="Enviar mensaje nuevo" action="#{servicioBean.enviarMensaje(usuarioBean.usuario.idUsuario,servicioBean.mostrarAgente(ser).idUsuario, servicioBean.mensajeNuevo,ser)}" />
+                                </h:inputTextarea>
                             </h:form>
                         </div>
                         <br/>
@@ -72,6 +68,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     </div>
                 </ui:repeat>  
                 <ui:repeat value="#{servicioBean.muestraMensajes()}" var="act">
+                    <c:if test="#{usuarioBean.usuario.esAgente()}">
+                        Agente:
+                    </c:if>
+                    <c:if test="#{!usuarioBean.usuario.esAgente()}">
+                        Programador:
+                    </c:if>
                     <h:form rendered="#{act.servicio.idServicio == servicioBean.servicio.idServicio}">
                         <h:outputText value="#{act.texto}">                                
                         </h:outputText>

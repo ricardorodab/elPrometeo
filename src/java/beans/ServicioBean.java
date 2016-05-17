@@ -253,21 +253,21 @@ public class ServicioBean {
     
     /* Envía un mensaje del remitente al destinatario */
     public String enviarMensaje(int id_remitente, int id_destinatario,
-            String mensaje,Servicio ser) {
+            String mensaje,Servicio ser) {       
         Servicio actual = dao.buscaServicioPorId(ser.getIdServicio());
         if(actual == null)
             return "Servicio inválido";
         /* El servicio actual */
         Programador pactual = this.getProgramador(actual);
-        /* El programador
-        del servicio actual */
+        /* El programador 
+            del servicio actual */
         Agente agactual = this.getAgente(actual);
         /* El agente que solicitó el servicio actual */
         if (pactual == null || agactual == null) {
             return "Servicio inválido";
         } else {
             int idprog = pactual.getIdProgramador();
-            /* El id del programador
+            /* El id del programador 
             actual */
             int idagente = agactual.getIdAgente();
             /* El id del agente actual */
@@ -286,9 +286,6 @@ public class ServicioBean {
                 return "Servicio inválido";
             }
             dao.guardaMensaje(m);
-            System.out.println("mensajes");
-            System.out.println("111");
-            System.out.println("111");
             return mostrarMensajes(ser);
         }
     }
