@@ -31,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 border: 1px solid black;
             }
         </style>
-        <title>Mi perfil</title>
+        <title>Información del servicio</title>
         <link href="css/bootstrap.min.css" rel="stylesheet"/>
     </h:head>
     <h:body style="background-color:white">
@@ -72,15 +72,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             <h:outputText value="#{servicioBean.servicio.finalizado ? (servicioBean.esElAgente(usuarioBean.usuario) ? servicioBean.getDatosProgramador(usuarioBean.usuario,servicioBean.servicio) : servicioBean.getDatosAgente(usuarioBean.usuario,servicioBean.servicio)) : 'Aquí aparecerán los datos de contacto del usuario que aceptó/solicita el servicio una vez que alguien desee tomar el trabajo.'}" />                            
                             <ui:repeat value="#{servicioBean.servicios}" var="ser" rendered="true">
                                 <h:form rendered="#{servicioBean.servicio.idServicio == ser.idServicio}"> 
-                                    <h:commandLink value="VER MENSAJES ASOCIADOS AL SERVICIO" action="#{servicioBean.mostrarMensajes(ser)}" > </h:commandLink>
-                                    <h:commandLink value="CONTACTO" action="#{usuarioBean.irAjeno(servicioBean.mostrarProgramador(ser))}" rendered="#{usuarioBean.usuario.esAgente() and ser.finalizado}"> </h:commandLink>                                    
-                                    <h:commandLink value="CONTACTO" action="#{usuarioBean.irAjeno(servicioBean.mostrarAgente(ser))}" rendered="#{!usuarioBean.usuario.esAgente() and ser.finalizado}"> </h:commandLink>                                    
+                                    <div><h:commandLink value="VER MENSAJES ASOCIADOS AL SERVICIO" action="#{servicioBean.mostrarMensajes(ser)}" > </h:commandLink></div>
+                                    <div><h:commandLink value="CONTACTO" action="#{usuarioBean.irAjeno(servicioBean.mostrarProgramador(ser))}" rendered="#{usuarioBean.usuario.esAgente() and ser.finalizado}"> </h:commandLink></div>                                    
+                                    <div><h:commandLink value="CONTACTO" action="#{usuarioBean.irAjeno(servicioBean.mostrarAgente(ser))}" rendered="#{!usuarioBean.usuario.esAgente() and ser.finalizado}"> </h:commandLink></div>                                    
                                 </h:form>
                             </ui:repeat>
                         </section>
                     </div>
                 </div>
             </div>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
         </div>	
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"/>
         <script src="bootstrap.min.js"/>
