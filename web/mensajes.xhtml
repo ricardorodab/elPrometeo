@@ -42,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 <ui:repeat value="#{servicioBean.servicios}" var="ser">
                     <div class="col-md-12">
                         <br/>
-                        <h1>Mensaje nuevo:</h1>
+                        <h:outputLabel value="Mensaje nuevo" rendered="#{ser.idServicio == servicioBean.servicio.idServicio}" style="font-size: 200%"/>
                         <br/>
                         <br/>
                         <div style="resize=both; overflow=auto">

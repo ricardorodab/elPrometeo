@@ -68,15 +68,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     <br/>
                     <br/>
                     <div class="informacion">
-                        <section>
-                            <h:outputText value="#{servicioBean.servicio.finalizado ? (servicioBean.esElAgente(usuarioBean.usuario) ? servicioBean.getDatosProgramador(usuarioBean.usuario,servicioBean.servicio) : servicioBean.getDatosAgente(usuarioBean.usuario,servicioBean.servicio)) : 'Aquí aparecerán los datos de contacto del usuario que aceptó/solicita el servicio una vez que alguien desee tomar el trabajo.'}" />                            
+                        <section>                            
+                            <h:outputText value="#{servicioBean.servicio.finalizado ? (servicioBean.esElAgente(usuarioBean.usuario) ? servicioBean.getDatosProgramador(usuarioBean.usuario,servicioBean.servicio) : servicioBean.getDatosAgente(usuarioBean.usuario,servicioBean.servicio)) : 'Aquí aparecerán los datos de contacto del usuario que aceptó/solicita el servicio una vez que alguien desee tomar el trabajo.'}" />                                                       
                             <ui:repeat value="#{servicioBean.servicios}" var="ser" rendered="true">
                                 <h:form rendered="#{servicioBean.servicio.idServicio == ser.idServicio}"> 
-                                    <div><h:commandLink value="VER MENSAJES ASOCIADOS AL SERVICIO" action="#{servicioBean.mostrarMensajes(ser)}" > </h:commandLink></div>
-                                    <div><h:commandLink value="CONTACTO" action="#{usuarioBean.irAjeno(servicioBean.mostrarProgramador(ser))}" rendered="#{usuarioBean.usuario.esAgente() and ser.finalizado}"> </h:commandLink></div>                                    
-                                    <div><h:commandLink value="CONTACTO" action="#{usuarioBean.irAjeno(servicioBean.mostrarAgente(ser))}" rendered="#{!usuarioBean.usuario.esAgente() and ser.finalizado}"> </h:commandLink></div>                                    
+                                    <div><h:commandLink value="VER MENSAJES ASOCIADOS AL SERVICIO" action="#{servicioBean.mostrarMensajes(ser)}" rendered="#{ser.finalizado and !servicioBean.usuarioBloqueado(usuarioBean.usuario,ser)}" > </h:commandLink></div>
+                                    <div><h:commandLink value="CONTACTO" action="#{usuarioBean.irAjeno(servicioBean.mostrarProgramador(ser))}" rendered="#{usuarioBean.usuario.esAgente() and ser.finalizado and !servicioBean.usuarioBloqueado(usuarioBean.usuario,ser)}"> </h:commandLink></div>                                    
+                                    <div><h:commandLink value="CONTACTO" action="#{usuarioBean.irAjeno(servicioBean.mostrarAgente(ser))}" rendered="#{!usuarioBean.usuario.esAgente() and ser.finalizado and !servicioBean.usuarioBloqueado(usuarioBean.usuario,ser)}"> </h:commandLink></div>                                                                        
                                 </h:form>
                             </ui:repeat>
+
                         </section>
                     </div>
                 </div>
