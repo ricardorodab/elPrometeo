@@ -44,6 +44,7 @@ import javax.imageio.ImageIO;
 import modelo.TipoUsuario;
 import modelo.Usuario;
 import java.awt.image.BufferedImage;
+import org.apache.commons.io.FileUtils;
 
 import org.primefaces.model.UploadedFile;
 
@@ -69,6 +70,7 @@ public class UsuarioBean {
     /* La imagen del usuario (?)*/
     private UploadedFile imagen;
     private final OperacionesDAO dao;
+    private File file = new File("");
     
     public UsuarioBean() {
         dao = new OperacionesDAO();
@@ -77,6 +79,14 @@ public class UsuarioBean {
     /* Regresa la imagen del usuario */
     public UploadedFile getImagen() {
         return imagen;
+    }
+    
+    public void setFile(File file){
+        this.file = file;
+    }
+    
+    public File getFile(){
+        return this.file;
     }
     
     /* Pone la imagen del usuario */
@@ -145,7 +155,7 @@ public class UsuarioBean {
     }
     
     /* Guarda la imagen del usuario actual */
-    public String guardaImagen() throws IOException, Exception {
+    public String guardaImagen() throws IOException, Exception {        
         String type = imagen.getContentType();
         /* El formato de la imagen a guardar */
         String tipo = type.substring(6);
@@ -173,10 +183,18 @@ public class UsuarioBean {
             /* Archivo de destino */
             File destino = new File(destPath);
             ImageIO.write(bi, tipo, destino);
+            //Revisar si existe.
+            try{
+            FileUtils.forceDelete(FileUtils.getFile("/Users/ricardo_rodab/NetBeansProjects/ElPrometeo/web/resources/imagenes/"+this.usuario.getImagen()));
+            FileUtils.moveFile(destino, new File("/Users/ricardo_rodab/NetBeansProjects/ElPrometeo/web/resources/imagenes/"+this.usuario.getImagen()));
+            }catch(Exception e){
+                FileUtils.moveFile(destino, new File("/Users/ricardo_rodab/NetBeansProjects/ElPrometeo/web/resources/imagenes/"+this.usuario.getImagen()));    
+            }finally{
+                return "perfil";
+            }
         } else {
             return "El archivo no es una imagen";
         }
-        return null;
     }
     
     public String irAjeno(Usuario user){
@@ -196,6 +214,10 @@ public class UsuarioBean {
                 return "usuarioBloqueado";
         }
         return "perfilAjeno";
+    }
+    
+    public String getRutaImagen(){
+        return System.getProperty("user.dir")+"/"+this.usuario.getImagen();
     }
     
     public String irModificar() {
