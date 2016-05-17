@@ -22,6 +22,13 @@
                     <h:form>
                         <h:commandLink value="BLOQUEAR USUARIO" action="#{usuarioBean.bloquear(usuarioBean.usuario,usuarioBean.ajeno)}" />                        
                     </h:form>
+                    <h:form>
+                        <h:commandLink value="1" action="#{usuarioBean.califica(usuarioBean.usuario, usuarioBean.ajeno,1.0)}" />
+                        <h:commandLink value="2" action="#{usuarioBean.califica(usuarioBean.usuario, usuarioBean.ajeno,2.0)}" />
+                        <h:commandLink value="3" action="#{usuarioBean.califica(usuarioBean.usuario, usuarioBean.ajeno,3.0)}" />
+                        <h:commandLink value="4" action="#{usuarioBean.califica(usuarioBean.usuario, usuarioBean.ajeno,4.0)}" />
+                        <h:commandLink value="5" action="#{usuarioBean.califica(usuarioBean.usuario, usuarioBean.ajeno,5.0)}" />
+                    </h:form>
                     <br/>
                     <br/>
                     <div style="resize=both; overflow=auto;">Nombre: <h:outputText value="#{usuarioBean.ajeno.nombre}" /></div>

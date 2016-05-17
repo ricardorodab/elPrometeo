@@ -24,7 +24,7 @@
 * o escriba a la Free Software Foundation Inc.,
 * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 * -------------------------------------------------------------------
-*/
+ */
 package beans;
 
 import java.sql.Date;
@@ -45,7 +45,6 @@ import modelo.TipoUsuario;
 import modelo.Usuario;
 import java.awt.image.BufferedImage;
 import org.apache.commons.io.FileUtils;
-
 import org.primefaces.model.UploadedFile;
 
 /**
@@ -61,7 +60,7 @@ import org.primefaces.model.UploadedFile;
 @ManagedBean
 @SessionScoped
 public class UsuarioBean {
-    
+
     /**
      * Es el atributo para poder manejar al usuario actual de nuestra app.
      */
@@ -93,7 +92,11 @@ public class UsuarioBean {
     public void setImagen(UploadedFile img) {
         this.imagen = img;
     }
-    
+
+    /* La calificación con la que va a calificar el 
+    usuario a otro */
+    private double calificacion;
+
     /**
      * Metodo que nos regresa al usuario de la clase, el atributo privado de la
      * clase.
@@ -106,18 +109,18 @@ public class UsuarioBean {
         }
         return usuario;
     }
-    
+
     public Usuario getAjeno() {
         if (ajeno.getFechaDeNaciminiento() == null) {
             ajeno.setFechaDeNaciminiento(new Date(1950, 01, 01));
         }
         return ajeno;
     }
-    
+
     public void setAjeno(Usuario ajeno) {
         this.ajeno = ajeno;
     }
-    
+
     /**
      *
      * @param usuario
@@ -125,11 +128,11 @@ public class UsuarioBean {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-    
+
     public String registrar() {
         return this.registrar(this.usuario.getTipoUsuario());
     }
-    
+
     /**
      * Se registra al usuario en el sistema.
      *
@@ -149,7 +152,7 @@ public class UsuarioBean {
                 dao.guarda(usuario, tipo);
                 return verificarDatos();
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             return "El usuario con ese correo o número telefónico ya existe.";
         }
     }
@@ -219,16 +222,16 @@ public class UsuarioBean {
     public String getRutaImagen(){
         return System.getProperty("user.dir")+"/"+this.usuario.getImagen();
     }
-    
+
     public String irModificar() {
         return "modificar";
     }
-    
+
     public String modificarPerfil() {
         boolean actualizado = dao.actualizaUsuario(usuario);
         return actualizado ? "perfil" : "error";
     }
-    
+
     public String verificarDatos() {
         Usuario su = dao.verificarDatos(usuario);
         if (su != null) {
@@ -238,11 +241,11 @@ public class UsuarioBean {
         }
         return "error";
     }
-    
+
     public boolean verificarSesion() {
         return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario") != null;
     }
-    
+
     public String verificaConectado() {
         boolean result = FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario") != null;
         if (!result) {
@@ -250,12 +253,12 @@ public class UsuarioBean {
         }
         return "";
     }
-    
+
     public String cerrarSesion() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "index";
     }
-    
+
     /**
      * Se elimina al usuario del sistema.
      *
@@ -265,9 +268,15 @@ public class UsuarioBean {
         dao.elimina(usuario);
         return "index";
     }
-    
-    public String bloquear(Usuario yo,Usuario u){
-        return dao.bloquear(yo,u);
+
+    public String bloquear(Usuario yo, Usuario u) {
+        return dao.bloquear(yo, u);
     }
-    
+
+    /* El usuario calificador califica al calificado */
+    public String califica(Usuario calificador, Usuario calificado,double c) {
+        this.calificacion = c;
+        return dao.califica(calificador, calificado, this.calificacion);
+    }
+
 } //Fin de UsuarioBean.java

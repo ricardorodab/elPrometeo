@@ -239,7 +239,6 @@ public class Usuario implements java.io.Serializable {
         this.programador = programador;
     }
 
-
     /* Nos regresa al usuario como instancia de tipo Agente */
     public Agente getAgente() {
         return this.agente;

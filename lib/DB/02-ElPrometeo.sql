@@ -94,3 +94,10 @@ CREATE TABLE bloqueados(
 id_bloqueado INTEGER REFERENCES usuario(id_usuario),
 id_bloqueador INTEGER REFERENCES usuario(id_usuario)
 );
+
+/* Tabla de qué usuario calificó a cuál (o algo así) */
+CREATE TABLE calificacion(
+id_calificador INTEGER REFERENCES usuario(id_usuario),
+id_calificado INTEGER REFERENCES usuario(id_usuario),
+calificacion DOUBLE PRECISION NOT NULL
+);
