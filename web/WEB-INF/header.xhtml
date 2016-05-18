@@ -5,7 +5,7 @@
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <head style="background-color:blue">
-        <div class="color" style="background-color:#142b3b">
+        <div class="color" style="background-color:#afd9ee">
         <h:outputLabel value="No se ha iniciado sesión" rendered="#{usuarioBean.verificarSesion() eq false}"/>
         <c:if test="#{(usuarioBean.verificarSesion() eq false) or (usuarioBean.usuario.idUsuario == 0)}" >
             <meta http-equiv="refresh" content="0;url=inicio.xhtml" />

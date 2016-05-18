@@ -24,7 +24,7 @@
 * o escriba a la Free Software Foundation Inc.,
 * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 * -------------------------------------------------------------------
- */
+*/
 package dao;
 
 import java.util.Iterator;
@@ -51,9 +51,9 @@ import util.HibernateUtil;
  * @author ricardo
  */
 public class OperacionesDAO {
-
+    
     private Session session;
-
+    
     private synchronized Session session() {
         if (HibernateUtil.getSessionFactory().isClosed()) {
             session = HibernateUtil.getSessionFactory().openSession();
@@ -62,13 +62,13 @@ public class OperacionesDAO {
         }
         return session;
     }
-
+    
     private synchronized void closeSession() {
         if (session != null && session.isOpen()) {
             session.close();
         }
     }
-
+    
     public Usuario buscaUsuario(int id) {
         Transaction tx = session().beginTransaction();
         try {
@@ -87,7 +87,7 @@ public class OperacionesDAO {
         }
         return null;
     }
-
+    
     public Usuario buscaUsuarioPorTelefono(Long telefono) {
         Transaction tx = session().beginTransaction();
         try {
@@ -106,7 +106,7 @@ public class OperacionesDAO {
         }
         return null;
     }
-
+    
     public Usuario buscaUsuarioPorCorreo(String correo) {
         Transaction tx = session().beginTransaction();
         try {
@@ -125,7 +125,7 @@ public class OperacionesDAO {
         }
         return null;
     }
-
+    
     /* Regresa la lista de bloqueados de un Usuario. Aún no sé para qué, pero
     seguro resultará útil */
     public List<Integer> obtenListaDeBloqueados(Usuario u) {
@@ -147,7 +147,7 @@ public class OperacionesDAO {
         }
         return null;
     }
-
+    
     private void guardaProgramador(Usuario u) {
         Transaction tx = session().beginTransaction();
         try {
@@ -164,7 +164,7 @@ public class OperacionesDAO {
             closeSession();
         }
     }
-
+    
     private void guardaAgente(Usuario u) {
         Transaction tx = session().beginTransaction();
         try {
@@ -181,7 +181,7 @@ public class OperacionesDAO {
             closeSession();
         }
     }
-
+    
     public void guarda(Usuario u, TipoUsuario tipo) {
         if (tipo == TipoUsuario.AGENTE) {
             guardaAgente(u);
@@ -189,7 +189,7 @@ public class OperacionesDAO {
             guardaProgramador(u);
         }
     }
-
+    
     /* Guarda el mensaje en la base de datos */
     public void guardaMensaje(Mensaje m) {
         Transaction tx = session().beginTransaction();
@@ -205,7 +205,7 @@ public class OperacionesDAO {
             closeSession();
         }
     }
-
+    
     public void guardaUsuario(Usuario u) {
         Transaction tx = session().beginTransaction();
         try {
@@ -220,7 +220,7 @@ public class OperacionesDAO {
             closeSession();
         }
     }
-
+    
     public boolean actualizaUsuario(Usuario u) {
         Transaction tx = session().beginTransaction();
         try {
@@ -237,7 +237,7 @@ public class OperacionesDAO {
         }
         return true;
     }
-
+    
     /* Actualiza al agente */
     public boolean actualizaAgente(Agente a) {
         Transaction tx = session().beginTransaction();
@@ -255,7 +255,7 @@ public class OperacionesDAO {
         }
         return true;
     }
-
+    
     /* Actualiza al programador */
     public boolean actualizaProgramador(Programador p) {
         Transaction tx = session().beginTransaction();
@@ -273,7 +273,7 @@ public class OperacionesDAO {
         }
         return true;
     }
-
+    
     public Usuario verificarDatos(Usuario usuario) {
         Transaction tx = session().beginTransaction();
         try {
@@ -296,26 +296,90 @@ public class OperacionesDAO {
         }
         return null;
     }
-
+    
     public boolean elimina(Usuario u) {
         Transaction tx = session().beginTransaction();
         try {
             if (u.esAgente()) {
-                Agente a = u.getAgente();
+                Agente a = (Agente)u.getAgente();
                 Iterator ser = a.getServicios().iterator();
                 while (ser.hasNext()) {
                     Servicio s = (Servicio) ser.next();
+                    Query q2 = session().createSQLQuery("select * from mensaje where id_servicio ="
+                            + s.getIdServicio()
+                            + " order by fecha_de_envio desc").addEntity(Mensaje.class);
+                    List<Mensaje> lista = q2.list();
+                    Iterator i2 =  lista.iterator();
+                    Query sql3 = session().createSQLQuery("DELETE FROM registro "
+                            + "WHERE id_servicio = :id_servicio").setInteger("id_servicio", s.getIdServicio());
+                    sql3.executeUpdate();
+                    while (i2.hasNext()) {
+                        session().delete((Mensaje)i2.next());
+                    }
+                    s.getProgramadors().clear();
+                    s.getAgentes().clear();
+                    s.getRegistros().clear();
+                    Query sql = session().createSQLQuery("DELETE FROM pide_servicio "
+                            + "WHERE id_servicio = :id_servicio").setInteger("id_servicio", s.getIdServicio());
+                    sql.executeUpdate();
+                    Query sql2 = session().createSQLQuery("DELETE FROM presta_servicio "
+                            + "WHERE id_servicio = :id_servicio").setInteger("id_servicio", s.getIdServicio());
+                    sql2.executeUpdate();
+                    session().update(s);
                     session().delete(s);
                 }
+                Query sql4 = session().createSQLQuery("DELETE FROM calificacion "
+                        + "WHERE id_calificado = :id_usuario").setInteger("id_usuario", u.getIdUsuario());
+                sql4.executeUpdate();
+                Query sql5 = session().createSQLQuery("DELETE FROM calificacion "
+                        + "WHERE id_calificador = :id_usuario").setInteger("id_usuario", u.getIdUsuario());
+                sql5.executeUpdate();
                 a.getServicios().clear();
                 session().update(a);
+                session().update(u);
+                session().delete(a);
                 session().delete(u);
+                return true;
             } else {
                 Programador p = u.getProgramador();
+                Iterator ser = p.getServicios().iterator();
+                while (ser.hasNext()) {
+                    Servicio s = (Servicio) ser.next();
+                    Query q2 = session().createSQLQuery("select * from mensaje where id_servicio ="
+                            + s.getIdServicio()
+                            + " order by fecha_de_envio desc").addEntity(Mensaje.class);
+                    List<Mensaje> lista = q2.list();
+                    Iterator i2 =  lista.iterator();
+                    Query sql3 = session().createSQLQuery("DELETE FROM registro "
+                            + "WHERE id_servicio = :id_servicio").setInteger("id_servicio", s.getIdServicio());
+                    sql3.executeUpdate();
+                    while (i2.hasNext()) {
+                        session().delete((Mensaje)i2.next());
+                    }
+                    s.getProgramadors().clear();
+                    s.getAgentes().clear();
+                    s.getRegistros().clear();
+                    Query sql = session().createSQLQuery("DELETE FROM pide_servicio "
+                            + "WHERE id_servicio = :id_servicio").setInteger("id_servicio", s.getIdServicio());
+                    sql.executeUpdate();
+                    Query sql2 = session().createSQLQuery("DELETE FROM presta_servicio "
+                            + "WHERE id_servicio = :id_servicio").setInteger("id_servicio", s.getIdServicio());
+                    sql2.executeUpdate();
+                    session().update(s);
+                    session().delete(s);
+                }
+                Query sql4 = session().createSQLQuery("DELETE FROM calificacion "
+                        + "WHERE id_calificado = :id_usuario").setInteger("id_usuario", u.getIdUsuario());
+                sql4.executeUpdate();
+                Query sql5 = session().createSQLQuery("DELETE FROM calificacion "
+                        + "WHERE id_calificador = :id_usuario").setInteger("id_usuario", u.getIdUsuario());
+                sql5.executeUpdate();
                 p.getServicios().clear();
                 session().update(p);
+                session().update(u);
                 session().delete(p);
                 session().delete(u);
+                return true;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -327,9 +391,8 @@ public class OperacionesDAO {
             }
             closeSession();
         }
-        return true;
     }
-
+    
     public void actualizaServicio(Usuario u, Servicio s) {
         Transaction tx = session().beginTransaction();
         try {
@@ -347,7 +410,7 @@ public class OperacionesDAO {
             closeSession();
         }
     }
-
+    
     /* Regresa los mensajes relacionados con el servicio s */
     public List<Mensaje> obtenMensajesServicio(Servicio s) {
         Transaction tx = session().beginTransaction();
@@ -367,7 +430,7 @@ public class OperacionesDAO {
         }
         return null;
     }
-
+    
     public List<Servicio> obtenServicios() {
         Transaction tx = session().beginTransaction();
         try {
@@ -388,7 +451,7 @@ public class OperacionesDAO {
         }
         return null;
     }
-
+    
     public void eliminarServicio(Servicio servicio) {
         Transaction tx = session().beginTransaction();
         try {
@@ -401,12 +464,12 @@ public class OperacionesDAO {
             for (Object o : servicio.getProgramadors()) {
                 Programador programador = (Programador) o;
                 programador.getServicios().remove(servicio);
-                session().merge(programador);
+                session().update(programador);
             }
             for (Object o : servicio.getRegistros()) {
                 Registro registro = (Registro) o;
                 registro.setServicio(null);
-                registro = (Registro) session().merge(registro);
+                session().update(registro);
                 session().delete(registro);
             }
             servicio.getAgentes().clear();
@@ -428,7 +491,7 @@ public class OperacionesDAO {
             closeSession();
         }
     }
-
+    
     public Servicio buscaServicioPorId(int id) {
         Transaction tx = session().beginTransaction();
         try {
@@ -450,7 +513,7 @@ public class OperacionesDAO {
         }
         return null;
     }
-
+    
     public String finalizaServicio(Programador p, Servicio ser) {
         Transaction tx = session().beginTransaction();
         try {
@@ -470,7 +533,7 @@ public class OperacionesDAO {
         }
         return "mostrarServicio";
     }
-
+    
     public Agente buscaAgente(Agente a) {
         Transaction tx = session().beginTransaction();
         try {
@@ -489,7 +552,7 @@ public class OperacionesDAO {
         }
         return null;
     }
-
+    
     public Programador buscaProgramador(Programador programador) {
         Transaction tx = session().beginTransaction();
         try {
@@ -508,7 +571,7 @@ public class OperacionesDAO {
         }
         return null;
     }
-
+    
     public List<Servicio> obtenServicios(String cond) {
         Transaction tx = session().beginTransaction();
         try {
@@ -531,7 +594,7 @@ public class OperacionesDAO {
             closeSession();
         }
     }
-
+    
     public String bloquear(Usuario usuario, Usuario u) {
         Usuario pet, dang;
         pet = buscaUsuario(usuario.getIdUsuario());
@@ -553,10 +616,10 @@ public class OperacionesDAO {
             closeSession();
         }
     }
-
-    /* El usuario calificador califica al calificado 
-     * (Se inserta en la base de datos)
-     */
+    
+    /* El usuario calificador califica al calificado
+    * (Se inserta en la base de datos)
+    */
     public String califica(Usuario calificador, Usuario calificado,
             double calificacion) {
         if (calificacion < 1 || calificacion > 5) {
@@ -576,7 +639,7 @@ public class OperacionesDAO {
                     .setInteger("id2", calificador.getIdUsuario());
             hayResultados = busca.uniqueResult();
             if (hayResultados != null) {
-
+                
                 /* Si hay calificación, se borra esta */
                 Query borra = session().createSQLQuery("DELETE FROM "
                         + "calificacion WHERE id_calificado = :id and "
@@ -584,9 +647,9 @@ public class OperacionesDAO {
                         .setInteger("id", calificado.getIdUsuario())
                         .setInteger("id2", calificador.getIdUsuario());
                 borra.executeUpdate();
-
+                
             }
-
+            
             /* Se inserta */
             Query inserta = session().createSQLQuery("INSERT INTO calificacion"
                     + "(id_calificador ,id_calificado, calificacion) VALUES("
@@ -594,7 +657,7 @@ public class OperacionesDAO {
                     + calificado.getIdUsuario() + ","
                     + Double.toString(calificacion) + ")");
             inserta.executeUpdate();
-
+            
             /* Se va a promediar */
             Query q = session().createSQLQuery("select calificacion from "
                     + "calificacion where id_calificado = :id")
@@ -602,7 +665,7 @@ public class OperacionesDAO {
                     .setInteger("id", calificado.getIdUsuario());
             /* La reputación nueva del Usuario */
             lista = q.list();
-
+            
         } catch (Exception e) {
             e.printStackTrace(); // Lo mantengo para revisar el log.
             tx.rollback();
@@ -610,7 +673,7 @@ public class OperacionesDAO {
         } finally {
             closeSession();
         }
-        /* Estúpido hibernate hace que mi código se vea feo y me obliga a 
+        /* Estúpido hibernate hace que mi código se vea feo y me obliga a
         actualizar instancias después de la transacción */
         if (calificado.esAgente()) {
             /* La instancia del usuario como agente */
@@ -623,10 +686,10 @@ public class OperacionesDAO {
             c.setReputacionProgramador(promedioLista(lista));
             actualizaProgramador(c);
         }
-
+        
         return "servicio";
     }
-
+    
     /* Saca el promedio de una lista de dobles */
     private Double promedioLista(List<Double> lista) {
         Double promedio = 0.0;
@@ -637,8 +700,8 @@ public class OperacionesDAO {
         promedio /= lista.size();
         return promedio;
     }
-
-    /* Saca el promedio de la calificación del Agente y lo actualiza en la base 
+    
+    /* Saca el promedio de la calificación del Agente y lo actualiza en la base
     de datos */
     public void promediaAgente(Agente p) {
         Transaction tx = session().beginTransaction();
@@ -661,7 +724,7 @@ public class OperacionesDAO {
         }
         actualizaAgente(p);
     }
-
+    
     /* Saca el promedio de la calificación del Programador */
     public void promediaProgramador(Programador p) {
         Transaction tx = session().beginTransaction();
@@ -673,7 +736,7 @@ public class OperacionesDAO {
             /* La reputación nueva del Programador */
             double promedio = (Double) q.uniqueResult();
             p.setReputacionProgramador(promedio);
-
+            
         } catch (Exception e) {
             e.printStackTrace(); // Lo mantengo para revisar el log.
             tx.rollback();
@@ -685,7 +748,7 @@ public class OperacionesDAO {
         }
         actualizaProgramador(p);
     }
-
+    
     /* Nos dice si el calificador ya calificó al calificado. */
     public boolean hayCalificacion(Usuario calificador, Usuario calificado) {
         Transaction tx = session().beginTransaction();
@@ -713,7 +776,7 @@ public class OperacionesDAO {
         }
         return (hayResultados != null);
     }
-
+    
     /* Borra una calificación existente */
     public void borraCalificacion(Usuario calificador, Usuario calificado) {
         Transaction tx2 = session().beginTransaction();
@@ -733,5 +796,5 @@ public class OperacionesDAO {
             closeSession();
         }
     }
-
+    
 }
