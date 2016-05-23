@@ -44,6 +44,8 @@ import javax.imageio.ImageIO;
 import modelo.TipoUsuario;
 import modelo.Usuario;
 import java.awt.image.BufferedImage;
+import modelo.Agente;
+import modelo.Programador;
 import org.apache.commons.io.FileUtils;
 import org.primefaces.model.UploadedFile;
 
@@ -268,6 +270,21 @@ public class UsuarioBean {
         dao.elimina(usuario);
         return "index";
     }
+    
+    public double getCalificacionAjeno(Usuario aj){
+        try{
+        Usuario u = dao.buscaUsuario(aj.getIdUsuario());
+        if(u.esAgente()){
+            Agente a = dao.buscaAgente(u.getAgente());            
+            return a.getReputacionAgente();
+        }
+        Programador p = dao.buscaProgramador(u.getProgramador());
+        return p.getReputacionProgramador();
+        }catch(NullPointerException e){
+            return 5;
+        }
+    }
+   
 
     public String bloquear(Usuario yo, Usuario u) {
         return dao.bloquear(yo, u);

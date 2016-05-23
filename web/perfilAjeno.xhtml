@@ -1,7 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <h:body style="background-color:white">        
         <title>Perfil Visitado</title>
@@ -16,12 +17,21 @@
                     <br/>
                     <br/>
                     <br/>
-                    <img style="border-radius=8px;" src="perfil.jpeg" alt="Perfil"/>
+                    <c:if test="#{usuarioBean.ajeno.imagen == null or usuarioBean.ajeno.imagen eq ''}">        
+                        <img style="border-radius=8px;" src="perfil.jpeg" alt="Perfil"/>
+                    </c:if>
+                    <c:if test="#{!(usuarioBean.ajeno.imagen == null or usuarioBean.ajeno.imagen eq '')}">
+                        <h1></h1>          
+                        <img style="border-radius=8px;" height="140" width="140" src="./resources/imagenes/#{usuarioBean.ajeno.imagen}" alt="Perfil" />
+                    </c:if>
                     <br/>
                     <br/>
                     <h:form>
                         <h:commandLink value="BLOQUEAR USUARIO" action="#{usuarioBean.bloquear(usuarioBean.usuario,usuarioBean.ajeno)}" />                        
                     </h:form>
+                    <p>
+                        CALIFICAR USUARIO:
+                    </p>
                     <h:form>
                         <h:commandLink value="1" action="#{usuarioBean.califica(usuarioBean.usuario, usuarioBean.ajeno,1.0)}" />
                         <h:commandLink value="2" action="#{usuarioBean.califica(usuarioBean.usuario, usuarioBean.ajeno,2.0)}" />
@@ -48,6 +58,9 @@
                     <br/>
                     <p style="color:black;font-size:400%;">Perfil de contacto:</p>
                     <br/>
+                    <p>CALIFICACIÓN:</p>
+                    <br/>
+                    <h:outputText value="#{usuarioBean.getCalificacionAjeno(usuarioBean.ajeno)}"> </h:outputText>
                     <br/>
                     <br/>
                     <div style="resize=both; overflow=auto;">

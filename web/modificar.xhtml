@@ -27,9 +27,9 @@
                         <c:if test="#{usuarioBean.usuario.imagen == null or usuarioBean.usuario.imagen eq ''}">        
                             <img style="border-radius=8px;" src="perfil.jpeg" alt="Perfil"/>
                         </c:if>
-                        <c:if test="#{!(usuarioBean.usuario.imagen == null and usuarioBean.usuario.imagen eq '')}">
+                        <c:if test="#{!(usuarioBean.usuario.imagen == null or usuarioBean.usuario.imagen eq '')}">
                             <h1></h1>          
-                            <img style="border-radius=8px;" src="./resources/imagenes/#{usuarioBean.usuario.imagen}" alt="Perfil" />
+                            <img style="border-radius=8px;" height="140" width="140" src="./resources/imagenes/#{usuarioBean.usuario.imagen}" alt="Perfil" />
                         </c:if>
                         <br />
                         <br />
