@@ -13,39 +13,40 @@
                 <div class="col-md-6">
                     <br/>
                     <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
                     <c:if test="#{usuarioBean.ajeno.imagen == null or usuarioBean.ajeno.imagen eq ''}">        
                         <img style="border-radius=8px;" src="perfil.jpeg" alt="Perfil"/>
                     </c:if>
                     <c:if test="#{!(usuarioBean.ajeno.imagen == null or usuarioBean.ajeno.imagen eq '')}">
                         <h1></h1>          
-                        <img style="border-radius=8px;" height="140" width="140" src="./resources/imagenes/#{usuarioBean.ajeno.imagen}" alt="Perfil" />
+                        <img style="border-radius=8px;" height="300" width="300" src="./resources/imagenes/#{usuarioBean.ajeno.imagen}" alt="Perfil" />
                     </c:if>
                     <br/>
                     <br/>
                     <h:form>
                         <h:commandLink value="BLOQUEAR USUARIO" action="#{usuarioBean.bloquear(usuarioBean.usuario,usuarioBean.ajeno)}" />                        
                     </h:form>
-                    <p>
+                    <br/>
+                    <p style="color: black;font-size: 200%">
                         CALIFICAR USUARIO:
                     </p>
-                    <h:form>
-                        <h:commandLink value="1" action="#{usuarioBean.califica(usuarioBean.usuario, usuarioBean.ajeno,1.0)}" />
-                        <h:commandLink value="2" action="#{usuarioBean.califica(usuarioBean.usuario, usuarioBean.ajeno,2.0)}" />
-                        <h:commandLink value="3" action="#{usuarioBean.califica(usuarioBean.usuario, usuarioBean.ajeno,3.0)}" />
-                        <h:commandLink value="4" action="#{usuarioBean.califica(usuarioBean.usuario, usuarioBean.ajeno,4.0)}" />
-                        <h:commandLink value="5" action="#{usuarioBean.califica(usuarioBean.usuario, usuarioBean.ajeno,5.0)}" />
-                    </h:form>
+                    <div class="container" style="white-space:normal;">
+                        <h:form>
+                            <h:commandLink style="color: black;font-size: 200%" value="1" action="#{usuarioBean.califica(usuarioBean.usuario, usuarioBean.ajeno,1.0)}" />
+                            <h:commandLink style="color: black;font-size: 200%;margin-left: 2%" value="2" action="#{usuarioBean.califica(usuarioBean.usuario, usuarioBean.ajeno,2.0)}" />
+                            <h:commandLink style="color: black;font-size: 200%;margin-left: 2%" value="3" action="#{usuarioBean.califica(usuarioBean.usuario, usuarioBean.ajeno,3.0)}" />
+                            <h:commandLink style="color: black;font-size: 200%;margin-left: 2%" value="4" action="#{usuarioBean.califica(usuarioBean.usuario, usuarioBean.ajeno,4.0)}" />
+                            <h:commandLink style="color: black;font-size: 200%;margin-left: 2%" value="5" action="#{usuarioBean.califica(usuarioBean.usuario, usuarioBean.ajeno,5.0)}" />
+                        </h:form>
+                    </div>
                     <br/>
                     <br/>
-                    <div style="resize=both; overflow=auto;">Nombre: <h:outputText value="#{usuarioBean.ajeno.nombre}" /></div>
-                    <div style="resize=both; overflow=auto;">Apellido paterno: <h:outputText value="#{usuarioBean.ajeno.apellidoPaterno}" /></div>
-                    <div style="resize=both; overflow=auto;">Apellido materno: <h:outputText value="#{usuarioBean.ajeno.apellidoMaterno}" /></div>
-                    <div style="resize=both; overflow=auto;">Correo electrónico: <h:outputText value="#{usuarioBean.ajeno.correo}" /></div>
-                    <div style="resize=both; overflow=auto;">Teléfono: <h:outputText value="#{usuarioBean.ajeno.telefono}" /></div>
+                    <div style="resize=both; overflow=auto;color: black;font-size: 150%">Nombre: <h:outputText value="#{usuarioBean.ajeno.nombre}" /></div>
+                    <div style="resize=both; overflow=auto;color: black;font-size: 150%">Apellido paterno: <h:outputText value="#{usuarioBean.ajeno.apellidoPaterno}" /></div>
+                    <div style="resize=both; overflow=auto;color: black;font-size: 150%">Apellido materno: <h:outputText value="#{usuarioBean.ajeno.apellidoMaterno}" /></div>
+                    <div style="resize=both; overflow=auto;color: black;font-size: 150%">Fecha de nacimiento: <h:outputText value="#{usuarioBean.usuario.fechaDeNaciminiento}" /></div>
+                    <div style="resize=both; overflow=auto;color: black;font-size: 150%">Estado: <h:outputText value="#{usuarioBean.usuario.estado}" /></div>
+                    <div style="resize=both; overflow=auto;color: black;font-size: 150%">Correo electrónico: <h:outputText value="#{usuarioBean.ajeno.correo}" /></div>
+                    <div style="resize=both; overflow=auto;color: black;font-size: 150%">Teléfono: <h:outputText value="#{usuarioBean.ajeno.telefono}" /></div>
                     <br/>
                     <br/>
                     <br/>
@@ -58,28 +59,29 @@
                     <br/>
                     <p style="color:black;font-size:400%;">Perfil de contacto:</p>
                     <br/>
-                    <p>CALIFICACIÓN:</p>
+                    <p style="color: black;font-size: 200%">CALIFICACIÓN:</p>
                     <br/>
-                    <h:outputText value="#{usuarioBean.getCalificacionAjeno(usuarioBean.ajeno)}"> </h:outputText>
+                    <h:outputText style="color: black;font-size: 150%" value="#{usuarioBean.getCalificacionAjeno(usuarioBean.ajeno)}"> </h:outputText>
                     <br/>
                     <br/>
-                    <div style="resize=both; overflow=auto;">
+                    <br/>
+                    <div style="resize=both; overflow=auto;color: black;font-size: 150%">
                         <h:outputText value="#{usuarioBean.ajeno.esAgente() ? 
                                                (!usuarioBean.ajeno.agente.tieneOcupacion()  ? 'No hay información adicional que haya puesto el contacto' : usuarioBean.usuario.agente.ocupacion) 
                                                : !usuarioBean.ajeno.programador.tieneFormacion() ? 'No hay información adicional que haya puesto el contacto' : usuarioBean.usuario.programador.formacion}"/></div>
                     <br/>
                     <br/>
-                    <div style="resize=both; overflow=auto">Tipo de usuario: <h:outputText value="#{usuarioBean.ajeno.esAgente() ? 'Agente Creativo' : 'Programador'}"/></div>
+                    <div style="resize=both; overflow=auto;color: black;font-size: 200%">Tipo de usuario: <h:outputText value="#{usuarioBean.ajeno.esAgente() ? 'Agente Creativo' : 'Programador'}"/></div>
                     <br/>
                     <br/>
                     <br/>
                     <span class="glyphicon glyphicon-bell"/>
-                <br/>
-                <br/>
+                    <br/>
+                    <br/>
                 </div>
-                
+
                 <div class="container">
-                    <h4>SERVICIOS DE ESTE USUARIO:</h4>
+                    <h4 style="color: black;font-size: 200%">SERVICIOS DE ESTE USUARIO:</h4>
                     <br/>
                     <br/>
                     <span class="glyphicon glyphicon-arrow-down" style="font-size: 100px" onclick="window.scrollBy(0, 500)" onmouseover="this.style.cursor = 'pointer'" title="Haz click para ver los servicios"/>

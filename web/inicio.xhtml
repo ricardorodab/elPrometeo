@@ -27,15 +27,20 @@
           <br/>
           <br/>
           <p style="color:black; font-size:300%;">Iniciar sesión</p>
+          <br/>
+          <br/>
+          <br/>
           <h:form>
             <div class="form-group">
-                <h:outputLabel for="correo">Correo electrónico</h:outputLabel>
+                <h:outputLabel style="color: black;font-size: 150%" for="correo">Correo electrónico</h:outputLabel>
               <h:inputText class="form-control" id="correo" p:placeholder="Correo" value="#{usuarioBean.usuario.correo}"/>
 	    </div>
+              <br/>
 	    <div class="form-group">
-	      <label for="Contraseña">Contraseña</label>
+	      <label style="color: black;font-size: 150%" for="Contraseña">Contraseña</label>
               <h:inputSecret class="form-control" id="contraseña" p:placeholder="Contraseña" value="#{usuarioBean.usuario.contrasenia}"/>
 	    </div>
+              <br/>
               <h:commandButton value="Iniciar sesión" class="btn btn-default" action="#{usuarioBean.verificarDatos()}"/>
           </h:form>
 

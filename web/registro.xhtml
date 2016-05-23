@@ -54,18 +54,18 @@
                             </h:inputSecret>
                         </div>
                         <div class="checkbox">
-                            <label for="genero" style="color:black;">Género:</label>
+                            <label for="genero" style="color: black;font-size: 150%">Género:</label>
                             <br/>
                             <label class="radio-inline"/>
-                            <h:selectOneRadio value="#{usuarioBean.usuario.genero}" style="display: inline;" required="true" requiredMessage="Favor de seleccionar una opción de género.">
+                            <h:selectOneRadio value="#{usuarioBean.usuario.genero}" style="display: inline;margin-left: 2%;color: black;font-size: 100%" required="true" requiredMessage="Favor de seleccionar una opción de género.">
                                 <f:selectItem itemValue="H" itemLabel="Hombre" />
                                 <f:selectItem itemValue="M" itemLabel="Mujer" />
                             </h:selectOneRadio>
                         </div>
-                        <label for="fechaDeNaciminiento" style="color:black;">Fecha de Nacimiento:</label>
+                        <label for="fechaDeNaciminiento" style="color: black;font-size: 150%">Fecha de Nacimiento:</label>
                         <div class="row">
                             <div class="col-xs-4">
-                                <label for="anyo" style="color:black;">Año:</label> 
+                                <label for="anyo" style="color: black;font-size: 100%">Año:</label> 
                                 <h:selectOneMenu value="#{usuarioBean.usuario.fechaDeNaciminiento.year}">
                                     <f:selectItem itemValue="1920" itemLabel="1920" />
                                     <f:selectItem itemValue="1921" itemLabel="1921" />
@@ -149,7 +149,7 @@
                                 </h:selectOneMenu> 
                             </div> 
                             <div class="col-xs-4">
-                                <label for="mes" style="color:black;">Mes:</label>                               
+                                <label for="mes" style="color: black;font-size: 100%">Mes:</label>                               
                                 <h:selectOneMenu value="#{usuarioBean.usuario.fechaDeNaciminiento.month}">
                                     <f:selectItem itemValue="1" itemLabel="Enero" />
                                     <f:selectItem itemValue="2" itemLabel="Febrero" />
@@ -167,7 +167,7 @@
 
                             </div>
                             <div class="col-xs-4">
-                                <label for="mes" style="color:black;">Día:</label> 
+                                <label for="mes" style="color:black;color: black;font-size: 100%">Día:</label> 
                                 <h:selectOneMenu value="#{usuarioBean.usuario.dia}">
                                     <f:selectItem itemValue="1" itemLabel="1" />
                                     <f:selectItem itemValue="2" itemLabel="2" />
@@ -204,7 +204,7 @@
                             </div>	      
                         </div>
                         <br/>
-                        <label for="estado" style="color:black;">Estado:</label>
+                        <label for="estado" style="color: black;font-size: 150%">Estado:</label>
                         <h:selectOneMenu value="#{usuarioBean.usuario.estado}">
                             <f:selectItem itemValue="Aguascalientes" itemLabel="Aguascalientes" />
                             <f:selectItem itemValue="Baja California" itemLabel="Baja California" />
@@ -240,10 +240,10 @@
                             <f:selectItem itemValue="Zacatecas" itemLabel="Zacatecas" />
                         </h:selectOneMenu>
                         <div class="checkbox">
-                            <label for="rol" style="color:black;">¿Cómo te quieres registrar?:</label>
+                            <label for="rol" style="color: black;font-size: 150%">¿Cómo te quieres registrar?:</label>
                             <br/>
 
-                            <h:selectOneRadio value="#{usuarioBean.usuario.tipoUsuario}" style="display: inline;" required="true" requiredMessage="Favor de seleccionar un tipo de usuario">
+                            <h:selectOneRadio value="#{usuarioBean.usuario.tipoUsuario}" style="display: inline;color: black;font-size: 100%" required="true" requiredMessage="Favor de seleccionar un tipo de usuario">
                                 <f:selectItem itemValue="#{tipoUsuarioBean.programador}" itemLabel="Programador"  />
                                 <f:selectItem itemValue="#{tipoUsuarioBean.agente}" itemLabel="Agente Creativo" />
                             </h:selectOneRadio>
@@ -253,7 +253,7 @@
                                 <f:validateLength minimum="10" maximum="10" />
                             </h:inputText>
                         </div> 
-                        <h6>En el momento de presionar el botón de "Registrar" usted declara que está de acuerdo con nuestros <a href="terminosycondiciones.xhtml">Contrato de términos y condiciones</a> </h6>
+                        <h5>En el momento de presionar el botón de "Registrar" usted declara que está de acuerdo con nuestros <a href="terminosycondiciones.xhtml">Contrato de términos y condiciones</a> </h5>
                         <h:commandButton value="Registrar" class="btn btn-default" action="#{usuarioBean.registrar()}"/>
                     </h:form>
                     <br/>

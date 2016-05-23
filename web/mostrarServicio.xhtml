@@ -42,20 +42,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <div class="row">	
                 <div class="col-md-6">
                     <br/>
-                    <h1>Servicio:</h1>
+                    <h1 style="color: black;font-size: 200%">Servicio:</h1>
                     <br/>
                     <br/>
-                    <div style="resize=both; overflow=auto"><h:outputText value="#{usuarioBean.usuario.esAgente() ? 'Este es una publicación de un agente creativo buscando programador' : 'Un agente creativo te está buscando para poder realizar su idea en una realidad'}"/>:</div>
+                    <div style="resize=both; overflow=auto;color: black;font-size: 200%"><h:outputText value="#{usuarioBean.usuario.esAgente() ? 'Este es una publicación de un agente creativo buscando programador' : 'Un agente creativo te está buscando para poder realizar su idea en una realidad'}"/>:</div>
                     <br/>
                     <br/>
                     <br/>
                     <div style="resize=both; overflow=auto;">
-                        <div style="resize=both; overflow=auto;">Titulo: <h:outputText value="#{servicioBean.servicio.titulo}" /></div>
-                        <div style="resize=both; overflow=auto;">Presupuesto: <h:outputText value="#{servicioBean.servicio.presupuesto}" /></div>
-                        <div style="resize=both; overflow=auto;">Descripcion: <h:outputText value="#{servicioBean.servicio.description}" /></div> 
+                        <div style="resize=both; overflow=auto;color: black;font-size: 150%">Titulo: <h:outputText value="#{servicioBean.servicio.titulo}" /></div>
+                        <div style="resize=both; overflow=auto;color: black;font-size: 150%">Presupuesto: <h:outputText value="#{servicioBean.servicio.presupuesto}" /></div>
+                        <div style="resize=both; overflow=auto;color: black;font-size: 150%">Descripcion: <h:outputText value="#{servicioBean.servicio.description}" /></div> 
                         <br/>
                         <br/>
-                        <div style="resize=both; overflow=auto">Tipo de usuario: <h:outputText value="#{usuarioBean.usuario.esAgente() ? 'Agente Creativo' : 'Programador'}"/></div>
+                        <div style="resize=both; overflow=auto;color: black;font-size: 200%">Tipo de usuario: <h:outputText value="#{usuarioBean.usuario.esAgente() ? 'Agente Creativo' : 'Programador'}"/></div>
                     </div>
                     <br/>
                     <br/>
@@ -64,12 +64,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 </div>
                 <div class="col-md-6">
                     <br/>
-                    <h2><h:outputText value="#{servicioBean.esElAgente(usuarioBean.usuario,servicioBean.servicio) ? 'Información del programador:' : 'Información del agente creativo'}"/></h2>
+                    <h2 style="color: black;font-size: 200%"><h:outputText value="#{servicioBean.esElAgente(usuarioBean.usuario,servicioBean.servicio) ? 'Información del programador:' : 'Información del agente creativo'}"/></h2>
                     <br/>
                     <br/>
                     <div class="informacion">
                         <section>                            
-                            <h:outputText value="#{servicioBean.servicio.finalizado ? (servicioBean.esElAgente(usuarioBean.usuario) ? servicioBean.getDatosProgramador(usuarioBean.usuario,servicioBean.servicio) : servicioBean.getDatosAgente(usuarioBean.usuario,servicioBean.servicio)) : 'Aquí aparecerán los datos de contacto del usuario que aceptó/solicita el servicio una vez que alguien desee tomar el trabajo.'}" />                                                       
+                            <h:outputText style="color: black;font-size: 150%" value="#{servicioBean.servicio.finalizado ? (servicioBean.esElAgente(usuarioBean.usuario) ? servicioBean.getDatosProgramador(usuarioBean.usuario,servicioBean.servicio) : servicioBean.getDatosAgente(usuarioBean.usuario,servicioBean.servicio)) : 'Aquí aparecerán los datos de contacto del usuario que aceptó/solicita el servicio una vez que alguien desee tomar el trabajo.'}" />                                                       
                             <ui:repeat value="#{servicioBean.servicios}" var="ser" rendered="true">
                                 <h:form rendered="#{servicioBean.servicio.idServicio == ser.idServicio}"> 
                                     <div><h:commandLink value="VER MENSAJES ASOCIADOS AL SERVICIO" action="#{servicioBean.mostrarMensajes(ser)}" rendered="#{ser.finalizado and !servicioBean.usuarioBloqueado(usuarioBean.usuario,ser)}" > </h:commandLink></div>

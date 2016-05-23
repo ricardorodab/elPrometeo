@@ -5,7 +5,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:t="http://primefaces.org/ui"
-          
+
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <h:body style="background-color:white">
@@ -29,7 +29,7 @@
                         </c:if>
                         <c:if test="#{!(usuarioBean.usuario.imagen == null or usuarioBean.usuario.imagen eq '')}">
                             <h1></h1>          
-                            <img style="border-radius=8px;" height="140" width="140" src="./resources/imagenes/#{usuarioBean.usuario.imagen}" alt="Perfil" />
+                            <img style="border-radius=8px;" height="300" width="300" src="./resources/imagenes/#{usuarioBean.usuario.imagen}" alt="Perfil" />
                         </c:if>
                         <br />
                         <br />
@@ -58,32 +58,65 @@
                         <br />
                         <h:form>
                             <div class="form-group">
-                                <label for="Descripción">Descripción</label>
+                                <label style="color: black;font-size: 150%" for="Descripción">Descripción</label>
                                 <h:inputTextarea class="form-control" rows="3" p:placeholder="Descripción" value="#{usuarioBean.usuario.esAgente() ? usuarioBean.usuario.agente.ocupacion : usuarioBean.usuario.programador.formacion}"/>
                             </div>
                             <div class="form-group">
-                                <label for="Nombre">Nombre</label>
+                                <label style="color: black;font-size: 150%" for="Nombre">Nombre</label>
                                 <h:inputText class="form-control" id="nombre" p:placeholder="#{usuarioBean.usuario.nombre}" value="#{ usuarioBean.usuario.nombre}"/>
                             </div> 	
                             <div class="form-group">
-                                <label for="ApellidoPaterno">Apellido Paterno</label>
+                                <label style="color: black;font-size: 150%" for="ApellidoPaterno">Apellido Paterno</label>
                                 <h:inputText class="form-control" id="apellidoPaterno" p:placeholder="#{usuarioBean.usuario.apellidoPaterno}" value="#{usuarioBean.usuario.apellidoPaterno}"/>
                             </div>   	
                             <div class="form-group">
-                                <label for="ApellidoMaterno">Apellido Materno</label>
+                                <label style="color: black;font-size: 150%" for="ApellidoMaterno">Apellido Materno</label>
                                 <h:inputText class="form-control" id="apellidoMaterno" p:placeholder="#{usuarioBean.usuario.apellidoMaterno}" value="#{usuarioBean.usuario.apellidoMaterno}"/>
                             </div> 
 
+                            <label style="color: black;font-size: 150%" for="estado">Estado:</label>
+                            <br/>
+                            <h:selectOneMenu value="#{usuarioBean.usuario.estado}">
+                                <f:selectItem itemValue="Aguascalientes" itemLabel="Aguascalientes" />
+                                <f:selectItem itemValue="Baja California" itemLabel="Baja California" />
+                                <f:selectItem itemValue="Baja California Sur" itemLabel="Baja California Sur" />
+                                <f:selectItem itemValue="Campeche" itemLabel="Campeche" />
+                                <f:selectItem itemValue="Coahuila" itemLabel="Coahuila" />
+                                <f:selectItem itemValue="Colima" itemLabel="Colima" />
+                                <f:selectItem itemValue="Chiapas" itemLabel="Chiapas" />
+                                <f:selectItem itemValue="Chihuahua" itemLabel="Chihuahua" />
+                                <f:selectItem itemValue="Ciudad de México" itemLabel="Ciudad de México" />
+                                <f:selectItem itemValue="Durango" itemLabel="Durango" />
+                                <f:selectItem itemValue="Guanajuato" itemLabel="Guanajuato" />
+                                <f:selectItem itemValue="Guerrero" itemLabel="Guerrero" />
+                                <f:selectItem itemValue="Hidalgo" itemLabel="Hidalgo" />
+                                <f:selectItem itemValue="Jalisco" itemLabel="Jalisco" />
+                                <f:selectItem itemValue="Estado de México" itemLabel="Estado de México" />
+                                <f:selectItem itemValue="Michoacán" itemLabel="Michoacán" />
+                                <f:selectItem itemValue="Morelos" itemLabel="Morelos" />
+                                <f:selectItem itemValue="Nayarit" itemLabel="Nayarit" />
+                                <f:selectItem itemValue="Nuevo León" itemLabel="Nuevo León" />
+                                <f:selectItem itemValue="Oaxaca" itemLabel="Oaxaca" />
+                                <f:selectItem itemValue="Puebla" itemLabel="Puebla" />
+                                <f:selectItem itemValue="Querétaro" itemLabel="Querétaro" />
+                                <f:selectItem itemValue="Quintana Roo" itemLabel="Quintana Roo" />
+                                <f:selectItem itemValue="San Luis Potosí" itemLabel="San Luis Potosí" />
+                                <f:selectItem itemValue="Sinaloa" itemLabel="Sinaloa" />
+                                <f:selectItem itemValue="Sonora" itemLabel="Sonora" />
+                                <f:selectItem itemValue="Tabasco" itemLabel="Tabasco" />
+                                <f:selectItem itemValue="Tamaulipas" itemLabel="Tamaulipas" />
+                                <f:selectItem itemValue="Tlaxcala" itemLabel="Tlaxcala" />
+                                <f:selectItem itemValue="Veracruz" itemLabel="Veracruz" />
+                                <f:selectItem itemValue="Yucatán" itemLabel="Yucatán" />
+                                <f:selectItem itemValue="Zacatecas" itemLabel="Zacatecas" />
+                            </h:selectOneMenu>    
                             <div class="form-group">
-                                <label for="Estado">Estado</label>
-                                <h:inputText class="form-control" id="estado" p:placeholder="#{usuarioBean.usuario.estado}" value="#{usuarioBean.usuario.estado}"/>
-                            </div>                            
-                            <div class="form-group">
-                                <label for="Correo">Correo</label>
+                                <br/>
+                                <label style="color: black;font-size: 150%" for="Correo">Correo</label>
                                 <h:inputText class="form-control" id="correo" p:placeholder="#{usuarioBean.usuario.correo}" value="#{usuarioBean.usuario.correo}"/>
                             </div> 
                             <div>
-                                <label for="Teléfono">Teléfono</label>
+                                <label style="color: black;font-size: 150%" for="Teléfono">Teléfono</label>
                                 <h:inputText class="form-control" id="telefono" p:placeholder="#{usuarioBean.usuario.telefono}" value="#{usuarioBean.usuario.telefono}"/>
                             </div>
                             <br />
