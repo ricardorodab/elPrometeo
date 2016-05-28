@@ -25,6 +25,8 @@
             <ui:include src="/WEB-INF/header.xhtml" />  
         <br/>
         <br/>
+        <p style="color:black;font-size:400%;text-align:center">Servicios disponibles</p>
+        <br/>
         <div class="right">
             <div class="center-block" style="margin-left:40%;">
                 <h:form rendered="#{usuarioBean.usuario.esAgente()}">
@@ -70,12 +72,11 @@
         <br/>
         <br/>
         <br/>
-        <br/>
          <div class="container">
              <ui:repeat value="#{servicioBean.servicios}" var="ser" rendered="#{!ser.finalizado}">
                  <h:form rendered="#{!ser.finalizado}">
                 <div class="servicios">
-                    <section>
+                    <section style="border:5px solid #afd9ee">
                         <label style="color: black;font-size: 150%"> Titulo del servicio:</label>
                             <p> <h:commandLink style="font-size: 150%" value="#{ser.titulo}" action="#{servicioBean.mostrar(ser.idServicio)}" > </h:commandLink> </p>
                         <label style="color: black;font-size: 150%">Presupuesto:</label>

@@ -109,6 +109,7 @@
                                       <div class="servicios">
                                           <section>
                                               <br/>
+                                              <label> Mis servicios:</label>
                                               <p>Nombre: <h:commandLink value="#{ser.titulo}" action="#{servicioBean.mostrar(ser.idServicio)}" > </h:commandLink> </p>
                                               <br/>
                                               <h:commandButton value="Eliminar servicio" class="btn btn-primary btn-lg active" action="#{servicioBean.eliminar(ser)}" rendered="#{servicioBean.esElAgente(usuarioBean.usuario,ser)}" />                                                                                               
