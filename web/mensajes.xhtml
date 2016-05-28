@@ -64,13 +64,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         </div>     
                     </div>
                 </ui:repeat>  
-                <ui:repeat value="#{servicioBean.muestraMensajes()}" var="act">
-                    <c:if test="#{usuarioBean.usuario.esAgente()}">
-                        Agente:
-                    </c:if>
-                    <c:if test="#{!usuarioBean.usuario.esAgente()}">
-                        Programador:
-                    </c:if>
+                <ui:repeat value="#{servicioBean.muestraMensajes()}" var="act">                    
                     <h:form rendered="#{act.servicio.idServicio == servicioBean.servicio.idServicio}">
                         <h:outputText value="#{act.texto}">                                
                         </h:outputText>

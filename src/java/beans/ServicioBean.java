@@ -277,9 +277,11 @@ public class ServicioBean {
             m.setTexto(mensaje);
             m.setFechaDeEnvio(new Date());
             if (idprog == id_remitente && idagente == id_destinatario) {
+                m.setTexto("Programador: "+m.getTexto());
                 m.setUsuarioByIdRemitente(pactual.getUsuario());
                 m.setUsuarioByIdDestinatario(agactual.getUsuario());
             } else if (idprog == id_destinatario && idagente == id_remitente) {
+                m.setTexto("Agente: "+m.getTexto());
                 m.setUsuarioByIdRemitente(agactual.getUsuario());
                 m.setUsuarioByIdDestinatario(pactual.getUsuario());
             } else {
