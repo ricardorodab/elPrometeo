@@ -22,7 +22,7 @@
                             <label class="sr-only" for="contraseña">Contraseña</label>
                             <h:inputSecret class="form-control" id="contraseña" p:placeholder="Contraseña" value="#{usuarioBean.usuario.contrasenia}"/>
                         </div>
-                        <h:commandButton value="Iniciar sesión" class="btn btn-default" action="#{usuarioBean.verificarDatos()}"/>
+                        <h:commandButton value="Iniciar sesión" class="btn btn-primary" action="#{usuarioBean.verificarDatos()}"/>
                     </h:form>
                 </div>
             </div>
@@ -254,7 +254,7 @@
                             </h:inputText>
                         </div> 
                         <h5>En el momento de presionar el botón de "Registrar" usted declara que está de acuerdo con nuestro <a href="terminosycondiciones.xhtml">Contrato de términos y condiciones</a> </h5>
-                        <h:commandButton value="Registrar" class="btn btn-default" action="#{usuarioBean.registrar()}"/>
+                        <h:commandButton value="Registrar" class="btn btn-primary" action="#{usuarioBean.registrar()}"/>
                     </h:form>
                     <br/>
                     <br/>

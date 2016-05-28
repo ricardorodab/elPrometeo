@@ -57,8 +57,8 @@
                                         <h:inputTextarea class="form-control" rows="3" p:placeholder="Descripción" value="#{servicioBean.servicio.description}" required="true" requiredMessage="Debe tener una descripción el servicio"/>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                        <h:commandButton value="Crear" action="#{servicioBean.crear(usuarioBean.usuario)}" rendered="#{usuarioBean.usuario.esAgente()}"/>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                        <h:commandButton value="Crear" class="btn btn-primary" action="#{servicioBean.crear(usuarioBean.usuario)}" rendered="#{usuarioBean.usuario.esAgente()}"/>
                                     </div>
                             </div>
                         </div>

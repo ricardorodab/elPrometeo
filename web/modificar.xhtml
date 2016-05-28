@@ -39,7 +39,7 @@
                             <t:fileUpload value="#{usuarioBean.imagen}" mode="simple"/>
                             <br/>
                             <br/>
-                            <t:commandButton class="btn btn-default" value="Guardar Imagen" ajax="false" 
+                            <t:commandButton class="btn btn-primary" value="Guardar Imagen" ajax="false" 
                                              actionListener="#{usuarioBean.guardaImagen()}"/>
                         </h:form>
                         <br/>
@@ -121,8 +121,8 @@
                             </div>
                             <br />
                             <br />
-                            <h:commandButton value="Guardar" class="btn btn-default" action="#{usuarioBean.modificarPerfil()}"/>
-                            <a href="perfil.xhtml" class="btn btn-default btn-lg active" role="button">Cancelar</a>
+                            <h:commandButton value="Guardar" class="btn btn-primary" action="#{usuarioBean.modificarPerfil()}"/>
+                            <a href="perfil.xhtml" class="btn btn-danger btn-lg active" role="button">Cancelar</a>
                         </h:form> 
                     </div>
                 </div>

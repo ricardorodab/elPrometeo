@@ -38,40 +38,45 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <a href="../src/java/dao/OperacionesDAO.java"></a>  
         <div class="container" style="background-color:#f5e79e">
             <ui:include src="/WEB-INF/header.xhtml" /> 
-            <div class="container">	
-                <ui:repeat value="#{servicioBean.servicios}"  var="ser">
-                    <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <ui:repeat value="#{servicioBean.servicios}"  var="ser">
                         <br/>
                         <h:outputLabel value="Mensaje nuevo" rendered="#{ser.idServicio == servicioBean.servicio.idServicio}" style="font-size: 200%"/>
                         <br/>
                         <br/>
                         <div style="resize=both; overflow=auto">
                             <h:form rendered="#{(servicioBean.servicio.idServicio == ser.idServicio) and servicioBean.esElAgente(usuarioBean.usuario,ser)}">
-                                <h:inputTextarea id="mensaje" p:placeholder="Ingrese mensaje nuevo para el programador" value="#{servicioBean.mensajeNuevo}" requiredMessage="true">
+                                <h:inputTextarea id="mensaje" p:placeholder="Ingrese mensaje nuevo para el programador" value="#{servicioBean.mensajeNuevo}" requiredMessage="true" rows="4" cols="40" style="font-size:150%">
                                 </h:inputTextarea>
                                 <br/>
-                                <h:commandButton value="Enviar mensaje nuevo" action="#{servicioBean.enviarMensaje(usuarioBean.usuario.idUsuario,servicioBean.mostrarProgramador(ser).idUsuario, servicioBean.mensajeNuevo,ser)}" />
+                                <h:commandButton value="Enviar mensaje" class="btn btn-primary" action="#{servicioBean.enviarMensaje(usuarioBean.usuario.idUsuario,servicioBean.mostrarProgramador(ser).idUsuario, servicioBean.mensajeNuevo,ser)}" />
                             </h:form>
                             <h:form rendered="#{(servicioBean.servicio.idServicio == ser.idServicio) and servicioBean.esElProgramador(usuarioBean.usuario,ser)}">
-                                <h:inputTextarea id="mensaje" p:placeholder="Ingrese mensaje nuevo para el agente" value="#{servicioBean.mensajeNuevo}" requiredMessage="true">                                    
+                                <h:inputTextarea id="mensaje" p:placeholder="Ingrese mensaje nuevo para el agente" value="#{servicioBean.mensajeNuevo}" requiredMessage="true" rows="4" cols="40" style="font-size:150%">                                    
                                 </h:inputTextarea>
-                                <br/>
-                                <h:commandButton value="Enviar mensaje nuevo" action="#{servicioBean.enviarMensaje(usuarioBean.usuario.idUsuario,servicioBean.mostrarAgente(ser).idUsuario, servicioBean.mensajeNuevo,ser)}" />
+                                <h:commandButton value="Enviar mensaje" class="btn btn-primary" action="#{servicioBean.enviarMensaje(usuarioBean.usuario.idUsuario,servicioBean.mostrarAgente(ser).idUsuario, servicioBean.mensajeNuevo,ser)}" />
                             </h:form>
-                        </div>
 
-                        <div style="resize=both; overflow=auto;">                            
-                        </div>     
-                    </div>
-                </ui:repeat>  
-                <ui:repeat value="#{servicioBean.muestraMensajes()}" var="act">                    
-                    <h:form rendered="#{act.servicio.idServicio == servicioBean.servicio.idServicio}">
-                        <h:outputText value="#{act.texto}">                                
-                        </h:outputText>
-                    </h:form>
-                </ui:repeat>
-                <div class="container">
+
+                            <div style="resize=both; overflow=auto;">                            
+                            </div>     
+                        </div>
+                    </ui:repeat>
+                </div>
+                <div class="col-md-6">
+                    <br/>
+                    <h:outputLabel value="Conversación" style="color:black;font-size: 200%"/>
+                    <br/>
+                    <ui:repeat value="#{servicioBean.muestraMensajes()}" var="act">                    
+                        <h:form rendered="#{act.servicio.idServicio == servicioBean.servicio.idServicio}">
+                            <h:outputText value="#{act.texto}" style="color: black;font-size: 150%">                                
+                            </h:outputText>
+                        </h:form>
+                    </ui:repeat>
+
                     <ui:repeat value="#{servicioBean.servicios}" var="ser">
+                        
                         <h:form  rendered="#{servicioBean.servicio.idServicio == ser.idServicio}"> 
                             <br/>
                             <br/>
@@ -79,6 +84,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         </h:form> 
                     </ui:repeat>
                 </div>
+
             </div>
             <br/>
             <br/>

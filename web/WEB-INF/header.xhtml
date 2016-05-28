@@ -30,13 +30,13 @@
                 
                 <div style="float: right; width: 10%; overflow: hidden; height: 45px;">
                     <h:form rendered="#{usuarioBean.verificarSesion()}">
-                        <h:commandButton value="Cerrar Sesión" action="#{usuarioBean.cerrarSesion()}"/>                         
+                        <h:commandButton class="btn btn-primary" value="Cerrar Sesión" action="#{usuarioBean.cerrarSesion()}"/>                         
                     </h:form> 
                 </div>
                 <div style="float: right; width: 25%; overflow: hidden; height: 45px;">
                     <h:form id="searchform">
                         <h:inputText p:placeholder="Buscar aquí" value="#{busquedasBean.busqueda}"/>
-                        <h:commandButton value="Buscar" action="resultadoBusquedas.xhtml" />
+                        <h:commandButton value="Buscar" class="btn btn-primary" action="resultadoBusquedas.xhtml" />
                     </h:form>
                 </div>
             </ul>
