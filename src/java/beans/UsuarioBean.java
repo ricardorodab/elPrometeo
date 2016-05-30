@@ -194,8 +194,9 @@ public class UsuarioBean {
             FileUtils.moveFile(destino, new File("/Users/ricardo_rodab/NetBeansProjects/ElPrometeo/web/resources/imagenes/"+this.usuario.getImagen()));
             }catch(Exception e){
                 FileUtils.moveFile(destino, new File("/Users/ricardo_rodab/NetBeansProjects/ElPrometeo/web/resources/imagenes/"+this.usuario.getImagen()));    
-            }finally{
-                return "perfil";
+            }finally{                
+                FacesContext.getCurrentInstance().getExternalContext().redirect("subirImagen.xhtml");
+                return "subirImagen";
             }
         } else {
             return "El archivo no es una imagen";

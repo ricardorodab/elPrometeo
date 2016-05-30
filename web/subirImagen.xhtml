@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+    <title>Mi perfil</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+  </h:head>
+  <h:body style="background-color:white">
+      <div class="container" style="background-color: #f5e79e">
+      <h:outputLabel value="No se ha iniciado sesión" rendered="#{usuarioBean.verificarSesion() eq false}"/>
+     <ui:include src="/WEB-INF/header.xhtml" />    
+        <br/>
+        <br/> 
+        <br/>
+        <br/>
+        <br/>
+        <br/> 
+        <br/>
+        <br/>
+        <br/>
+        <div class="container" style="background-color: #afd9ee">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 text-center" style="color:black;font-size:400%;"> 
+                    <h4>Su imagen se está subiendo.... Espere unos segundos en lo que terminamos de procesarla.</h4>
+                    </div>
+                </div> 
+            </div>
+        <meta http-equiv="refresh" content="8;url=perfil.xhtml" />
+             
+        </div>
+       
+    </h:body>
+
+
+
+</html>
