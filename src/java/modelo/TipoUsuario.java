@@ -1,17 +1,29 @@
-/*
+/* -------------------------------------------------------------------
+ * TipoUsuario.java
+ * versión 1.0
+ * Copyright (C) 2016  Kan-Balam.
+ * Facultad de Ciencias,
+ * Universidad Nacional Autónoma de México, Mexico.
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * Este programa es software libre; se puede redistribuir
+ * y/o modificar en los términos establecidos por la
+ * Licencia Pública General de GNU tal como fue publicada
+ * por la Free Software Foundation en la versión 2 o
+ * superior.
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * Este programa es distribuido con la esperanza de que
+ * resulte de utilidad, pero SIN GARANTÍA ALGUNA; de hecho
+ * sin la garantía implícita de COMERCIALIZACIÓN o
+ * ADECUACIÓN PARA PROPÓSITOS PARTICULARES. Véase la
+ * Licencia Pública General de GNU para mayores detalles.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * Con este programa se debe haber recibido una copia de la
+ * Licencia Pública General de GNU, de no ser así, visite el
+ * siguiente URL:
+ * http://www.gnu.org/licenses/gpl.html
+ * o escriba a la Free Software Foundation Inc.,
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * -------------------------------------------------------------------
  */
 package modelo;
 

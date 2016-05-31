@@ -41,19 +41,29 @@ import modelo.Registro;
 import modelo.Servicio;
 import modelo.TipoUsuario;
 import modelo.Usuario;
-import org.hibernate.SQLQuery;
 import org.hibernate.TransactionException;
 import org.hibernate.type.StandardBasicTypes;
 import util.HibernateUtil;
 
 /**
+ * @author Kan-Balam
+ * @version 1.0
+ * @since Mar 09 2016.
+ * <p>
+ * Clase para poder manejar el acceso a la base de datos.</p>
  *
- * @author ricardo
+ * <p>
+ * Clase controladora en particular de la base de datos.</p>
  */
 public class OperacionesDAO {
     
+    /** Es la sesión que accede a la base. */
     private Session session;
     
+    /**
+     * Metodo que nos regresa una session.
+     * @return Una nueva session o una que estemos usando.
+     */
     private synchronized Session session() {
         if (HibernateUtil.getSessionFactory().isClosed()) {
             session = HibernateUtil.getSessionFactory().openSession();
@@ -63,12 +73,20 @@ public class OperacionesDAO {
         return session;
     }
     
+    /**
+     * Metodo que cierra una sessión.
+     */
     private synchronized void closeSession() {
         if (session != null && session.isOpen()) {
             session.close();
         }
     }
     
+    /**
+     * Metodo para buscar un usuario.
+     * @param id - Es el id del usuario.
+     * @return Un usuario de la base de datos o null si no existe.
+     */
     public Usuario buscaUsuario(int id) {
         Transaction tx = session().beginTransaction();
         try {
@@ -88,6 +106,11 @@ public class OperacionesDAO {
         return null;
     }
     
+    /**
+     * Nos da un usuario dado un telefono.
+     * @param telefono - Es el telefono del usuario.
+     * @return Un usuario que coincida con ese teléfono o null si no existe.
+     */
     public Usuario buscaUsuarioPorTelefono(Long telefono) {
         Transaction tx = session().beginTransaction();
         try {
@@ -107,6 +130,11 @@ public class OperacionesDAO {
         return null;
     }
     
+    /**
+     * Nos da un usuario dado un correo.
+     * @param correo - Es el correo del usuario.
+     * @return Un usuario que coincida con el correo o null.
+     */
     public Usuario buscaUsuarioPorCorreo(String correo) {
         Transaction tx = session().beginTransaction();
         try {
@@ -126,8 +154,12 @@ public class OperacionesDAO {
         return null;
     }
     
-    /* Regresa la lista de bloqueados de un Usuario. Aún no sé para qué, pero
-    seguro resultará útil */
+    /**
+     * Regresa la lista de bloqueados de un Usuario. Aún no sé para qué, pero
+     * seguro resultará útil
+     * @param u - Es el usuario que desea obtener la lista de bloqueados.
+     * @return Una lista con los id de los bloqueados.
+     */
     public List<Integer> obtenListaDeBloqueados(Usuario u) {
         Transaction tx = session().beginTransaction();
         try {
@@ -148,6 +180,7 @@ public class OperacionesDAO {
         return null;
     }
     
+    // Metodo privado que guarda a un programador.
     private void guardaProgramador(Usuario u) {
         Transaction tx = session().beginTransaction();
         try {
@@ -165,6 +198,7 @@ public class OperacionesDAO {
         }
     }
     
+    // Metodo privado que guarda a un agente.
     private void guardaAgente(Usuario u) {
         Transaction tx = session().beginTransaction();
         try {
@@ -182,6 +216,11 @@ public class OperacionesDAO {
         }
     }
     
+    /**
+     * Metodo para guardar a un usuario en la base.
+     * @param u - El usuario a guardar.
+     * @param tipo - El tipo de usuario.
+     */
     public void guarda(Usuario u, TipoUsuario tipo) {
         if (tipo == TipoUsuario.AGENTE) {
             guardaAgente(u);
@@ -190,7 +229,10 @@ public class OperacionesDAO {
         }
     }
     
-    /* Guarda el mensaje en la base de datos */
+    /**
+     * Guarda el mensaje en la base de datos.
+     * @param m - Es el mensaje a guardar.
+     */
     public void guardaMensaje(Mensaje m) {
         Transaction tx = session().beginTransaction();
         try {
@@ -206,6 +248,10 @@ public class OperacionesDAO {
         }
     }
     
+    /**
+     * Guarda a un usuario en la base de datos.
+     * @param u - El usuario a guardar.
+     */
     public void guardaUsuario(Usuario u) {
         Transaction tx = session().beginTransaction();
         try {
@@ -221,6 +267,11 @@ public class OperacionesDAO {
         }
     }
     
+    /**
+     * Metodo para actualizar a un usuario.
+     * @param u - El usuario que se desea actualizar.
+     * @return  true si se pudo actualizar.
+     */
     public boolean actualizaUsuario(Usuario u) {
         Transaction tx = session().beginTransaction();
         try {
@@ -238,7 +289,11 @@ public class OperacionesDAO {
         return true;
     }
     
-    /* Actualiza al agente */
+    /**
+     * Actualiza al agente.
+     * @param a - Es el agente a actualizar.
+     * @return true si se pudo actualizar al objeto.
+     */
     public boolean actualizaAgente(Agente a) {
         Transaction tx = session().beginTransaction();
         try {
@@ -256,7 +311,11 @@ public class OperacionesDAO {
         return true;
     }
     
-    /* Actualiza al programador */
+    /**
+     * Actualiza a un programador.
+     * @param p - Es el programador a actualizar.
+     * @return true si se pudo actualizar al objeto.
+     */
     public boolean actualizaProgramador(Programador p) {
         Transaction tx = session().beginTransaction();
         try {
@@ -274,6 +333,11 @@ public class OperacionesDAO {
         return true;
     }
     
+    /**
+     * Metodo para verificar los datos de un usuario.
+     * @param usuario - Es el usuario a verificar.
+     * @return El usuario que se desea encontrar o null si no existe.
+     */
     public Usuario verificarDatos(Usuario usuario) {
         Transaction tx = session().beginTransaction();
         try {
@@ -297,6 +361,11 @@ public class OperacionesDAO {
         return null;
     }
     
+    /**
+     * Metodo para eliminar un usuario de la base de datos.
+     * @param u - Es el usuario a eliminar.
+     * @return true si se pudo eliminar.
+     */
     public boolean elimina(Usuario u) {
         Transaction tx = session().beginTransaction();
         try {
@@ -393,6 +462,11 @@ public class OperacionesDAO {
         }
     }
     
+    /**
+     * Metodo para actualizar un servicio y con un usuario.
+     * @param u - Es el usuario del servicio.
+     * @param s - Es el servicio que se desea actualizar.
+     */
     public void actualizaServicio(Usuario u, Servicio s) {
         Transaction tx = session().beginTransaction();
         try {
@@ -411,7 +485,11 @@ public class OperacionesDAO {
         }
     }
     
-    /* Regresa los mensajes relacionados con el servicio s */
+    /**
+     * Regresa los mensajes relacionados con el servicio.
+     * @param s - El servicio relacionado a los mensajes.
+     * @return Una lista con los mensajes.
+     */
     public List<Mensaje> obtenMensajesServicio(Servicio s) {
         Transaction tx = session().beginTransaction();
         try {
@@ -431,6 +509,10 @@ public class OperacionesDAO {
         return null;
     }
     
+    /**
+     * Regresa los servicios de la base de datos.
+     * @return - Una lista con todos los servicios.
+     */
     public List<Servicio> obtenServicios() {
         Transaction tx = session().beginTransaction();
         try {
@@ -452,6 +534,10 @@ public class OperacionesDAO {
         return null;
     }
     
+    /**
+     * Metodo para eliminar un servicio.
+     * @param servicio - Es el servicio a ser eliminado.
+     */
     public void eliminarServicio(Servicio servicio) {
         Transaction tx = session().beginTransaction();
         try {
@@ -492,6 +578,11 @@ public class OperacionesDAO {
         }
     }
     
+    /**
+     * Metodo para buscar un servicio por id.
+     * @param id - El id primario del servicio.
+     * @return El servicio que buscamos o null si no existe.
+     */
     public Servicio buscaServicioPorId(int id) {
         Transaction tx = session().beginTransaction();
         try {
@@ -514,6 +605,12 @@ public class OperacionesDAO {
         return null;
     }
     
+    /**
+     * Metodo para finalizar un servicio.
+     * @param p - Es el programador que finaliza el servicio.
+     * @param ser - Es el servicio que finalizamos.
+     * @return mostrarServicio si se pudo finalizar con éxito.
+     */
     public String finalizaServicio(Programador p, Servicio ser) {
         Transaction tx = session().beginTransaction();
         try {
@@ -534,6 +631,11 @@ public class OperacionesDAO {
         return "mostrarServicio";
     }
     
+    /**
+     * Metodo para buscar un agente en la base de datos.
+     * @param a - Es el agente a buscar.
+     * @return El agente de la base o null si no existe.
+     */
     public Agente buscaAgente(Agente a) {
         Transaction tx = session().beginTransaction();
         try {
@@ -553,6 +655,11 @@ public class OperacionesDAO {
         return null;
     }
     
+    /**
+     * Metodo para buscar un programador en la base de datos.
+     * @param programador - Es el programador a buscar.
+     * @return Es el programador de la base o null si no existe.
+     */
     public Programador buscaProgramador(Programador programador) {
         Transaction tx = session().beginTransaction();
         try {
@@ -572,6 +679,11 @@ public class OperacionesDAO {
         return null;
     }
     
+    /**
+     * Metodo para obtener una lista de servicios con una condición.
+     * @param cond - La condición que buscamos.
+     * @return Una lista con los servicios que cumplen las condiciones.
+     */
     public List<Servicio> obtenServicios(String cond) {
         Transaction tx = session().beginTransaction();
         try {
@@ -595,6 +707,12 @@ public class OperacionesDAO {
         }
     }
     
+    /**
+     * Metodo para bloquear un usuario.
+     * @param usuario - El usuario que desea bloquear.
+     * @param u - El usuario que se desea bloquear.
+     * @return servicio si se bloqueo con exito.
+     */
     public String bloquear(Usuario usuario, Usuario u) {
         Usuario pet, dang;
         pet = buscaUsuario(usuario.getIdUsuario());
@@ -617,9 +735,14 @@ public class OperacionesDAO {
         }
     }
     
-    /* El usuario calificador califica al calificado
-    * (Se inserta en la base de datos)
-    */
+    /**
+     * El usuario calificador califica al calificado
+     * (Se inserta en la base de datos)
+     * @param calificador - El usuario que califica.
+     * @param calificado - El usuario que es calificado.
+     * @param calificacion - La calificación del usuario.
+     * @return el perfil del usuario que se está calificando.
+     */
     public String califica(Usuario calificador, Usuario calificado,
             double calificacion) {
         if (calificacion < 1 || calificacion > 5) {
@@ -687,10 +810,10 @@ public class OperacionesDAO {
             actualizaProgramador(c);
         }
         
-        return "servicio";
+        return "perfilAjeno";
     }
     
-    /* Saca el promedio de una lista de dobles */
+    // Saca el promedio de una lista de dobles.
     private Double promedioLista(List<Double> lista) {
         Double promedio = 0.0;
         /* El promedio que vamos a regresar */
@@ -701,8 +824,11 @@ public class OperacionesDAO {
         return promedio;
     }
     
-    /* Saca el promedio de la calificación del Agente y lo actualiza en la base
-    de datos */
+    /**
+     * Saca el promedio de la calificación del Agente y lo actualiza en la base
+     * de datos
+     * @param p - Es el agente a promediar su calificación. 
+     */
     public void promediaAgente(Agente p) {
         Transaction tx = session().beginTransaction();
         try {
@@ -725,7 +851,11 @@ public class OperacionesDAO {
         actualizaAgente(p);
     }
     
-    /* Saca el promedio de la calificación del Programador */
+     /**
+     * Saca el promedio de la calificación del Programador y lo actualiza en la base
+     * de datos
+     * @param p - Es el programador a promediar su calificación. 
+     */
     public void promediaProgramador(Programador p) {
         Transaction tx = session().beginTransaction();
         try {
@@ -749,7 +879,12 @@ public class OperacionesDAO {
         actualizaProgramador(p);
     }
     
-    /* Nos dice si el calificador ya calificó al calificado. */
+    /**
+     * Nos dice si el calificador ya calificó al calificado.
+     * @param calificador - Es que califica.
+     * @param calificado - Es el que está siendo calificado.
+     * @return true si ya lo calificó antes.
+     */
     public boolean hayCalificacion(Usuario calificador, Usuario calificado) {
         Transaction tx = session().beginTransaction();
         /* Lo usamos para saber si hay resultados */
@@ -777,7 +912,11 @@ public class OperacionesDAO {
         return (hayResultados != null);
     }
     
-    /* Borra una calificación existente */
+    /**
+     * Borra una calificación existente.
+     * @param calificador - Es el usuario que califica.
+     * @param calificado  - Es el usuario calificado.
+     */
     public void borraCalificacion(Usuario calificador, Usuario calificado) {
         Transaction tx2 = session().beginTransaction();
         try {
@@ -795,6 +934,5 @@ public class OperacionesDAO {
             }
             closeSession();
         }
-    }
-    
-}
+    }    
+}//Fin de OperacionesDAO.java
