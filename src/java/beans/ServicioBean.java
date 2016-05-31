@@ -193,7 +193,7 @@ public class ServicioBean {
      * Muestra el programador del un servicio.
      * @param ser - Es el servicio del cual buscamos.
      * @return El usuario programador del servicio.
-     */    
+     */
     public Usuario mostrarProgramador(Servicio ser){
         Servicio ser2 = buscar(ser.getIdServicio());
         Programador ag = getProgramador(ser2);
@@ -307,13 +307,13 @@ public class ServicioBean {
                 + "Correo del programador: " + us.getCorreo() + "\n"
                 + "Teléfono: " + us.getTelefono() + "\n";
     }
-
+    
     /**
      * Metodo que nos regresa los datos de un agente de un servicio.
      * @param usuarioActual - El usuario a obtener los datos.
      * @param ser - El servicio a verificar.
      * @return Una cadena con los datos.
-     */    
+     */
     public String getDatosAgente(Usuario usuarioActual, Servicio ser) {
         List<Integer> list = dao.obtenListaDeBloqueados(usuarioActual);
         Agente ag = getAgente(buscar(ser.getIdServicio()));
@@ -367,7 +367,7 @@ public class ServicioBean {
     
     /**
      * Metodo para buscar un servicio.
-     * @param id - Es el id del servicio. 
+     * @param id - Es el id del servicio.
      * @return Un objeto de tipo servicio.
      */
     public Servicio buscar(int id) {
@@ -379,30 +379,30 @@ public class ServicioBean {
         }
     }
     
-   /**
-    * Envía un mensaje del remitente al destinatario
-    * @param id_remitente - Es el id del usuario que envía.
-    * @param id_destinatario - Es el id del usuario que recibe.
-    * @param mensaje - Es el texto del mensaje.
-    * @param ser - Es el servicio del cual se envía.
-    * @return El estado del envío del mensaje.
-    */
+    /**
+     * Envía un mensaje del remitente al destinatario
+     * @param id_remitente - Es el id del usuario que envía.
+     * @param id_destinatario - Es el id del usuario que recibe.
+     * @param mensaje - Es el texto del mensaje.
+     * @param ser - Es el servicio del cual se envía.
+     * @return El estado del envío del mensaje.
+     */
     public String enviarMensaje(int id_remitente, int id_destinatario,
-            String mensaje,Servicio ser) {       
+            String mensaje,Servicio ser) {
         Servicio actual = dao.buscaServicioPorId(ser.getIdServicio());
         if(actual == null)
             return "Servicio inválido";
         /* El servicio actual */
         Programador pactual = this.getProgramador(actual);
-        /* El programador 
-            del servicio actual */
+        /* El programador
+        del servicio actual */
         Agente agactual = this.getAgente(actual);
         /* El agente que solicitó el servicio actual */
         if (pactual == null || agactual == null) {
             return "Servicio inválido";
         } else {
             int idprog = pactual.getIdProgramador();
-            /* El id del programador 
+            /* El id del programador
             actual */
             int idagente = agactual.getIdAgente();
             /* El id del agente actual */
@@ -453,7 +453,7 @@ public class ServicioBean {
     }
     
     /**
-     * Metodo que nos regresa mensajes. 
+     * Metodo que nos regresa mensajes.
      * @param ser - Es el servicio del cual bucamos.
      * @return mensajes para redirigir a la vista mensajes.
      */
@@ -462,5 +462,5 @@ public class ServicioBean {
         if(servicio == null)
             return "error";
         return "mensajes";
-    }   
+    }
 } //Fin de ServicioBean.java

@@ -1,30 +1,30 @@
 /* -------------------------------------------------------------------
- * Mensaje.java
- * versión 1.0
- * Copyright (C) 2016  Kan-Balam.
- * Facultad de Ciencias,
- * Universidad Nacional Autónoma de México, Mexico.
- *
- * Este programa es software libre; se puede redistribuir
- * y/o modificar en los términos establecidos por la
- * Licencia Pública General de GNU tal como fue publicada
- * por la Free Software Foundation en la versión 2 o
- * superior.
- *
- * Este programa es distribuido con la esperanza de que
- * resulte de utilidad, pero SIN GARANTÍA ALGUNA; de hecho
- * sin la garantía implícita de COMERCIALIZACIÓN o
- * ADECUACIÓN PARA PROPÓSITOS PARTICULARES. Véase la
- * Licencia Pública General de GNU para mayores detalles.
- *
- * Con este programa se debe haber recibido una copia de la
- * Licencia Pública General de GNU, de no ser así, visite el
- * siguiente URL:
- * http://www.gnu.org/licenses/gpl.html
- * o escriba a la Free Software Foundation Inc.,
- * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- * -------------------------------------------------------------------
- */
+* Mensaje.java
+* versión 1.0
+* Copyright (C) 2016  Kan-Balam.
+* Facultad de Ciencias,
+* Universidad Nacional Autónoma de México, Mexico.
+*
+* Este programa es software libre; se puede redistribuir
+* y/o modificar en los términos establecidos por la
+* Licencia Pública General de GNU tal como fue publicada
+* por la Free Software Foundation en la versión 2 o
+* superior.
+*
+* Este programa es distribuido con la esperanza de que
+* resulte de utilidad, pero SIN GARANTÍA ALGUNA; de hecho
+* sin la garantía implícita de COMERCIALIZACIÓN o
+* ADECUACIÓN PARA PROPÓSITOS PARTICULARES. Véase la
+* Licencia Pública General de GNU para mayores detalles.
+*
+* Con este programa se debe haber recibido una copia de la
+* Licencia Pública General de GNU, de no ser así, visite el
+* siguiente URL:
+* http://www.gnu.org/licenses/gpl.html
+* o escriba a la Free Software Foundation Inc.,
+* 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+* -------------------------------------------------------------------
+*/
 package modelo;
 // Generated May 6, 2016 1:12:11 AM by Hibernate Tools 4.3.1
 
@@ -65,13 +65,13 @@ public class Mensaje implements java.io.Serializable {
     private String texto;
     /** Es la fecha de envío del mensaje. */
     private Date fechaDeEnvio;
-
-    /** 
+    
+    /**
      * Contructor del mensaje.
      */
     public Mensaje() {
     }
-
+    
     /**
      * Contructor del mensaje.
      * @param idMensaje - Es el id del mensaje.
@@ -81,7 +81,7 @@ public class Mensaje implements java.io.Serializable {
         this.idMensaje = idMensaje;
         this.fechaDeEnvio = fechaDeEnvio;
     }
-
+    
     /**
      * Constructor del mensaje.
      * @param idMensaje - Es el id del mensaje.
@@ -101,7 +101,7 @@ public class Mensaje implements java.io.Serializable {
         this.texto = texto;
         this.fechaDeEnvio = fechaDeEnvio;
     }
-
+    
     /**
      * Metodo para obtener el id del mensaje.
      * @return el id del mensaje.
@@ -111,7 +111,7 @@ public class Mensaje implements java.io.Serializable {
     public int getIdMensaje() {
         return this.idMensaje;
     }
-
+    
     /**
      * Metodo para asignar un id a un mensaje.
      * @param idMensaje - Es el nuevo id.
@@ -119,7 +119,7 @@ public class Mensaje implements java.io.Serializable {
     public void setIdMensaje(int idMensaje) {
         this.idMensaje = idMensaje;
     }
-
+    
     /**
      * Metodo para obtener servicios del mensaje.
      * @return El servicio del mensaje.
@@ -129,7 +129,7 @@ public class Mensaje implements java.io.Serializable {
     public Servicio getServicio() {
         return this.servicio;
     }
-
+    
     /**
      * Metodo para asignar un servicio a un mensaje.
      * @param servicio - Es el servicio a asignar.
@@ -137,7 +137,7 @@ public class Mensaje implements java.io.Serializable {
     public void setServicio(Servicio servicio) {
         this.servicio = servicio;
     }
-
+    
     /**
      * Metodo para obtener el usuario que envía.
      * @return - El usuario que envia.
@@ -147,7 +147,7 @@ public class Mensaje implements java.io.Serializable {
     public Usuario getUsuarioByIdRemitente() {
         return this.usuarioByIdRemitente;
     }
-
+    
     /**
      * Metodo para asignar al usuario que envía.
      * @param usuarioByIdRemitente - El usuario que envía.
@@ -155,7 +155,7 @@ public class Mensaje implements java.io.Serializable {
     public void setUsuarioByIdRemitente(Usuario usuarioByIdRemitente) {
         this.usuarioByIdRemitente = usuarioByIdRemitente;
     }
-
+    
     /**
      * Metodo para obtener el usuario que recibe.
      * @return - El usuario que recibe.
@@ -165,7 +165,7 @@ public class Mensaje implements java.io.Serializable {
     public Usuario getUsuarioByIdDestinatario() {
         return this.usuarioByIdDestinatario;
     }
-
+    
     /**
      * Metodo para asignar al usuario que recibe.
      * @param usuarioByIdDestinatario - El usuario que recibe.
@@ -173,7 +173,7 @@ public class Mensaje implements java.io.Serializable {
     public void setUsuarioByIdDestinatario(Usuario usuarioByIdDestinatario) {
         this.usuarioByIdDestinatario = usuarioByIdDestinatario;
     }
-
+    
     /**
      * Nos regresa el contenido del mensaje.
      * @return El contenido del mensaje.
@@ -182,7 +182,7 @@ public class Mensaje implements java.io.Serializable {
     public String getTexto() {
         return this.texto;
     }
-
+    
     /**
      * Metodo para asignar contenido a un mensaje.
      * @param texto - Es el contenido del mensaje.
@@ -190,7 +190,7 @@ public class Mensaje implements java.io.Serializable {
     public void setTexto(String texto) {
         this.texto = texto;
     }
-
+    
     /**
      * Nos regresa la fecha de envío del mensaje.
      * @return La fecha de envío.
@@ -200,7 +200,7 @@ public class Mensaje implements java.io.Serializable {
     public Date getFechaDeEnvio() {
         return this.fechaDeEnvio;
     }
-
+    
     /**
      * Asignamos la fecha de envío de un mensaje.
      * @param fechaDeEnvio - La fecha de envío.

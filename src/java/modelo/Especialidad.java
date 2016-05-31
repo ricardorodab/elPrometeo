@@ -45,21 +45,21 @@ import java.util.Set;
 public class Especialidad  implements java.io.Serializable {
     
     /** El id de la especialidad. */
-     private int idEspecialidad;
-     /** El texto que representa la especialidad. */
-     private String especialidad;
-     /** Los programadores con esa especialidad. */
-     private Set programadors = new HashSet(0);
-
-     /**
-      * Metodo constructor basico.
-      */
+    private int idEspecialidad;
+    /** El texto que representa la especialidad. */
+    private String especialidad;
+    /** Los programadores con esa especialidad. */
+    private Set programadors = new HashSet(0);
+    
+    /**
+     * Metodo constructor basico.
+     */
     public Especialidad() {
     }
-
+    
     /**
      * Metodo constructor.
-     * @param idEspecialidad - Es el id de la especialidad. 
+     * @param idEspecialidad - Es el id de la especialidad.
      */
     public Especialidad(int idEspecialidad) {
         this.idEspecialidad = idEspecialidad;
@@ -72,11 +72,11 @@ public class Especialidad  implements java.io.Serializable {
      * @param programadors - Son los programadores de la especialidad.
      */
     public Especialidad(int idEspecialidad, String especialidad, Set programadors) {
-       this.idEspecialidad = idEspecialidad;
-       this.especialidad = especialidad;
-       this.programadors = programadors;
+        this.idEspecialidad = idEspecialidad;
+        this.especialidad = especialidad;
+        this.programadors = programadors;
     }
-   
+    
     /**
      * Nos regresa el id de la especialidad.
      * @return El id de una especialidad.
@@ -88,7 +88,7 @@ public class Especialidad  implements java.io.Serializable {
     /**
      * Metodo para asignar un nuevo id a una especialidad.
      * @param idEspecialidad - El nuevo id de la especialidad.
-     */    
+     */
     public void setIdEspecialidad(int idEspecialidad) {
         this.idEspecialidad = idEspecialidad;
     }
@@ -119,7 +119,7 @@ public class Especialidad  implements java.io.Serializable {
     
     /**
      * Metodo para asignar programadores a una especilidad.
-     * @param programadors - Son los programadores. 
+     * @param programadors - Son los programadores.
      */
     public void setProgramadors(Set programadors) {
         this.programadors = programadors;

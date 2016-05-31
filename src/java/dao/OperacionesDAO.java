@@ -827,7 +827,7 @@ public class OperacionesDAO {
     /**
      * Saca el promedio de la calificación del Agente y lo actualiza en la base
      * de datos
-     * @param p - Es el agente a promediar su calificación. 
+     * @param p - Es el agente a promediar su calificación.
      */
     public void promediaAgente(Agente p) {
         Transaction tx = session().beginTransaction();
@@ -851,10 +851,10 @@ public class OperacionesDAO {
         actualizaAgente(p);
     }
     
-     /**
+    /**
      * Saca el promedio de la calificación del Programador y lo actualiza en la base
      * de datos
-     * @param p - Es el programador a promediar su calificación. 
+     * @param p - Es el programador a promediar su calificación.
      */
     public void promediaProgramador(Programador p) {
         Transaction tx = session().beginTransaction();
@@ -934,5 +934,5 @@ public class OperacionesDAO {
             }
             closeSession();
         }
-    }    
+    }
 }//Fin de OperacionesDAO.java

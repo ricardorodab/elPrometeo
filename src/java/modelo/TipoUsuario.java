@@ -34,4 +34,4 @@ package modelo;
  */
 public enum TipoUsuario {
     AGENTE, PROGRAMADOR
-}
+} //Fin de TipoUsuario.java
